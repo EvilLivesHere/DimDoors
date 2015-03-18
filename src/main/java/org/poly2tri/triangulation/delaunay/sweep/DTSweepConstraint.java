@@ -35,42 +35,33 @@ import org.poly2tri.triangulation.TriangulationConstraint;
 import org.poly2tri.triangulation.TriangulationPoint;
 
 /**
- * 
+ *
  * @author Thomas Åhlén, thahlen@gmail.com
  *
  */
-public class DTSweepConstraint extends TriangulationConstraint
-{
+public class DTSweepConstraint extends TriangulationConstraint {
 
     public TriangulationPoint p;
     public TriangulationPoint q;
-    
+
     /**
-     * Give two points in any order. Will always be ordered so
-     * that q.y > p.y and q.x > p.x if same y value 
-     * 
+     * Give two points in any order. Will always be ordered so that q.y > p.y and q.x > p.x if same y value
+     *
      * @param p1
      * @param p2
      */
-    public DTSweepConstraint( TriangulationPoint p1, TriangulationPoint p2 )
-//        throws DuplicatePointException
+    public DTSweepConstraint(TriangulationPoint p1, TriangulationPoint p2) //        throws DuplicatePointException
     {
         p = p1;
         q = p2;
-        if( p1.getY() > p2.getY() )
-        {
+        if (p1.getY() > p2.getY()) {
             q = p1;
             p = p2;
-        }
-        else if( p1.getY() == p2.getY() )
-        {
-            if( p1.getX() > p2.getX() )
-            {
+        } else if (p1.getY() == p2.getY()) {
+            if (p1.getX() > p2.getX()) {
                 q = p1;
                 p = p2;
-            }
-            else if( p1.getX() == p2.getX() )
-            {
+            } else if (p1.getX() == p2.getX()) {
 //                throw new DuplicatePointException( p1 + "=" + p2 );
 //                return;
             }
@@ -81,7 +72,7 @@ public class DTSweepConstraint extends TriangulationConstraint
 //    public TPoint intersect( TPoint a, TPoint b )
 //    {
 //        double pqx,pqy,bax,bay,t;
-//        
+//
 //        pqx = p.getX()-q.getX();
 //        pqy = p.getY()-q.getY();
 //        t = pqy*(a.getX()-q.getX()) - pqx*(a.getY()-q.getY() );
@@ -90,14 +81,11 @@ public class DTSweepConstraint extends TriangulationConstraint
 //        bay = t*(b.getY()-a.getY()) + a.getY();
 //        return new TPoint( bax, bay );
 //    }
-
-    public TriangulationPoint getP()
-    {
+    public TriangulationPoint getP() {
         return p;
     }
 
-    public TriangulationPoint getQ()
-    {
+    public TriangulationPoint getQ() {
         return q;
     }
 }

@@ -1,0 +1,36 @@
+tile.dimdoors_doorGold.name=Golden Door
+tile.dimdoors_dimDoorGold.name=Golden Dimensional Door
+tile.dimdoors_transientDoor.name=Transient Door
+tile.dimdoors_rift.name=Rift
+tile.dimdoors_BlockLimbo.name=Unraveled Fabric
+tile.dimdoors_dimDoorWarp.name=Warp Door
+tile.dimdoors_chaosDoor.name=Unstable Door
+tile.dimdoors_blockDimWall.itemDimWall.name=Fabric of Reality
+tile.dimdoors_blockDimWall.itemDimWallPerm.name=Ancient Fabric
+tile.dimdoors_blockDimWall.itemDimWallPersonal.name=Altered Fabric
+tile.dimdoors_blockDimWallPerm.name=Eternal Fabric
+tile.dimdoors_dimDoor.name=Dimensional Door
+tile.dimdoors_dimHatch.name=Transdimensional Trapdoor
+tile.dimdoors_doorQuartz.name=Quartz Door
+tile.dimdoors_dimDoorPersonal.name=Personal Dimensional Door
+
+item.dimdoors_itemDimDoorWarp.name=Warp Door
+item.dimdoors_itemLinkSignature.name=Rift Signature
+item.dimdoors_itemGoldDoor.name=Golden Door
+item.dimdoors_itemGoldDimDoor.name=Golden Dimensional Door
+item.dimdoors_itemStabilizedRiftSig.name=Stabilized Rift Signature
+item.dimdoors_itemRiftRemover.name=Rift Remover
+item.dimdoors_itemStableFabric.name=Stable Fabric
+item.dimdoors_itemChaosDoor.name=Unstable Door
+item.dimdoors_itemDimDoor.name=Dimensional Door
+item.dimdoors_ItemRiftBlade.name=Rift Blade
+item.dimdoors_itemWorldThread.name=World Thread
+item.dimdoors_itemDDKey.name=Rift Key
+item.dimdoors_itemQuartzDoor.name=Quartz Door
+item.dimdoors_itemQuartzDimDoor.name=Personal Dimensional Door
+
+entity.dimdoors.Monolith.name=Monolith
+
+itemGroup.dimdoors_CreativeTab=Dimensional Doors
+
+

@@ -5,9 +5,13 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
@@ -18,32 +22,36 @@ group = "com.stevenrs11.dimdoors" // http://maven.apache.org/guides/mini/guide-n
 archivesBaseName = "DimensionalDoors"
 
 minecraft {
-	version = "1.6.4-9.11.1.964"
-	
-	replaceIn "mod_pocketDim.java"
-	replace "@VERSION@", project.version
+    version = "1.7.10-10.13.2.1291"
+
+    replaceIn "mod_pocketDim.java"
+    replace "@VERSION@", project.version
 }
 
-targetCompatibility = '1.6'
-sourceCompatibility = '1.6'
+targetCompatibility = '1.7.10'
+sourceCompatibility = '1.7.10'
 
 processResources
 {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
     // Replace stuff $version and $mcversion in mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        
+
         // Replace version and mcversion
         expand 'version':project.version, 'mcversion':project.minecraft.version
     }
-        
+
     // Copy everything else
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
 }
 
-jar 
+jar
 {
-	destinationDir = new File("build/dist/")
+    destinationDir = new File("build/dist/")
 }
