@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Vec3;
+import net.minecraftforge.client.IRenderHandler;
 
 public class WorldProviderPersonalPocket extends WorldProviderPocket {
 
@@ -14,8 +15,15 @@ public class WorldProviderPersonalPocket extends WorldProviderPocket {
 
     @Override
     public Vec3 getSkyColor(Entity cameraEntity, float partialTicks) {
-        setCloudRenderer(new CloudRenderBlank());
         return Vec3.createVectorHelper(1, 1, 1);
+    }
+
+    @Override
+    public IRenderHandler getCloudRenderer() {
+        if (super.getCloudRenderer() == null) {
+            setCloudRenderer(new CloudRenderBlank());
+        }
+        return super.getCloudRenderer();
     }
 
     @Override

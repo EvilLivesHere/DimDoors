@@ -4,7 +4,6 @@ import StevenDimDoors.dimdoors.client.CloudRenderBlank;
 import StevenDimDoors.dimdoors.config.DDProperties;
 import StevenDimDoors.dimdoors.core.DimensionType;
 import StevenDimDoors.dimdoors.core.PocketManager;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.world.biome.DDBiomeGenBase;
 import StevenDimDoors.dimdoors.world.gen.ChunkProviderPocket;
 import cpw.mods.fml.common.FMLLog;
@@ -16,6 +15,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.WorldChunkManagerHell;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraftforge.client.IRenderHandler;
 
 public class WorldProviderPocket extends WorldProvider {
 
@@ -34,8 +34,15 @@ public class WorldProviderPocket extends WorldProvider {
     }
 
     @Override
+    public IRenderHandler getCloudRenderer() {
+        if (super.getCloudRenderer() == null) {
+            setCloudRenderer(new CloudRenderBlank());
+        }
+        return super.getCloudRenderer();
+    }
+
+    @Override
     public Vec3 getSkyColor(Entity cameraEntity, float partialTicks) {
-        setCloudRenderer(new CloudRenderBlank());
         return Vec3.createVectorHelper(0d, 0d, 0d);
     }
 

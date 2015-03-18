@@ -1,5 +1,6 @@
-[
- {
+{
+ "modListVersion": 2,
+ "modList": [{
   "modid": "dimdoors",
   "name": "Dimensional Doors",
   "description": "Bend and twist reality itself, creating pocket dimensions, rifts, and much more",
@@ -9,8 +10,12 @@
   "updateUrl": "",
   "authorList": [ "StevenRS11", "SenseiKiwi" ],
   "credits": "Created by StevenRS11, Coded by StevenRS11 and SenseiKiwi, Logo and Testing by Jaitsu",
-  "logoFile": "/dimdoors_logo.png",
+  "logoFile": "dimdoors_logo.png",
   "screenshots": [],
-  "dependencies": [ "Forge" ]
- }
-]
+  "parent": "",
+  "requiredMods": [ "Forge" ],
+  "dependencies": [ "Forge" ],
+  "dependants": [],
+  "useDependencyInformation": true
+ }]
+}
