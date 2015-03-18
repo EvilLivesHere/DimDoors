@@ -13,6 +13,7 @@ import StevenDimDoors.dimdoors.util.DDLogger;
 import StevenDimDoors.dimdoors.util.FileFilters;
 import StevenDimDoors.dimdoors.util.Point4D;
 import com.google.common.io.Files;
+import cpw.mods.fml.common.FMLLog;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -216,8 +217,8 @@ public class DDSaveHandler {
         try {
             return reader.readFromFile(dataFile);
         } catch (Exception e) {
-            System.err.println("Could not read dimension data from: " + dataFile.getAbsolutePath());
-            System.err.println("The following error occurred:");
+            FMLLog.bigWarning("Could not read dimension data from: " + dataFile.getAbsolutePath());
+            FMLLog.bigWarning("The following error occurred:");
             printException(e, false);
             return null;
         }
@@ -279,7 +280,7 @@ public class DDSaveHandler {
             tempFile.renameTo(saveFile);
             return true;
         } catch (Exception e) {
-            System.err.println("Could not save blacklist. The following error occurred:");
+            FMLLog.bigWarning("Could not save blacklist. The following error occurred:");
             printException(e, true);
             return false;
         }
@@ -300,7 +301,7 @@ public class DDSaveHandler {
             tempFile.renameTo(saveFile);
             return true;
         } catch (Exception e) {
-            System.err.println("Could not save personal pockets mapping. The following error occurred:");
+            FMLLog.bigWarning("Could not save personal pockets mapping. The following error occurred:");
             printException(e, true);
             return false;
         }
@@ -318,7 +319,7 @@ public class DDSaveHandler {
             writer.writeToFile(saveFile, dimension.pack());
             return true;
         } catch (Exception e) {
-            System.err.println("Could not save data for dimension #" + dimension.name() + ". The following error occurred:");
+            FMLLog.bigWarning("Could not save data for dimension #" + dimension.name() + ". The following error occurred:");
             printException(e, true);
             return false;
         }
@@ -329,15 +330,15 @@ public class DDSaveHandler {
             if (verbose) {
                 e.printStackTrace();
             } else {
-                System.err.println(e.getMessage());
+                FMLLog.bigWarning(e.getMessage());
             }
         } else {
-            System.out.println(e.getMessage());
-            System.err.println("Caused by an underlying error:");
+            FMLLog.bigWarning(e.getMessage());
+            FMLLog.bigWarning("Caused by an underlying error:");
             if (verbose) {
                 e.getCause().printStackTrace();
             } else {
-                System.err.println(e.getCause().getMessage());
+                FMLLog.bigWarning(e.getCause().getMessage());
             }
         }
     }

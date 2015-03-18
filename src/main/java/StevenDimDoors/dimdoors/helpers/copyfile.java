@@ -1,6 +1,7 @@
 package StevenDimDoors.dimdoors.helpers;
 
 import StevenDimDoors.dimdoors.mod_pocketDim;
+import cpw.mods.fml.common.FMLLog;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,7 +24,7 @@ public class copyfile {
             }
             out.close();
         } catch (Exception e) {
-            System.out.println("Unable to get resource: " + ori);
+            FMLLog.warning("Unable to get resource: " + ori);
             return false;
         }
         return true;

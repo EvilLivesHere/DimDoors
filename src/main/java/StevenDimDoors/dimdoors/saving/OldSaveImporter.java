@@ -7,6 +7,7 @@ import StevenDimDoors.dimdoors.Point3D;
 import StevenDimDoors.dimdoors.core.DimensionType;
 import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.util.Point4D;
+import cpw.mods.fml.common.FMLLog;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class OldSaveImporter {
         try {
             dimMap = comboSave.get("dimList");
         } catch (Exception e) {
-            System.out.println("Could not import old save data");
+            FMLLog.bigWarning("Could not import old save data");
             return;
         }
 

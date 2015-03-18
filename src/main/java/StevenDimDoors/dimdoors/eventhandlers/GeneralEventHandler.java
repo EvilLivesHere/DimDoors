@@ -84,14 +84,13 @@ public class GeneralEventHandler {
         }
     }
 
-    @SideOnly(Side.SERVER)
     @SubscribeEvent
     public void onWorldLoad(WorldEvent.Load event) {
         // We need to initialize PocketManager here because onServerAboutToStart
         // fires before we can use DimensionManager and onServerStarting fires
         // after the game tries to generate terrain. If a gateway tries to
         // generate before PocketManager has initialized, we get a crash.
-        if (!PocketManager.isLoaded()) {
+        if (!PocketManager.isLoaded() && !event.world.isRemote) {
             PocketManager.load();
         }
     }
@@ -99,9 +98,6 @@ public class GeneralEventHandler {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onWorldLoadClient(WorldEvent.Load event) {
-        if (!PocketManager.isLoaded()) {
-            PocketManager.load();
-        }
         if (event.world != null) {
             this.playMusicForDim(event.world);
         }

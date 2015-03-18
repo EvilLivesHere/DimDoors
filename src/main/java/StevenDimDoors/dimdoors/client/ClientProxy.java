@@ -17,7 +17,6 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenderers() {
-        System.out.println("Registering Client Renderers");
         //MinecraftForgeClient.preloadTexture(BLOCK_PNG);
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDimDoor.class, new RenderDimDoor());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityTransTrapdoor.class, new RenderTransTrapdoor());
@@ -28,6 +27,5 @@ public class ClientProxy extends CommonProxy {
         //MinecraftForgeClient.preloadTexture(RIFT2_PNG);
         RenderingRegistry.registerEntityRenderingHandler(MobMonolith.class, new RenderMobObelisk(.5F));
         RenderingRegistry.registerBlockHandler(new PrivatePocketRender(RenderingRegistry.getNextAvailableRenderId()));
-        System.out.println("Done Registering Client Renderers");
     }
 }

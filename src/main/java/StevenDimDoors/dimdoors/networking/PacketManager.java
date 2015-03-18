@@ -19,6 +19,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
 
 /**
@@ -122,11 +123,10 @@ public class PacketManager implements IUpdateSource {
         return network.getPacketFrom(packet);
     }
 
-    public static Packet createClientJoinPacket() {
+    public static void sendClientJoinPacket(EntityPlayerMP player) {
         ClientJoinPacket p = new ClientJoinPacket();
         PocketManager.writePacket(p.getData());
-
-        return network.getPacketFrom(p);
+        network.sendTo(p, player);
     }
 
     private static void sendClientPacket(DDPacket packet, ClientData data) {

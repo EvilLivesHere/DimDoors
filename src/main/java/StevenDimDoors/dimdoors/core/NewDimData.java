@@ -334,10 +334,12 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
             }
 
             // Link created!
+            // Check if a client?
             linkWatcher.onCreated(new ClientLinkData(link));
         } else {
             if (link.overwrite((InnerDimLink) parent, parent.orientation)) {
                 //Link created!
+                // Check if a client?
                 linkWatcher.onCreated(new ClientLinkData(link));
             }
         }
@@ -362,8 +364,10 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
                 }
             }
 
-            // Raise deletion event
-            linkWatcher.onDeleted(new ClientLinkData(link));
+            // Raise deletion event (if server)
+            if (link.linkType() != LinkType.CLIENT) {
+                linkWatcher.onDeleted(new ClientLinkData(link));
+            }
             target.clear();
             modified = true;
         }

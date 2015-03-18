@@ -27,10 +27,8 @@ public class ClientJoinPacket extends DDPacket {
 
             //Checking memory connection wasnt working for some reason, but this seems to work fine.
             if (!(FMLCommonHandler.instance().getMinecraftServerInstance() instanceof IntegratedServer)) {
-
                 PocketManager.readPacket(message.getData());
             }
-
             return null;
         }
     }

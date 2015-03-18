@@ -13,6 +13,7 @@ import StevenDimDoors.dimdoors.watcher.IUpdateSource;
 import StevenDimDoors.dimdoors.watcher.IUpdateWatcher;
 import StevenDimDoors.dimdoors.watcher.UpdateWatcherProxy;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
@@ -132,6 +133,7 @@ public class PocketManager {
      * @return
      */
     public static void load() {
+        FMLLog.info("Loading Pocket Manager...");
         if (isLoaded) {
             throw new IllegalStateException("Pocket dimensions have already been loaded!");
         }
@@ -300,24 +302,24 @@ public class PocketManager {
             File oldSaveData = new File(saveDir + "/DimensionalDoorsData");
             if (oldSaveData.exists()) {
                 try {
-                    System.out.println("Importing old DD save data...");
+                    FMLLog.info("Importing old DD save data...");
                     OldSaveImporter.importOldSave(oldSaveData);
 
                     oldSaveData.renameTo(new File(oldSaveData.getAbsolutePath() + "_IMPORTED"));
 
-                    System.out.println("Import Succesful!");
+                    FMLLog.info("Import Succesful!");
                 } catch (Exception e) {
                     // TODO handle fail cases
-                    System.out.println("Import failed!");
+                    FMLLog.warning("Import failed!");
                     e.printStackTrace();
                 }
                 return;
             }
 
             // Load save data
-            System.out.println("Loading Dimensional Doors save data...");
+            FMLLog.info("Loading Dimensional Doors save data...");
             if (DDSaveHandler.loadAll()) {
-                System.out.println("Loaded successfully!");
+                FMLLog.info("Loaded successfully!");
             }
         }
     }
@@ -508,7 +510,7 @@ public class PocketManager {
     }
 
     public static void unload() {
-        System.out.println("Unloading Pocket Dimensions...");
+        FMLLog.info("Unloading Pocket Dimensions...");
         if (!isLoaded) {
             throw new IllegalStateException("Pocket dimensions have already been unloaded!");
         }

@@ -42,7 +42,7 @@ public class Compactor {
                 output.writeInt(LinkType.CLIENT.index);
 
                 output.writeBoolean(link.hasLock());
-                                if (link.hasLock()) {
+                if (link.hasLock()) {
                     output.writeBoolean(link.getLockState());
 
                     output.writeInt(link.getLock().getLockKey());
@@ -92,7 +92,6 @@ public class Compactor {
                 Point4D source = link.point;
                 int orientation = input.readInt();
                 DimLink d = dimension.createLink(source.getX(), source.getY(), source.getZ(), LinkType.CLIENT, orientation);
-
             }
         }
     }

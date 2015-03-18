@@ -15,6 +15,7 @@ import StevenDimDoors.dimdoors.dungeon.pack.DungeonType;
 import StevenDimDoors.dimdoors.item.ItemDimensionalDoor;
 import StevenDimDoors.dimdoors.util.FileFilters;
 import StevenDimDoors.dimdoors.util.WeightedContainer;
+import cpw.mods.fml.common.FMLLog;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
@@ -272,17 +273,17 @@ public class DungeonHelper {
                 pack.addDungeon(dungeon);
                 registeredDungeons.add(dungeon);
                 if (verbose) {
-                    System.out.println("Registered dungeon: " + name);
+                    FMLLog.info("Registered dungeon: " + name);
                 }
             } else {
                 if (verbose) {
-                    System.out.println("The following dungeon name is invalid for its given pack. It will not be generated naturally: " + schematicPath);
+                    FMLLog.info("The following dungeon name is invalid for its given pack. It will not be generated naturally: " + schematicPath);
                 }
                 untaggedDungeons.add(new DungeonData(path, isInternal, DungeonType.UNKNOWN_TYPE, true, DEFAULT_DUNGEON_WEIGHT));
-                System.out.println("Registered untagged dungeon: " + name);
+                FMLLog.info("Registered untagged dungeon: " + name);
             }
         } catch (Exception e) {
-            System.err.println("Failed to register dungeon: " + name);
+            FMLLog.warning("Failed to register dungeon: " + name);
             e.printStackTrace();
         }
     }
@@ -344,11 +345,11 @@ public class DungeonHelper {
         RuinsPack = registerBundledPack("Ruins", reader);
         NetherPack = registerBundledPack("Nether", reader);
 
-        System.out.println("Finished registering bundled dungeon packs");
+        FMLLog.info("Finished registering bundled dungeon packs");
     }
 
     private static DungeonPack registerBundledPack(String name, DungeonPackConfigReader reader) {
-        System.out.println("Registering bundled dungeon pack: " + name);
+        FMLLog.info("Registering bundled dungeon pack: " + name);
 
         String packPath = BUNDLED_PACK_BASE_PATH + name.toLowerCase();
         String listPath = packPath + ".txt";
