@@ -91,10 +91,13 @@ public class CraftingHandler {
         }
         if (properties.CraftingDDKeysAllowed) {
             GameRegistry.addRecipe(new ItemStack(DDItems.itemDDKey, 1),
-                    "  z", " y ", "y  ", 'y', Items.gold_ingot, 'z', Items.ender_pearl);
+                    "  z", " y ", "y  ", 'y', Items.gold_ingot, 'z', Items.ender_eye);
             GameRegistry.addRecipe(new ItemStack(DDItems.itemDDKey, 1),
                     "z", "z", 'z', DDItems.itemDDKey);
         }
+
+        GameRegistry.addRecipe(new ItemStack(DDItems.itemWorldThread, 1),
+                " x ", "xyx", " x ", 'x', DDBlocks.blockDimWall, 'y', DDItems.itemRiftBlade);
     }
 
     public void onCrafting(EntityPlayer player, ItemStack item, IInventory craftMatrix) {
@@ -102,14 +105,12 @@ public class CraftingHandler {
             ItemDDKey keyItem = (ItemDDKey) item.getItem();
             ItemStack topKey = null;
             ItemStack bottomKey = null;
-            int topKeySlot = 0;
 
             for (int i = 0; i < craftMatrix.getSizeInventory(); i++) {
                 ItemStack slot = craftMatrix.getStackInSlot(i);
                 if (slot != null) {
                     if (topKey == null) {
                         topKey = slot;
-                        topKeySlot = i;
                     } else {
                         bottomKey = slot;
                         break;

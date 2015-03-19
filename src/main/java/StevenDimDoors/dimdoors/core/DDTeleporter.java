@@ -223,7 +223,6 @@ public class DDTeleporter {
         WorldServer oldWorld = (WorldServer) entity.worldObj;
         WorldServer newWorld;
         EntityPlayerMP player = (entity instanceof EntityPlayerMP) ? (EntityPlayerMP) entity : null;
-        DDProperties properties = DDProperties.instance();
 
         // Is something riding? Handle it first.
         if (entity.riddenByEntity != null) {
@@ -461,7 +460,8 @@ public class DDTeleporter {
         }
 
         DimLink personalHomeLink = dim.getLink(dim.origin());
-        if (personalHomeLink != null) {
+        // Only do this if coming from a different dim
+        if (personalHomeLink != null && dim.id != link.source().getDimension()) {
             PocketManager.getDimensionData(link.source().getDimension()).setLinkDestination(personalHomeLink, link.source().getX(), link.source().getY(), link.source().getZ());
         }
 
@@ -470,7 +470,7 @@ public class DDTeleporter {
     }
 
     private static Point4D getRandomDestination() {
-		// Our aim is to return a random link's source point
+	// Our aim is to return a random link's source point
         // so that a link of type RANDOM can teleport a player there.
 
         // Restrictions:
@@ -479,7 +479,7 @@ public class DDTeleporter {
         // Iterate over the root dimensions. Pocket dimensions cannot be roots.
         // Don't just pick a random root and a random link within that root
         // because we want to have unbiased selection among all links.
-        ArrayList<Point4D> matches = new ArrayList<>(0);
+        ArrayList<Point4D> matches = new ArrayList<Point4D>(0);
         for (NewDimData dimension : PocketManager.getRootDimensions()) {
             for (DimLink link : dimension.getAllLinks()) {
                 if (link.linkType() != LinkType.RANDOM) {

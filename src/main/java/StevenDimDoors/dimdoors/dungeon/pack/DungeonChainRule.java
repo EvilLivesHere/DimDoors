@@ -36,9 +36,9 @@ public class DungeonChainRule {
         for (int src = 0, dst = condition.length - 1; src < condition.length; src++, dst--) {
             condition[dst] = nameToTypeMapping.get(conditionNames.get(src)).ID;
         }
-        products = new ArrayList<>(productNames.size());
+        products = new ArrayList<WeightedContainer<DungeonType>>(productNames.size());
         for (WeightedContainer<String> product : productNames) {
-            products.add(new WeightedContainer<>(nameToTypeMapping.get(product.getData()), product.itemWeight));
+            products.add(new WeightedContainer<DungeonType>(nameToTypeMapping.get(product.getData()), product.itemWeight));
         }
     }
 
@@ -62,7 +62,7 @@ public class DungeonChainRule {
     public ArrayList<WeightedContainer<DungeonType>> products() {
         //Create a deep copy of the internal list of products. That way, if the list is modified externally,
         //it won't affect the reference copy inside this rule.
-        ArrayList<WeightedContainer<DungeonType>> copy = new ArrayList<>(products.size());
+        ArrayList<WeightedContainer<DungeonType>> copy = new ArrayList<WeightedContainer<DungeonType>>(products.size());
         for (WeightedContainer<DungeonType> container : products) {
             copy.add(container.clone());
         }

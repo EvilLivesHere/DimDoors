@@ -24,6 +24,6 @@ public class WeightedContainer<T> extends Item {
 
     @Override
     public WeightedContainer<T> clone() {
-        return new WeightedContainer<>(data, itemWeight);
+        return new WeightedContainer<T>(data, itemWeight);
     }
 }

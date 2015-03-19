@@ -12,8 +12,8 @@ import java.util.Random;
 
 public class DeathTracker {
 
-    private static final ArrayList<String> usernameList = new ArrayList<>(0);
-    private static final HashSet<String> usernameSet = new HashSet<>(0);
+    private static final ArrayList<String> usernameList = new ArrayList<String>(0);
+    private static final HashSet<String> usernameSet = new HashSet<String>(0);
     private String filePath;
     private boolean modified;
 
@@ -31,12 +31,18 @@ public class DeathTracker {
 
     private void readFromFile() {
         try {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)))) {
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
                 for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                     line = line.trim();
                     if (!line.isEmpty()) {
                         usernameSet.add(line);
                     }
+                }
+            } finally {
+                if (reader != null) {
+                    reader.close();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -49,9 +55,15 @@ public class DeathTracker {
 
     public void writeToFile() {
         try {
-            try (PrintWriter writer = new PrintWriter(filePath)) {
+            PrintWriter writer = null;
+            try {
+                writer = new PrintWriter(filePath);
                 for (String username : usernameList) {
                     writer.println(username);
+                }
+            } finally {
+                if (writer != null) {
+                    writer.close();
                 }
             }
             modified = false;

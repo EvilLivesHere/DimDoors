@@ -25,7 +25,7 @@ public abstract class BaseItemDoor extends ItemDoor implements DDObject {
     // Maps non-dimensional door items to their corresponding dimensional door item
     // Also maps dimensional door items to themselves for simplicity
 
-    private static final HashMap<ItemDoor, BaseItemDoor> doorItemMapping = new HashMap<>(0);
+    private static final HashMap<ItemDoor, BaseItemDoor> doorItemMapping = new HashMap<ItemDoor, BaseItemDoor>(0);
 
     /**
      * door represents the non-dimensional door this item is associated with. Leave null for none.

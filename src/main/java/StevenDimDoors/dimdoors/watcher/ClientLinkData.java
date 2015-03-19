@@ -32,32 +32,23 @@ public class ClientLinkData implements ClientData {
     @Override
     public void write(final ByteBuf output) {
         Point4D.write(point, output);
-
         output.writeInt(this.type.index);
 
         boolean hasLock = this.lock != null;
-                output.writeBoolean(hasLock);
-
+        output.writeBoolean(hasLock);
         if (hasLock) {
             output.writeBoolean(lock.getLockState());
-
             output.writeInt(lock.getLockKey());
-
         }
     }
 
     public static ClientLinkData read(ByteBuf input) {
-
         Point4D point = Point4D.read(input);
-
         LinkType type = LinkType.getLinkTypeFromIndex(input.readInt());
-
         DDLock lock = null;
-                if (input.readBoolean()) {
-                        lock = new DDLock(input.readBoolean(), input.readInt());
-
-        } else {
-                    }
+        if (input.readBoolean()) {
+            lock = new DDLock(input.readBoolean(), input.readInt());
+        }
 
         return new ClientLinkData(point, type, lock);
     }

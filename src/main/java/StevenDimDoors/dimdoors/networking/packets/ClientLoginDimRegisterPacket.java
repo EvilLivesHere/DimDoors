@@ -1,7 +1,6 @@
 package StevenDimDoors.dimdoors.networking.packets;
 
 import StevenDimDoors.dimdoors.config.DDProperties;
-import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.networking.PacketManager.Provider;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -49,7 +48,6 @@ public class ClientLoginDimRegisterPacket extends DDPacket implements IMessage {
                 }
 
                 if (!DimensionManager.isDimensionRegistered(dimId)) {
-
                     DimensionManager.registerDimension(dimId, providerId);
                 }
             }

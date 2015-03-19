@@ -31,7 +31,7 @@ public class DimData implements Serializable {
     public boolean isDimRandomRift = false;
     public Object dungeonGenerator = null;
     //public boolean isPrivatePocket = false;
-    public HashMap<Integer, HashMap<Integer, HashMap<Integer, LinkData>>> linksInThisDim = new HashMap<>(0);
+    public HashMap<Integer, HashMap<Integer, HashMap<Integer, LinkData>>> linksInThisDim = new HashMap<Integer, HashMap<Integer, HashMap<Integer, LinkData>>>(0);
     HashMap<Integer, LinkData> dimX;
     HashMap<Integer, HashMap<Integer, LinkData>> dimY;
 
@@ -83,7 +83,7 @@ public class DimData implements Serializable {
 
     public ArrayList<LinkData> findRiftsInRange(World world, int range, int x, int y, int z) {
         LinkData nearest;
-        ArrayList<LinkData> rifts = new ArrayList<>(0);
+        ArrayList<LinkData> rifts = new ArrayList<LinkData>(0);
         int i = -range;
         int j = -range;
         int k = -range;
@@ -119,11 +119,11 @@ public class DimData implements Serializable {
             if (this.dimY.containsKey(link.locYCoord)) {
                 this.dimX = this.dimY.get(link.locYCoord);
             } else {
-                this.dimX = new HashMap<>(0);
+                this.dimX = new HashMap<Integer, LinkData>(0);
             }
         } else {
-            this.dimX = new HashMap<>(0);
-            this.dimY = new HashMap<>(0);
+            this.dimX = new HashMap<Integer, LinkData>(0);
+            this.dimY = new HashMap<Integer, HashMap<Integer, LinkData>>(0);
         }
 
         this.dimX.put(link.locXCoord, link);
@@ -154,11 +154,11 @@ public class DimData implements Serializable {
             if (this.dimY.containsKey(locationYCoord)) {
                 this.dimX = this.dimY.get(locationYCoord);
             } else {
-                this.dimX = new HashMap<>(0);
+                this.dimX = new HashMap<Integer, LinkData>(0);
             }
         } else {
-            this.dimX = new HashMap<>(0);
-            this.dimY = new HashMap<>(0);
+            this.dimX = new HashMap<Integer, LinkData>(0);
+            this.dimY = new HashMap<Integer, HashMap<Integer, LinkData>>(0);
         }
 
         this.dimX.remove(locationXCoord);
@@ -190,7 +190,7 @@ public class DimData implements Serializable {
         //TODO: We might want to modify this function, but I'm afraid of breaking something right now.
         //To begin with, the name is wrong. This doesn't print anything! >_o ~SenseiKiwi
 
-        ArrayList<LinkData> links = new ArrayList<>(0);
+        ArrayList<LinkData> links = new ArrayList<LinkData>(0);
         if (this.linksInThisDim == null) {
             return links;
         }

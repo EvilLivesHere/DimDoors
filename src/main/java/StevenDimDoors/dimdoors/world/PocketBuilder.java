@@ -67,7 +67,7 @@ public class PocketBuilder {
         //Finish up destination initialization
         dimension.initializeDungeon(destination.getX(), destination.getY(), destination.getZ(), orientation, link, dungeon);
         dimension.setFilled(true);
-                return true;
+        return true;
     }
 
     public static boolean generateSelectedDungeonPocket(DimLink link, DungeonData dungeon) {
@@ -83,24 +83,24 @@ public class PocketBuilder {
 
         // Try to load up the schematic
         DungeonSchematic schematic = null;
-                schematic = loadAndValidateDungeon(dungeon);
+        schematic = loadAndValidateDungeon(dungeon);
         if (schematic == null) {
             return false;
         }
-        
+
         // Register a new dimension
         NewDimData parent = PocketManager.getDimensionData(link.source().getDimension());
         NewDimData dimension = PocketManager.registerPocket(parent, DimensionType.DUNGEON);
 
         //Load a world
-                World world = PocketManager.loadDimension(dimension.id());
-        
+        World world = PocketManager.loadDimension(dimension.id());
+
         if (world == null || world.provider == null) {
             System.err.println("Could not initialize dimension for a dungeon!");
             return false;
         }
 
-                return PocketBuilder.buildDungeonPocket(dungeon, dimension, link, schematic, world);
+        return PocketBuilder.buildDungeonPocket(dungeon, dimension, link, schematic, world);
     }
 
     public static boolean generateNewDungeonPocket(DimLink link) {
@@ -174,7 +174,7 @@ public class PocketBuilder {
                 return null;
             }
         }
-        return new Pair<>(dungeon, schematic);
+        return new Pair<DungeonData, DungeonSchematic>(dungeon, schematic);
     }
 
     private static DungeonSchematic loadAndValidateDungeon(DungeonData dungeon) {

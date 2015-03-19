@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class ServerTickHandler implements IRegularTickSender {
 
     private static int tickCount;
-    private static final ArrayList<RegularTickReceiverInfo> receivers = new ArrayList<>(0);
+    private static final ArrayList<RegularTickReceiverInfo> receivers = new ArrayList<RegularTickReceiverInfo>(0);
 
     public ServerTickHandler() {
         reset();

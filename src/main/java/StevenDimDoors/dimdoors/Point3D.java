@@ -1,8 +1,7 @@
 package StevenDimDoors.dimdoors;
 
-import java.io.Serializable;
-
 import StevenDimDoors.dimdoors.util.Point4D;
+import java.io.Serializable;
 
 public class Point3D implements Serializable {
 

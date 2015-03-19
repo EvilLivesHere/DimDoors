@@ -7,16 +7,12 @@ import StevenDimDoors.dimdoors.networking.PacketManager;
 import StevenDimDoors.dimdoors.ticking.ServerTickHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ServerTickEvent;
 import cpw.mods.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent;
 import cpw.mods.fml.common.network.FMLNetworkEvent.ServerConnectionFromClientEvent;
 import cpw.mods.fml.common.network.FMLNetworkEvent.ServerDisconnectionFromClientEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
 import net.minecraftforge.common.DimensionManager;
 
@@ -30,12 +26,6 @@ public class FMLEventHandler {
         this.craftHandler = new CraftingHandler();
     }
 
-    @SideOnly(Side.SERVER)
-    @SubscribeEvent()
-    public void playerLoggedIn(PlayerLoggedInEvent event) {
-        PacketManager.sendClientJoinPacket((EntityPlayerMP) event.player);
-    }
-
     @SubscribeEvent
     public void connectionReceived(ServerConnectionFromClientEvent event) {
         for (NewDimData data : PocketManager.getDimensions()) {
@@ -44,6 +34,8 @@ public class FMLEventHandler {
                 event.manager.scheduleOutboundPacket(p, new BasicFutureListener());
             }
         }
+        // We need to send the pockets now, since the client will attempt to load the brightness table for any dimension it is in before calling onWorldLoad
+        event.manager.scheduleOutboundPacket(PacketManager.createClientJoinPacket(), new BasicFutureListener());
     }
 
     private static class BasicFutureListener implements GenericFutureListener<Future<?>> {
@@ -71,7 +63,7 @@ public class FMLEventHandler {
     @SubscribeEvent
     public void onServerTick(ServerTickEvent event) {
         serverTick.tickStart();
-        serverTick.tickEnd(); // This may need to be run for client too...
+        serverTick.tickEnd();
     }
 
     @SubscribeEvent

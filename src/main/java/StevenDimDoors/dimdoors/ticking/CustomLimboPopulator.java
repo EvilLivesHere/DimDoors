@@ -26,7 +26,7 @@ public class CustomLimboPopulator implements IRegularTickReceiver {
     private static final int CHUNK_SIZE = 16;
     private static final int MONOLITH_SPAWNING_INTERVAL = 1;
 
-    private static final ConcurrentLinkedQueue<ChunkLocation> locations = new ConcurrentLinkedQueue<>();
+    private static final ConcurrentLinkedQueue<ChunkLocation> locations = new ConcurrentLinkedQueue<ChunkLocation>();
 
     public CustomLimboPopulator() {
         reset();

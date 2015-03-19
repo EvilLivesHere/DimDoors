@@ -32,7 +32,7 @@ public class GatewayGenerator implements IWorldGenerator {
     private static final int END_DIMENSION_ID = 1;
     private static final String SPIRIT_WORLD_NAME = "Spirit World";
 
-    private static final ArrayList<BaseGateway> gateways = new ArrayList<>(0);
+    private static final ArrayList<BaseGateway> gateways = new ArrayList<BaseGateway>(0);
     private static final BaseGateway defaultGateway = new GatewayTwoPillars();
 
     static {
@@ -110,7 +110,7 @@ public class GatewayGenerator implements IWorldGenerator {
 
             // Build the gateway if we found a valid location
             if (valid) {
-                ArrayList<BaseGateway> validGateways = new ArrayList<>(0);
+                ArrayList<BaseGateway> validGateways = new ArrayList<BaseGateway>(0);
                 for (BaseGateway gateway : gateways) {
                     if (gateway.isLocationValid(world, x, y, z)) {
                         validGateways.add(gateway);

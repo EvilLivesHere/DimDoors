@@ -51,7 +51,7 @@ public class BlockRift extends Block implements ITileEntityProvider, DDObject {
 
     static {
         // Not sure yet on the difference between these two lists...
-        modBlocksImmuneToRift = new ArrayList<>(10);
+        modBlocksImmuneToRift = new ArrayList<Block>(10);
         modBlocksImmuneToRift.add(DDBlocks.blockDimWall);
         modBlocksImmuneToRift.add(DDBlocks.blockDimWallPerm);
         modBlocksImmuneToRift.add(DDBlocks.dimensionalDoor);
@@ -64,7 +64,7 @@ public class BlockRift extends Block implements ITileEntityProvider, DDObject {
         modBlocksImmuneToRift.add(DDBlocks.personalDimDoor);
         modBlocksImmuneToRift.add(DDBlocks.quartzDoor);
 
-        blocksImmuneToRift = new ArrayList<>(16);
+        blocksImmuneToRift = new ArrayList<Block>(16);
         blocksImmuneToRift.addAll(modBlocksImmuneToRift);
         blocksImmuneToRift.add(Blocks.lapis_block);
         blocksImmuneToRift.add(Blocks.iron_block);
@@ -173,9 +173,9 @@ public class BlockRift extends Block implements ITileEntityProvider, DDObject {
 
     private ArrayList<Point3D> findReachableBlocks(World world, int x, int y, int z, int range, boolean includeAir) {
         int searchVolume = (int) Math.pow(2 * range + 1, 3);
-        HashMap<Point3D, Integer> pointDistances = new HashMap<>(searchVolume);
-        Queue<Point3D> points = new LinkedList<>();
-        ArrayList<Point3D> targets = new ArrayList<>(0);
+        HashMap<Point3D, Integer> pointDistances = new HashMap<Point3D, Integer>(searchVolume);
+        Queue<Point3D> points = new LinkedList<Point3D>();
+        ArrayList<Point3D> targets = new ArrayList<Point3D>(0);
 
         // Perform a breadth-first search outwards from the point at which the rift is located.
         // Record the distances of the points we visit to stop the search at its maximum range.

@@ -6,7 +6,7 @@ public class DDLogger {
 
     private static DDLogger instance;
     private StringBuilder log;
-    private final HashMap<String, DDTimer> timers = new HashMap<>(0);
+    private final HashMap<String, DDTimer> timers = new HashMap<String, DDTimer>(0);
 
     private DDLogger() {
         this.log = new StringBuilder(0);

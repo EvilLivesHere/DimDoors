@@ -265,8 +265,8 @@ public class DungeonPackConfigReader extends BaseConfigurationProcessor<DungeonP
 
             ruleCondition = ruleParts[0];
             ruleProduct = ruleParts[1];
-            condition = new ArrayList<>(0);
-            products = new ArrayList<>(0);
+            condition = new ArrayList<String>(0);
+            products = new ArrayList<WeightedContainer<String>>(0);
 
             for (String typeName : WHITESPACE_SPLITTER.split(ruleCondition)) {
                 if (isKnownDungeonType(typeName, typeNames)) {
@@ -299,7 +299,7 @@ public class DungeonPackConfigReader extends BaseConfigurationProcessor<DungeonP
                     } else {
                         weight = DEFAULT_PRODUCT_WEIGHT;
                     }
-                    products.add(new WeightedContainer<>(typeName, weight));
+                    products.add(new WeightedContainer<String>(typeName, weight));
                 } else {
                     throw new ConfigurationProcessingException("The dungeon pack config has an unknown dungeon type in a rule: " + typeName);
                 }

@@ -33,10 +33,16 @@ public class CommonProxy {
                 file.createNewFile();
             }
 
-            try (FileOutputStream fileoutputstream = new FileOutputStream(file)) {
+            FileOutputStream fileoutputstream = null;
+            try {
+                fileoutputstream = new FileOutputStream(file);
                 NBTTagCompound nbttagcompound = new NBTTagCompound();
 
                 CompressedStreamTools.writeCompressed(nbttagcompound, fileoutputstream);
+            } finally {
+                if (fileoutputstream != null) {
+                    fileoutputstream.close();
+                }
             }
         } catch (Exception exception) {
             //   exception.printStackTrace();
@@ -61,9 +67,15 @@ public class CommonProxy {
 
             if (!file.exists()) {
                 file.createNewFile();
-                try (FileOutputStream fileoutputstream = new FileOutputStream(file)) {
+                FileOutputStream fileoutputstream = null;
+                try {
+                    fileoutputstream = new FileOutputStream(file);
                     NBTTagCompound nbttagcompound = new NBTTagCompound();
                     CompressedStreamTools.writeCompressed(nbttagcompound, fileoutputstream);
+                } finally {
+                    if (fileoutputstream != null) {
+                        fileoutputstream.close();
+                    }
                 }
             }
 

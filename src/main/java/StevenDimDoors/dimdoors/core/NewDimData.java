@@ -149,9 +149,9 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
         }
 
         this.id = id;
-        this.linkMapping = new TreeMap<>(); //Should be stored in oct tree -- temporary solution
-        this.linkList = new ArrayList<>(0); //Should be stored in oct tree -- temporary solution
-        this.children = new ArrayList<>(0);
+        this.linkMapping = new TreeMap<Point4D, InnerDimLink>(); //Should be stored in oct tree -- temporary solution
+        this.linkList = new ArrayList<InnerDimLink>(0); //Should be stored in oct tree -- temporary solution
+        this.children = new ArrayList<NewDimData>(0);
         this.parent = parent;
         this.packDepth = 0;
         this.type = type;
@@ -160,7 +160,7 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
         this.origin = null;
         this.dungeon = null;
         this.linkWatcher = linkWatcher;
-        this.chunkMapping = new HashMap<>(0);
+        this.chunkMapping = new HashMap<ChunkCoordIntPair, List<InnerDimLink>>(0);
         this.modified = true;
 
         //Register with parent
@@ -183,9 +183,9 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
         }
 
         this.id = id;
-        this.linkMapping = new TreeMap<>(); //Should be stored in oct tree -- temporary solution
-        this.linkList = new ArrayList<>(0); //Should be stored in oct tree -- temporary solution
-        this.children = new ArrayList<>(0);
+        this.linkMapping = new TreeMap<Point4D, InnerDimLink>(); //Should be stored in oct tree -- temporary solution
+        this.linkList = new ArrayList<InnerDimLink>(0); //Should be stored in oct tree -- temporary solution
+        this.children = new ArrayList<NewDimData>(0);
         this.parent = null;
         this.packDepth = 0;
         this.type = type;
@@ -243,7 +243,7 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
         int i, j, k;
         int distance;
         DimLink link;
-        ArrayList<DimLink> links = new ArrayList<>(0);
+        ArrayList<DimLink> links = new ArrayList<DimLink>(0);
 
         for (i = -range; i <= range; i++) {
             for (j = -range; j <= range; j++) {
@@ -267,7 +267,11 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
     }
 
     public DimLink createLink(int x, int y, int z, LinkType linkType, int orientation) {
-        return createLink(new Point4D(x, y, z, id), linkType, orientation, null);
+        return createLink(x, y, z, linkType, orientation, null);
+    }
+
+    public DimLink createLink(int x, int y, int z, LinkType linkType, int orientation, DDLock lock) {
+        return createLink(new Point4D(x, y, z, id), linkType, orientation, lock);
     }
 
     public DimLink createLink(Point4D source, LinkType linkType, int orientation, DDLock locked) {
@@ -285,7 +289,7 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
                 ChunkCoordIntPair chunk = link.getChunkCoordinates();
                 List<InnerDimLink> chunkLinks = chunkMapping.get(chunk);
                 if (chunkLinks == null) {
-                    chunkLinks = new ArrayList<>(EXPECTED_LINKS_PER_CHUNK);
+                    chunkLinks = new ArrayList<InnerDimLink>(EXPECTED_LINKS_PER_CHUNK);
                     chunkMapping.put(chunk, chunkLinks);
                 }
                 chunkLinks.add(link);
@@ -327,7 +331,7 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
                 ChunkCoordIntPair chunk = link.getChunkCoordinates();
                 List<InnerDimLink> chunkLinks = chunkMapping.get(chunk);
                 if (chunkLinks == null) {
-                    chunkLinks = new ArrayList<>(EXPECTED_LINKS_PER_CHUNK);
+                    chunkLinks = new ArrayList<InnerDimLink>(EXPECTED_LINKS_PER_CHUNK);
                     chunkMapping.put(chunk, chunkLinks);
                 }
                 chunkLinks.add(link);
@@ -400,7 +404,7 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
     }
 
     public ArrayList<DimLink> getAllLinks() {
-        ArrayList<DimLink> results = new ArrayList<>(linkMapping.size());
+        ArrayList<DimLink> results = new ArrayList<DimLink>(linkMapping.size());
         results.addAll(linkMapping.values());
         return results;
     }
@@ -506,7 +510,7 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
         }
 
         // Update the depths for child dimensions using a depth-first traversal
-        Stack<NewDimData> ordering = new Stack<>();
+        Stack<NewDimData> ordering = new Stack<NewDimData>();
         ordering.addAll(this.children);
 
         while (!ordering.isEmpty()) {
@@ -607,7 +611,7 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
         if (chunkLinks != null) {
             return chunkLinks;
         }
-        return new ArrayList<>(0);
+        return new ArrayList<InnerDimLink>(0);
     }
 
     @Override
@@ -649,9 +653,9 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
 
     @Override
     public PackedDimData pack() {
-        ArrayList<Integer> ChildIDs = new ArrayList<>(0);
-        ArrayList<PackedLinkData> Links = new ArrayList<>(0);
-        ArrayList<PackedLinkTail> Tails = new ArrayList<>(0);
+        ArrayList<Integer> ChildIDs = new ArrayList<Integer>(0);
+        ArrayList<PackedLinkData> Links = new ArrayList<PackedLinkData>(0);
+        ArrayList<PackedLinkTail> Tails = new ArrayList<PackedLinkTail>(0);
         PackedDungeonData packedDungeon = null;
 
         if (this.dungeon != null) {
@@ -664,7 +668,7 @@ public abstract class NewDimData implements IPackable<PackedDimData> {
             ChildIDs.add(data.id);
         }
         for (DimLink link : this.links()) {
-            ArrayList<Point3D> childs = new ArrayList<>(0);
+            ArrayList<Point3D> childs = new ArrayList<Point3D>(0);
             Point3D parentPoint = new Point3D(-1, -1, -1);
             if (link.parent != null) {
                 parentPoint = link.parent.point.toPoint3D();

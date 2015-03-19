@@ -109,8 +109,8 @@ public class PocketManager {
      * Set as true if we are a client that has connected to a dedicated server
      */
     public static volatile boolean isConnected = false;
-    private static final UpdateWatcherProxy<ClientLinkData> linkWatcher = new UpdateWatcherProxy<>();
-    private static final UpdateWatcherProxy<ClientDimData> dimWatcher = new UpdateWatcherProxy<>();
+    private static final UpdateWatcherProxy<ClientLinkData> linkWatcher = new UpdateWatcherProxy<ClientLinkData>();
+    private static final UpdateWatcherProxy<ClientDimData> dimWatcher = new UpdateWatcherProxy<ClientDimData>();
     private static ArrayList<NewDimData> rootDimensions = null;
 
     // HashMap that maps all the dimension IDs registered with DimDoors to their
@@ -142,10 +142,10 @@ public class PocketManager {
         }
         isLoading = true;
 
-        dimensionData = new HashMap<>(0);
-        rootDimensions = new ArrayList<>(0);
-        dimensionIDBlackList = new ArrayList<>(0);
-        personalPocketsMapping = new HashMap<>(0);
+        dimensionData = new HashMap<Integer, InnerDimData>(0);
+        rootDimensions = new ArrayList<NewDimData>(0);
+        dimensionIDBlackList = new ArrayList<Integer>(0);
+        personalPocketsMapping = new HashMap<String, NewDimData>(0);
 
         // This will catch as Server when starting an Single Player map, but client when connecting to a remote server.
         if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {

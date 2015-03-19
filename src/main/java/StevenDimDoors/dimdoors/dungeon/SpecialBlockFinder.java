@@ -26,9 +26,9 @@ public class SpecialBlockFinder extends SchematicFilter {
         this.exitMarkerID = exitMarkerID;
         this.entranceDoorLocation = null;
         this.entranceOrientation = 0;
-        this.exitDoorLocations = new ArrayList<>(0);
-        this.dimensionalDoorLocations = new ArrayList<>(0);
-        this.monolithSpawnLocations = new ArrayList<>(0);
+        this.exitDoorLocations = new ArrayList<Point3D>(0);
+        this.dimensionalDoorLocations = new ArrayList<Point3D>(0);
+        this.monolithSpawnLocations = new ArrayList<Point3D>(0);
         this.schematic = null;
     }
 

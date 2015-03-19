@@ -47,7 +47,7 @@ public class DDLoot {
         DungeonChestInfo.setMin(CHEST_SIZE);
         DungeonChestInfo.setMax(CHEST_SIZE);
 
-        ArrayList<WeightedRandomChestContent> items = new ArrayList<>(0);
+        ArrayList<WeightedRandomChestContent> items = new ArrayList<WeightedRandomChestContent>(0);
 
         addContent(true, items, Items.iron_ingot, 160, 1, 3);
         addContent(true, items, Items.coal, 120, 1, 3);
@@ -114,7 +114,7 @@ public class DDLoot {
 
         int count = chestInfo.getCount(random);
         WeightedRandomChestContent[] content = chestInfo.getItems(random);
-        ArrayList<ItemStack> allStacks = new ArrayList<>(0);
+        ArrayList<ItemStack> allStacks = new ArrayList<ItemStack>(0);
 
         for (int k = 0; k < count; k++) {
             WeightedRandomChestContent selection = (WeightedRandomChestContent) WeightedRandom.getRandomItem(random, content);
@@ -138,8 +138,8 @@ public class DDLoot {
         // so we use our own function rather than Minecraft's functions.
         int k;
         int count;
-        ArrayList<ItemStack> stacks = new ArrayList<>(0);
-        ArrayList<WeightedContainer<Item>> selection = new ArrayList<>(0);
+        ArrayList<ItemStack> stacks = new ArrayList<ItemStack>(0);
+        ArrayList<WeightedContainer<Item>> selection = new ArrayList<WeightedContainer<Item>>(0);
 
         // Insert bones and rotten flesh
         // Make stacks of single items to spread them out

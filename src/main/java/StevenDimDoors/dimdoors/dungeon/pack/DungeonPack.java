@@ -37,9 +37,9 @@ public class DungeonPack {
         int index;
         int maxLength = 0;
         int typeCount = config.getTypeNames().size();
-        this.allDungeons = new ArrayList<>(0);
-        this.nameToTypeMapping = new HashMap<>(typeCount);
-        this.groupedDungeons = new ArrayList<>(typeCount);
+        this.allDungeons = new ArrayList<DungeonData>(0);
+        this.nameToTypeMapping = new HashMap<String, DungeonType>(typeCount);
+        this.groupedDungeons = new ArrayList<ArrayList<DungeonData>>(typeCount);
 
         this.groupedDungeons.add(allDungeons); //Make sure the list of all dungeons is placed at index 0
         this.nameToTypeMapping.put(DungeonType.WILDCARD_TYPE.Name, DungeonType.WILDCARD_TYPE);
@@ -54,7 +54,7 @@ public class DungeonPack {
 
         //Construct optimized rules from definitions
         ArrayList<DungeonChainRuleDefinition> definitions = config.getRules();
-        this.rules = new ArrayList<>(definitions.size());
+        this.rules = new ArrayList<DungeonChainRule>(definitions.size());
         for (DungeonChainRuleDefinition definition : definitions) {
             DungeonChainRule rule = new DungeonChainRule(definition, nameToTypeMapping);
             this.rules.add(rule);
@@ -129,9 +129,9 @@ public class DungeonPack {
             }
         }
         if (subtreeHistory == null) {
-            subtreeHistory = new ArrayList<>(0);
+            subtreeHistory = new ArrayList<DungeonData>(0);
         }
-        subtreeHistory = new ArrayList<>(0);//WTF?
+        subtreeHistory = new ArrayList<DungeonData>(0);//WTF?
 
         return getNextDungeon(history, subtreeHistory, random);
     }
@@ -157,10 +157,10 @@ public class DungeonPack {
                         //Initialize the set of excluded dungeons if needed
                         if (excludedDungeons == null && doExclude) {
                             if (config.allowDuplicatesInChain()) {
-                                excludedDungeons = new HashSet<>(subtreeHistory);
+                                excludedDungeons = new HashSet<DungeonData>(subtreeHistory);
                                 excludedDungeons.addAll(subtreeHistory);
                             } else {
-                                excludedDungeons = new HashSet<>(2 * (history.size() + subtreeHistory.size()));
+                                excludedDungeons = new HashSet<DungeonData>(2 * (history.size() + subtreeHistory.size()));
                                 excludedDungeons.addAll(history);
                                 excludedDungeons.addAll(subtreeHistory);
                             }
@@ -170,7 +170,7 @@ public class DungeonPack {
                         ArrayList<DungeonData> candidates;
                         ArrayList<DungeonData> group = groupedDungeons.get(nextType.ID);
                         if (excludedDungeons != null && !excludedDungeons.isEmpty()) {
-                            candidates = new ArrayList<>(group.size());
+                            candidates = new ArrayList<DungeonData>(group.size());
                             for (DungeonData dungeon : group) {
                                 if (!excludedDungeons.contains(dungeon)) {
                                     candidates.add(dungeon);
@@ -235,10 +235,9 @@ public class DungeonPack {
 
     private static DungeonData getRandomDungeon(Random random, Collection<DungeonData> dungeons) {
         //Use Minecraft's WeightedRandom to select our dungeon. =D
-        ArrayList<WeightedContainer<DungeonData>> weights
-                = new ArrayList<>(dungeons.size());
+        ArrayList<WeightedContainer<DungeonData>> weights = new ArrayList<WeightedContainer<DungeonData>>(dungeons.size());
         for (DungeonData dungeon : dungeons) {
-            weights.add(new WeightedContainer<>(dungeon, dungeon.weight()));
+            weights.add(new WeightedContainer<DungeonData>(dungeon, dungeon.weight()));
         }
 
         @SuppressWarnings("unchecked")

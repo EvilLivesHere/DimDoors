@@ -4,6 +4,8 @@ import StevenDimDoors.dimdoors.core.DDTeleporter;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.item.ItemDDKey;
+import StevenDimDoors.dimdoors.item.ItemRiftSignature;
+import StevenDimDoors.dimdoors.item.ItemStabilizedRiftSignature;
 import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.tileentities.TileEntityDimDoor;
 import cpw.mods.fml.relauncher.Side;
@@ -46,7 +48,10 @@ public abstract class BaseDimDoor extends BlockDoor implements IDimDoor, ITileEn
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         ItemStack stack = player.inventory.getCurrentItem();
-        if (stack != null && stack.getItem() instanceof ItemDDKey) {
+        // Lets stop doors from opening when using rift sigs.
+        if (stack != null && (stack.getItem() instanceof ItemDDKey
+                || stack.getItem() instanceof ItemRiftSignature
+                || stack.getItem() instanceof ItemStabilizedRiftSignature)) {
             return false;
         }
 
@@ -79,8 +84,8 @@ public abstract class BaseDimDoor extends BlockDoor implements IDimDoor, ITileEn
         this.updateAttachedTile(world, x, y, z);
     }
 
-    //Called to update the render information on the tile entity. Could probably implement a data watcher,
-    //but this works fine and is more versatile I think.
+    // Called to update the render information on the tile entity. Could probably implement a data watcher,
+    // but this works fine and is more versatile I think.
     public BaseDimDoor updateAttachedTile(World world, int x, int y, int z) {
         mod_pocketDim.proxy.updateDoorTE(this, world, x, y, z);
         TileEntity tile = world.getTileEntity(x, y, z);

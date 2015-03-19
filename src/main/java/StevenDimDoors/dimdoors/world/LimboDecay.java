@@ -31,7 +31,7 @@ public class LimboDecay {
     };
 
     private final static Random random = new Random();
-    public final static ArrayList<Block> blocksImmuneToDecay = new ArrayList<>(9);
+    public final static ArrayList<Block> blocksImmuneToDecay = new ArrayList<Block>(9);
 
     static {
         blocksImmuneToDecay.add(DDBlocks.blockLimbo);
@@ -43,6 +43,8 @@ public class LimboDecay {
         blocksImmuneToDecay.add(DDBlocks.unstableDoor);
         blocksImmuneToDecay.add(DDBlocks.goldenDoor);
         blocksImmuneToDecay.add(DDBlocks.goldenDimensionalDoor);
+        blocksImmuneToDecay.add(DDBlocks.personalDimDoor);
+        blocksImmuneToDecay.add(DDBlocks.quartzDoor);
     }
 
     private LimboDecay() {

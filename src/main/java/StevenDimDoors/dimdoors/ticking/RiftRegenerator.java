@@ -26,7 +26,7 @@ public class RiftRegenerator implements IRegularTickReceiver {
     private static Random random;
 
     private long tickCount;
-    private final PriorityQueue<RiftTicket> ticketQueue = new PriorityQueue<>();
+    private final PriorityQueue<RiftTicket> ticketQueue = new PriorityQueue<RiftTicket>();
 
     public RiftRegenerator() {
         reset();

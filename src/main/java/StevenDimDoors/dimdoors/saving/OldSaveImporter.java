@@ -20,12 +20,18 @@ public class OldSaveImporter {
     public static void importOldSave(File file) throws IOException, ClassNotFoundException {
         FileInputStream saveFile = new FileInputStream(file);
         HashMap<String, HashMap<Integer, DimData>> comboSave;
-        try (ObjectSaveInputStream save = new ObjectSaveInputStream(saveFile)) {
-            comboSave = ((HashMap) save.readObject());
+        ObjectSaveInputStream save = null;
+        try {
+            save = new ObjectSaveInputStream(saveFile);
+            comboSave = ((HashMap<String, HashMap<Integer, DimData>>) save.readObject());
+        } finally {
+            if (save != null) {
+                save.close();
+            }
         }
 
-        List<PackedLinkData> allPackedLinks = new ArrayList<>(0);
-        HashMap<Integer, PackedDimData> newPackedDimData = new HashMap<>(0);
+        List<PackedLinkData> allPackedLinks = new ArrayList<PackedLinkData>(0);
+        HashMap<Integer, PackedDimData> newPackedDimData = new HashMap<Integer, PackedDimData>(0);
 
         HashMap<Integer, DimData> dimMap;
 
@@ -37,7 +43,7 @@ public class OldSaveImporter {
         }
 
         //build the child list
-        HashMap<Integer, ArrayList<Integer>> parentChildMapping = new HashMap<>();
+        HashMap<Integer, ArrayList<Integer>> parentChildMapping = new HashMap<Integer, ArrayList<Integer>>();
         for (DimData data : dimMap.values()) {
             if (data.isPocket) {
                 LinkData link = data.exitDimLink;
@@ -53,19 +59,19 @@ public class OldSaveImporter {
         }
 
         for (DimData data : dimMap.values()) {
-            List<PackedLinkData> newPackedLinkData = new ArrayList<>(0);
+            List<PackedLinkData> newPackedLinkData = new ArrayList<PackedLinkData>(0);
             List<Integer> childDims;
             if (parentChildMapping.containsKey(data.dimID)) {
                 childDims = parentChildMapping.get(data.dimID);
             } else {
-                childDims = new ArrayList<>(0);
+                childDims = new ArrayList<Integer>(0);
             }
 
             for (LinkData link : data.getLinksInDim()) {
                 Point4D source = new Point4D(link.locXCoord, link.locYCoord, link.locZCoord, link.locDimID);
                 Point4D destintion = new Point4D(link.destXCoord, link.destYCoord, link.destZCoord, link.destDimID);
                 PackedLinkTail tail = new PackedLinkTail(destintion, LinkType.NORMAL);
-                List<Point3D> children = new ArrayList<>(0);
+                List<Point3D> children = new ArrayList<Point3D>(0);
 
                 PackedLinkData newPackedLink = new PackedLinkData(source, new Point3D(-1, -1, -1), tail, link.linkOrientation, children, null);
 

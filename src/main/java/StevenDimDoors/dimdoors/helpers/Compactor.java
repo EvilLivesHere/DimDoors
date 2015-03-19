@@ -29,28 +29,18 @@ public class Compactor {
 
         for (NewDimData dimension : values) {
             output.writeInt(dimension.id());
-
             output.writeInt(dimension.root().id());
-
             output.writeInt(dimension.type().index);
-
             output.writeInt(dimension.linkCount());
-
             for (DimLink link : dimension.links()) {
                 Point4D.write(link.source(), output);
-
                 output.writeInt(LinkType.CLIENT.index);
-
                 output.writeBoolean(link.hasLock());
                 if (link.hasLock()) {
                     output.writeBoolean(link.getLockState());
-
                     output.writeInt(link.getLock().getLockKey());
-
                 }
-
                 output.writeInt(link.orientation());
-
             }
         }
 
@@ -69,29 +59,23 @@ public class Compactor {
         // Read in the dimensions one by one. Make sure we register root dimensions before
         // attempting to register the dimensions under them.
 
-        HashSet<Integer> rootIDs = new HashSet<>(0);
-
+        HashSet<Integer> rootIDs = new HashSet<Integer>(0);
         int dimCount = input.readInt();
-
         for (int k = 0; k < dimCount; k++) {
             int id = input.readInt();
-
             int rootID = input.readInt();
-
             DimensionType type = DimensionType.getTypeFromIndex(input.readInt());
-
             if (rootIDs.add(rootID)) {
                 callback.registerDimension(rootID, rootID, type);
             }
             // Don't check if (id != rootID) - we want to retrieve the reference anyway
             NewDimData dimension = callback.registerDimension(id, rootID, type);
             int linkCount = input.readInt();
-
             for (int h = 0; h < linkCount; h++) {
                 ClientLinkData link = ClientLinkData.read(input);
                 Point4D source = link.point;
                 int orientation = input.readInt();
-                DimLink d = dimension.createLink(source.getX(), source.getY(), source.getZ(), LinkType.CLIENT, orientation);
+                dimension.createLink(source.getX(), source.getY(), source.getZ(), LinkType.CLIENT, orientation, link.lock);
             }
         }
     }

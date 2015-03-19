@@ -63,13 +63,13 @@ public class DungeonHelper {
     public static final short MAX_DUNGEON_HEIGHT = MAX_DUNGEON_WIDTH;
     public static final short MAX_DUNGEON_LENGTH = MAX_DUNGEON_WIDTH;
 
-    private static final ArrayList<DungeonData> untaggedDungeons = new ArrayList<>(0);
-    private static final ArrayList<DungeonData> registeredDungeons = new ArrayList<>(0);
+    private static final ArrayList<DungeonData> untaggedDungeons = new ArrayList<DungeonData>(0);
+    private static final ArrayList<DungeonData> registeredDungeons = new ArrayList<DungeonData>(0);
 
     private static DungeonPack RuinsPack;
     private static DungeonPack NetherPack;
-    private static final HashMap<String, DungeonPack> dungeonPackMapping = new HashMap<>(0);
-    private static final ArrayList<DungeonPack> dungeonPackList = new ArrayList<>(0);
+    private static final HashMap<String, DungeonPack> dungeonPackMapping = new HashMap<String, DungeonPack>(0);
+    private static final ArrayList<DungeonPack> dungeonPackList = new ArrayList<DungeonPack>(0);
 
     private static DungeonData defaultError;
 
@@ -321,7 +321,7 @@ public class DungeonHelper {
                 packFiles = packDirectory.listFiles(schematicFileFilter);
                 if (packFiles != null) {
                     //Copy the pack files' paths into an ArrayList for use with registerDungeonPack()
-                    packFilePaths = new ArrayList<>(packFiles.length);
+                    packFilePaths = new ArrayList<String>(packFiles.length);
                     for (File packFile : packFiles) {
                         packFilePaths.add(packFile.getPath());
                     }
@@ -359,10 +359,12 @@ public class DungeonHelper {
             throw new IllegalStateException("Failed to open the list of bundled dungeon schematics for " + name);
         }
 
-        ArrayList<String> schematics = new ArrayList<>(0);
+        ArrayList<String> schematics = new ArrayList<String>(0);
         try {
-            try ( // Read the list of schematics that come with a bundled pack
-                    BufferedReader listReader = new BufferedReader(new InputStreamReader(listStream))) {
+            BufferedReader listReader = null;
+            try {
+                // Read the list of schematics that come with a bundled pack
+                listReader = new BufferedReader(new InputStreamReader(listStream));
                 String schematicPath = listReader.readLine();
                 while (schematicPath != null) {
                     schematicPath = schematicPath.trim();
@@ -370,6 +372,10 @@ public class DungeonHelper {
                         schematics.add(schematicPath);
                     }
                     schematicPath = listReader.readLine();
+                }
+            } finally {
+                if (listReader != null) {
+                    listReader.close();
                 }
             }
         } catch (IOException e) {
@@ -443,13 +449,13 @@ public class DungeonHelper {
 
     private static DungeonPack getRandomDungeonPack(DungeonPack current, Random random) {
         DungeonPack selection = current;
-        ArrayList<WeightedContainer<DungeonPack>> packs = new ArrayList<>(dungeonPackList.size());
+        ArrayList<WeightedContainer<DungeonPack>> packs = new ArrayList<WeightedContainer<DungeonPack>>(dungeonPackList.size());
 
         //Load up a list of weighted items with any usable dungeon packs that is not the current pack
         for (DungeonPack pack : dungeonPackList) {
             DungeonPackConfig config = pack.getConfig();
             if (pack != current && config.allowPackChangeIn() && !pack.isEmpty()) {
-                packs.add(new WeightedContainer<>(pack, config.getPackWeight()));
+                packs.add(new WeightedContainer<DungeonPack>(pack, config.getPackWeight()));
             }
         }
         if (!packs.isEmpty()) {
@@ -463,12 +469,12 @@ public class DungeonHelper {
         // Use a HashSet to guarantee that all dungeon names will be distinct.
         // This shouldn't be necessary if we keep proper lists without repetitions,
         // but it's a fool-proof workaround.
-        HashSet<String> dungeonNames = new HashSet<>(0);
+        HashSet<String> dungeonNames = new HashSet<String>(0);
         dungeonNames.addAll(parseDungeonNames(registeredDungeons));
         dungeonNames.addAll(parseDungeonNames(untaggedDungeons));
 
         //Sort dungeon names alphabetically
-        ArrayList<String> sortedNames = new ArrayList<>(dungeonNames);
+        ArrayList<String> sortedNames = new ArrayList<String>(dungeonNames);
         Collections.sort(sortedNames, String.CASE_INSENSITIVE_ORDER);
         return sortedNames;
     }
@@ -476,7 +482,7 @@ public class DungeonHelper {
     private static ArrayList<String> parseDungeonNames(ArrayList<DungeonData> dungeons) {
         String name;
         File schematic;
-        ArrayList<String> names = new ArrayList<>(dungeons.size());
+        ArrayList<String> names = new ArrayList<String>(dungeons.size());
 
         for (DungeonData dungeon : dungeons) {
             //Retrieve the file name and strip off the file extension
@@ -504,7 +510,7 @@ public class DungeonHelper {
         int count = 0;
         NewDimData current = start;
         DungeonData dungeon = current.dungeon();
-        ArrayList<DungeonData> history = new ArrayList<>(0);
+        ArrayList<DungeonData> history = new ArrayList<DungeonData>(0);
 
         while (count < maxSize && dungeon != null && dungeon.dungeonType().Owner == pack) {
             history.add(dungeon);
@@ -527,8 +533,8 @@ public class DungeonHelper {
         int count = 0;
         NewDimData current;
         DungeonData dungeon;
-        ArrayList<DungeonData> dungeons = new ArrayList<>(0);
-        Queue<NewDimData> pendingDimensions = new LinkedList<>();
+        ArrayList<DungeonData> dungeons = new ArrayList<DungeonData>(0);
+        Queue<NewDimData> pendingDimensions = new LinkedList<NewDimData>();
         pendingDimensions.add(root);
 
         // Perform a breadth-first search through the dungeon graph

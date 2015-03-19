@@ -17,7 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import static net.minecraft.util.MovingObjectPosition.MovingObjectType.BLOCK;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class ItemDDKey extends Item implements DDObject {
@@ -34,11 +33,19 @@ public class ItemDDKey extends Item implements DDObject {
     }
 
     @Override
-    public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        if (DDLock.hasCreatedLock(par1ItemStack)) {
+    public void addInformation(ItemStack iStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+        int[] keyIDs = DDLock.getKeys(iStack);
+        StringBuilder keyLine = new StringBuilder(0);
+        for (int i : keyIDs) {
+            keyLine.append(i).append(" ");
+        }
+        if (DDLock.hasCreatedLock(iStack)) {
             par3List.add("Bound");
         } else {
             par3List.add("Unbound");
+        }
+        if (keyIDs.length > 0) {
+            par3List.add(keyLine.toString());
         }
     }
 
@@ -59,12 +66,13 @@ public class ItemDDKey extends Item implements DDObject {
     @Override
     public boolean onItemUseFirst(ItemStack itemStack, EntityPlayer player, World world, int x, int y, int z, int side, float playerX, float playerY,
             float playerZ) {
+        // Return false on the client side to pass this request to the server
         if (world.isRemote) {
             return false;
         }
 
-        if (player.getItemInUse() != null) {
-            return true;
+        if (itemStack == null) {
+            return false;
         }
         Block b = world.getBlock(x, y, z);
         // make sure we are dealing with a door
@@ -88,7 +96,6 @@ public class ItemDDKey extends Item implements DDObject {
                 }
                 PocketManager.getDimensionData(world).lock(link, !link.getLockState());
                 PocketManager.getLinkWatcher().update(new ClientLinkData(link));
-
             } else {
                 world.playSoundAtEntity(player, mod_pocketDim.modid + ":doorLocked", 1F, 1F);
             }
@@ -118,14 +125,13 @@ public class ItemDDKey extends Item implements DDObject {
                     //make sure the given key is able to access the lock
                     if (link.doesKeyUnlock(itemStack) && !world.isRemote) {
                         PocketManager.getDimensionData(world).removeLock(link, itemStack);
+                        PocketManager.getLinkWatcher().update(new ClientLinkData(link));
                         world.playSoundAtEntity(player, mod_pocketDim.modid + ":doorLockRemoved", 1F, 1F);
-
                     }
                 }
             }
         }
         player.clearItemInUse();
-
     }
 
     /**

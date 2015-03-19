@@ -189,7 +189,7 @@ public class LinkedList<T> implements Iterable<T> {
     }
 
     private Node<T> addAfter(Node<T> node, T data) {
-        Node<T> addition = new Node<>(node, node.next, data, this);
+        Node<T> addition = new Node<T>(node, node.next, data, this);
         node.next = addition;
         addition.next.prev = addition;
         size++;
@@ -198,6 +198,6 @@ public class LinkedList<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new LinkedListIterator<>(this);
+        return new LinkedListIterator<T>(this);
     }
 }

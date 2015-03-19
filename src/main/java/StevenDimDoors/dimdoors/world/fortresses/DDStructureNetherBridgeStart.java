@@ -36,7 +36,7 @@ public class DDStructureNetherBridgeStart extends StructureStart {
         // Randomly decide whether to build a gateway in this fortress
         if (random.nextInt(MAX_GATEWAY_GENERATION_CHANCE) < DDProperties.instance().FortressGatewayGenerationChance) {
             // Search for all the blaze spawners in a fortress
-            spawnerRooms = new ArrayList<>(0);
+            spawnerRooms = new ArrayList<Throne>(0);
             componentIterator = this.components.iterator();
             while (componentIterator.hasNext()) {
                 component = (StructureComponent) componentIterator.next();

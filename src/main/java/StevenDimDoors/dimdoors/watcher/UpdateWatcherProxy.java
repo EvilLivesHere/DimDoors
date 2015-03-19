@@ -8,7 +8,7 @@ public class UpdateWatcherProxy<T> implements IUpdateWatcher<T> {
     private final List<IUpdateWatcher<T>> watchers;
 
     public UpdateWatcherProxy() {
-        watchers = new ArrayList<>(0);
+        watchers = new ArrayList<IUpdateWatcher<T>>(0);
     }
 
     @Override

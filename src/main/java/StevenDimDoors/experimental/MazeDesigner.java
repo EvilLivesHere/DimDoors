@@ -27,7 +27,7 @@ public class MazeDesigner {
         PartitionNode root = partitionRooms(MAZE_WIDTH, MAZE_HEIGHT, MAZE_LENGTH, SPLIT_COUNT, random);
 
         // List all the leaf nodes of the partition tree, which denote individual rooms
-        ArrayList<PartitionNode> partitions = new ArrayList<>(1 << SPLIT_COUNT);
+        ArrayList<PartitionNode> partitions = new ArrayList<PartitionNode>(1 << SPLIT_COUNT);
         listRoomPartitions(root, partitions);
 
         // Construct an adjacency graph of the rooms we've carved out. Two rooms are
@@ -117,8 +117,8 @@ public class MazeDesigner {
     }
 
     private static DirectedGraph<PartitionNode, DoorwayData> createRoomGraph(PartitionNode root, ArrayList<PartitionNode> partitions, Random random) {
-        DirectedGraph<PartitionNode, DoorwayData> roomGraph = new DirectedGraph<>();
-        HashMap<PartitionNode, IGraphNode<PartitionNode, DoorwayData>> roomsToGraph = new HashMap<>(2 * partitions.size());
+        DirectedGraph<PartitionNode, DoorwayData> roomGraph = new DirectedGraph<PartitionNode, DoorwayData>();
+        HashMap<PartitionNode, IGraphNode<PartitionNode, DoorwayData>> roomsToGraph = new HashMap<PartitionNode, IGraphNode<PartitionNode, DoorwayData>>(2 * partitions.size());
 
         // Shuffle the list of rooms so that they're not listed in any ordered way in the room graph
         // This is the only convenient way of randomizing the maze sections generated later
@@ -310,12 +310,12 @@ public class MazeDesigner {
         IGraphNode<PartitionNode, DoorwayData> current;
         IGraphNode<PartitionNode, DoorwayData> neighbor;
 
-        ArrayList<IGraphNode<PartitionNode, DoorwayData>> cores = new ArrayList<>(0);
-        ArrayList<IGraphNode<PartitionNode, DoorwayData>> removals = new ArrayList<>(0);
-        ArrayList<IGraphNode<PartitionNode, DoorwayData>> section = new ArrayList<>(0);
+        ArrayList<IGraphNode<PartitionNode, DoorwayData>> cores = new ArrayList<IGraphNode<PartitionNode, DoorwayData>>(0);
+        ArrayList<IGraphNode<PartitionNode, DoorwayData>> removals = new ArrayList<IGraphNode<PartitionNode, DoorwayData>>(0);
+        ArrayList<IGraphNode<PartitionNode, DoorwayData>> section = new ArrayList<IGraphNode<PartitionNode, DoorwayData>>(0);
 
-        Queue<IGraphNode<PartitionNode, DoorwayData>> ordering = new LinkedList<>();
-        HashMap<IGraphNode<PartitionNode, DoorwayData>, Integer> distances = new HashMap<>(0);
+        Queue<IGraphNode<PartitionNode, DoorwayData>> ordering = new LinkedList<IGraphNode<PartitionNode, DoorwayData>>();
+        HashMap<IGraphNode<PartitionNode, DoorwayData>, Integer> distances = new HashMap<IGraphNode<PartitionNode, DoorwayData>, Integer>(0);
 
         // Repeatedly generate sections until all nodes have been visited
         for (IGraphNode<PartitionNode, DoorwayData> node : roomGraph.nodes()) {
@@ -402,9 +402,9 @@ public class MazeDesigner {
         IGraphNode<PartitionNode, DoorwayData> current;
         IGraphNode<PartitionNode, DoorwayData> neighbor;
 
-        Stack<IGraphNode<PartitionNode, DoorwayData>> ordering = new Stack<>();
-        ArrayList<IGraphNode<PartitionNode, DoorwayData>> subgraph = new ArrayList<>(64);
-        DisjointSet<IGraphNode<PartitionNode, DoorwayData>> components = new DisjointSet<>(128);
+        Stack<IGraphNode<PartitionNode, DoorwayData>> ordering = new Stack<IGraphNode<PartitionNode, DoorwayData>>();
+        ArrayList<IGraphNode<PartitionNode, DoorwayData>> subgraph = new ArrayList<IGraphNode<PartitionNode, DoorwayData>>(64);
+        DisjointSet<IGraphNode<PartitionNode, DoorwayData>> components = new DisjointSet<IGraphNode<PartitionNode, DoorwayData>>(128);
 
         ordering.add(core);
         components.makeSet(core);
@@ -429,7 +429,7 @@ public class MazeDesigner {
         // Now iterate over the list of nodes and merge their sets
         // We only have to look at outbound edges since inbound edges mirror them
         // Also list any Y_AXIS doorways we come across
-        ArrayList<IEdge<PartitionNode, DoorwayData>> targets = new ArrayList<>(0);
+        ArrayList<IEdge<PartitionNode, DoorwayData>> targets = new ArrayList<IEdge<PartitionNode, DoorwayData>>(0);
 
         for (IGraphNode<PartitionNode, DoorwayData> room : subgraph) {
             for (IEdge<PartitionNode, DoorwayData> passage : room.outbound()) {

@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "2.2.4-" + System.getenv("BUILD_NUMBER")
+version = "2.2.5-" + System.getenv("BUILD_NUMBER")
 group = "com.stevenrs11.dimdoors" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "DimensionalDoors"
 
@@ -28,8 +28,8 @@ minecraft {
     replace "@VERSION@", project.version
 }
 
-targetCompatibility = '1.7.10'
-sourceCompatibility = '1.7.10'
+targetCompatibility = '1.6'
+sourceCompatibility = '1.6'
 
 processResources
 {

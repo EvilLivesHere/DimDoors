@@ -11,7 +11,7 @@ import org.poly2tri.triangulation.delaunay.DelaunayTriangle;
 
 public class Polygon implements Triangulatable {
 
-    protected ArrayList<TriangulationPoint> _points = new ArrayList<>();
+    protected ArrayList<TriangulationPoint> _points = new ArrayList<TriangulationPoint>();
     protected ArrayList<TriangulationPoint> _steinerPoints;
     protected ArrayList<Polygon> _holes;
 

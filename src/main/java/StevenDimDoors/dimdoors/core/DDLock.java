@@ -1,14 +1,10 @@
 package StevenDimDoors.dimdoors.core;
 
-import java.io.IOException;
-import com.google.gson.stream.JsonReader;
 import StevenDimDoors.dimdoors.item.ItemDDKey;
-import StevenDimDoors.dimdoors.saving.IPackable;
-import StevenDimDoors.dimdoors.saving.PackedDimData;
+import java.util.TreeSet;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.nbt.NBTTagList;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class DDLock {
 
@@ -71,8 +67,6 @@ public class DDLock {
     /**
      * sets the key/s to the given key/s
      *
-     * @return
-     * @return
      */
     /**
      * gets all the keys stored on a single key item
@@ -89,22 +83,25 @@ public class DDLock {
     /**
      * adds the key/s to the given key
      *
-     * @return
-     * @return
      */
     public static void addKeys(ItemStack itemStack, int[] keysToAdd) {
-        int[] oldKeys = DDLock.getKeys(itemStack);
-        int[] newKeys = new int[keysToAdd.length + oldKeys.length];
-        System.arraycopy(oldKeys, 0, newKeys, 0, oldKeys.length);
-        System.arraycopy(keysToAdd, 0, newKeys, oldKeys.length, keysToAdd.length);
-        setKeys(itemStack, newKeys);
+        // Switching to TreeSet to auto sort and remove duplicates
+        TreeSet<Integer> s = new TreeSet<Integer>();
+        for (int id : keysToAdd) {
+            s.add(id);
+        }
+        for (int id : DDLock.getKeys(itemStack)) {
+            s.add(id);
+        }
+        Integer[] keyidArray = new Integer[s.size()];
+        s.toArray(keyidArray);
+
+        setKeys(itemStack, ArrayUtils.toPrimitive(keyidArray));
     }
 
     /**
      * sets the key/s to the given key/s
      *
-     * @return
-     * @return
      */
     public static void setKeys(ItemStack itemStack, int[] keys) {
         if (!itemStack.hasTagCompound()) {
@@ -143,10 +140,9 @@ public class DDLock {
     }
 
     protected static DDLock generateLockKeyPair(ItemStack itemStack, int lockKey2) {
+        // Add the keys first in case NBT tags haven't been setup yet.  Don't want to overwrite HasCreatedLock
+        DDLock.addKeys(itemStack, new int[]{lockKey2});
         itemStack.getTagCompound().setBoolean("HasCreatedLock", true);
-        DDLock.setKeys(itemStack, new int[]{lockKey2});
         return new DDLock(true, lockKey2);
-
     }
-
 }

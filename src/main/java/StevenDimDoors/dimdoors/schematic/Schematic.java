@@ -366,6 +366,9 @@ public class Schematic {
             if (tileTag.getString("id").equalsIgnoreCase("TileEntityDimDoor")) {
                 tileTag.setString("id", modid + "_DimDoor");
             }
+            if (tileTag.getString("id").equalsIgnoreCase("TileEntityRift")) {
+                tileTag.setString("id", modid + "_Rift");
+            }
 
             //Load the tile entity and put it in the world
             world.setTileEntity(dx, dy, dz, TileEntity.createAndLoadEntity(tileTag));

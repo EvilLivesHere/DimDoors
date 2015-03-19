@@ -19,7 +19,6 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
 
 /**
@@ -123,10 +122,10 @@ public class PacketManager implements IUpdateSource {
         return network.getPacketFrom(packet);
     }
 
-    public static void sendClientJoinPacket(EntityPlayerMP player) {
+    public static Packet createClientJoinPacket() {
         ClientJoinPacket p = new ClientJoinPacket();
         PocketManager.writePacket(p.getData());
-        network.sendTo(p, player);
+        return network.getPacketFrom(p);
     }
 
     private static void sendClientPacket(DDPacket packet, ClientData data) {
@@ -144,14 +143,14 @@ public class PacketManager implements IUpdateSource {
         if (cdw != null) {
             return cdw;
         }
-        throw new IllegalStateException("YOU ARE FUCKING STUPID - cdw");
+        throw new IllegalStateException("PacketManager: cdw has not been set!");
     }
 
     public IUpdateWatcher<ClientLinkData> getClientLinkWatcher() {
         if (clw != null) {
             return clw;
         }
-        throw new IllegalStateException("YOU ARE FUCKING STUPID - clw");
+        throw new IllegalStateException("PacketManager: clw has not been set!");
     }
 
     private static class DimWatcher implements IUpdateWatcher<ClientDimData> {

@@ -13,7 +13,7 @@ import org.poly2tri.triangulation.delaunay.DelaunayTriangle;
 
 public class LSystem {
 
-    public static ArrayList<PolygonStorage> curves = new ArrayList<>(0);
+    public static ArrayList<PolygonStorage> curves = new ArrayList<PolygonStorage>(0);
 
     /**
      * An array containing the args to generate a curve. index 0 = rules index 1 = angle index 2 = start string
@@ -33,7 +33,7 @@ public class LSystem {
     public static void generateLSystem(String key, String[] args, int steps) {
         //Parse the rules from the first index
         String[] rules = args[0].split(":");
-        HashMap<String, String> lSystemsRule = new HashMap<>();
+        HashMap<String, String> lSystemsRule = new HashMap<String, String>();
 
         for (String rule : rules) {
             String[] parts = rule.split(">");
@@ -74,13 +74,13 @@ public class LSystem {
         int minX = Integer.MAX_VALUE;
 
         // store confirmed duplicates here
-        HashSet<Point> duplicates = new HashSet<>(0);
+        HashSet<Point> duplicates = new HashSet<Point>(0);
 
         // store possible singles here
-        HashSet<Point> singles = new HashSet<>(0);
+        HashSet<Point> singles = new HashSet<Point>(0);
 
         // list to store confirmed singles and output in the correct order
-        ArrayList<Point> output = new ArrayList<>(0);
+        ArrayList<Point> output = new ArrayList<Point>(0);
 
         // sort into Hashmaps and hashsets to make contains operations possible,
         // while testing for duplicates
@@ -123,13 +123,13 @@ public class LSystem {
         int minX = Integer.MAX_VALUE;
 
         // store confirmed duplicates here
-        HashSet<Point> duplicates = new HashSet<>(0);
+        HashSet<Point> duplicates = new HashSet<Point>(0);
 
         // store possible singles here
-        HashSet<Point> singles = new HashSet<>(0);
+        HashSet<Point> singles = new HashSet<Point>(0);
 
         // list to store confirmed singles and output in the correct order
-        ArrayList<Point> output = new ArrayList<>(0);
+        ArrayList<Point> output = new ArrayList<Point>(0);
 
         // sort into Hashmaps and hashsets to make contains operations possible,
         // while testing for duplicates
@@ -266,10 +266,10 @@ public class LSystem {
         double[] currentState = {((generations + rotation) % 4) * 90, 0, 0};
 
         // the output for a totally unordered list of points defining the curve
-        ArrayList<double[]> output = new ArrayList<>(0);
+        ArrayList<double[]> output = new ArrayList<double[]>(0);
 
         // the stack used to deal with branching l-systems that use [ and ]
-        ArrayDeque<double[]> state = new ArrayDeque<>(0);
+        ArrayDeque<double[]> state = new ArrayDeque<double[]>(0);
 
         // perform the rules corresponding to each symbol in the l-system
         for (Character ch : system.toCharArray()) {
@@ -353,9 +353,9 @@ public class LSystem {
     }
 
     public static ArrayList<Point> tesselate(PolygonStorage polygon) {
-        ArrayList<Point> points = new ArrayList<>(0);
+        ArrayList<Point> points = new ArrayList<Point>(0);
 
-        ArrayList<PolygonPoint> polyPoints = new ArrayList<>(polygon.points.size());
+        ArrayList<PolygonPoint> polyPoints = new ArrayList<PolygonPoint>(polygon.points.size());
 
         for (Point point : polygon.points) {
             polyPoints.add(new PolygonPoint(point.x, point.y));

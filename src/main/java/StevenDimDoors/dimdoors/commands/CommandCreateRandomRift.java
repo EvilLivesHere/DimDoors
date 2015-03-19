@@ -84,7 +84,7 @@ public class CommandCreateRandomRift extends DDCommandBase {
         // Search for all dungeons that contain the lowercase query string.
         String dungeonName;
         String normalQuery = query.toLowerCase();
-        ArrayList<DungeonData> matches = new ArrayList<>(0);
+        ArrayList<DungeonData> matches = new ArrayList<DungeonData>(0);
 
         for (DungeonData dungeon : dungeons) {
             // We need to extract the file's name. Comparing against schematicPath could

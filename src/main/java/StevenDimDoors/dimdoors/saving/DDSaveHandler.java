@@ -58,7 +58,7 @@ public class DDSaveHandler {
 
         // Load the personal pockets mapping
         File personalPocketMap = new File(basePath + "personalPockets.txt");
-        HashMap<String, Integer> ppMap = new HashMap<>(0);
+        HashMap<String, Integer> ppMap = new HashMap<String, Integer>(0);
         if (personalPocketMap.exists()) {
             PersonalPocketMappingProcessor ppMappingProcessor = new PersonalPocketMappingProcessor();
             ppMap = readPersonalPocketsMapping(personalPocketMap, ppMappingProcessor);
@@ -66,7 +66,7 @@ public class DDSaveHandler {
 
         // List any dimension data files and read each dimension
         DimDataProcessor reader = new DimDataProcessor();
-        HashMap<Integer, PackedDimData> packedDims = new HashMap<>(0);
+        HashMap<Integer, PackedDimData> packedDims = new HashMap<Integer, PackedDimData>(0);
         FileFilter dataFileFilter = new FileFilters.RegexFileFilter("dim_-?\\d+\\.txt");
 
         File[] dataFiles = dataDirectory.listFiles(dataFileFilter);
@@ -79,7 +79,7 @@ public class DDSaveHandler {
 
         }
 
-        List<PackedLinkData> linksToUnpack = new ArrayList<>(0);
+        List<PackedLinkData> linksToUnpack = new ArrayList<PackedLinkData>(0);
         //get the grand list of all links to unpack
         for (PackedDimData packedDim : packedDims.values()) {
             linksToUnpack.addAll(packedDim.Links);
@@ -87,7 +87,7 @@ public class DDSaveHandler {
         unpackDimData(packedDims);
         unpackLinkData(linksToUnpack);
 
-        HashMap<String, NewDimData> personalPocketsMap = new HashMap<>(0);
+        HashMap<String, NewDimData> personalPocketsMap = new HashMap<String, NewDimData>(0);
         for (Entry<String, Integer> pair : ppMap.entrySet()) {
             personalPocketsMap.put(pair.getKey(), PocketManager.getDimensionData(pair.getValue()));
         }
@@ -103,7 +103,7 @@ public class DDSaveHandler {
      * @return
      */
     public static boolean unpackDimData(HashMap<Integer, PackedDimData> packedDims) {
-        LinkedList<Integer> dimsToRegister = new LinkedList<>();
+        LinkedList<Integer> dimsToRegister = new LinkedList<Integer>();
 
         for (PackedDimData packedDim : packedDims.values()) {
             //fix pockets without parents
@@ -133,7 +133,7 @@ public class DDSaveHandler {
      * @return
      */
     private static ArrayList<Integer> verifyChildren(PackedDimData packedDim, HashMap<Integer, PackedDimData> packedDims) {
-        ArrayList<Integer> children = new ArrayList<>(0);
+        ArrayList<Integer> children = new ArrayList<Integer>(0);
         children.addAll(packedDim.ChildIDs);
         boolean isMissing = false;
         for (Integer childID : packedDim.ChildIDs) {
@@ -157,7 +157,7 @@ public class DDSaveHandler {
      * @param packedDims
      */
     public static void verifyParents(PackedDimData packedDim, HashMap<Integer, PackedDimData> packedDims) {
-        ArrayList<Integer> fosterChildren = new ArrayList<>(0);
+        ArrayList<Integer> fosterChildren = new ArrayList<Integer>(0);
         fosterChildren.add(packedDim.ID);
         DimensionType type = DimensionType.getTypeFromIndex(packedDim.DimensionType);
         //fix pockets without parents
@@ -179,7 +179,7 @@ public class DDSaveHandler {
 
     public static boolean unpackLinkData(List<PackedLinkData> linksToUnpack) {
         Point3D fakePoint = new Point3D(-1, -1, -1);
-        List<PackedLinkData> unpackedLinks = new ArrayList<>(0);
+        List<PackedLinkData> unpackedLinks = new ArrayList<PackedLinkData>(0);
         /**
          * sort through the list, unpacking links that do not have parents.
          */
@@ -288,7 +288,7 @@ public class DDSaveHandler {
 
     private static boolean writePersonalPocketMap(HashMap<String, NewDimData> hashMap, String savePath) {
         try {
-            HashMap<String, Integer> ppMap = new HashMap<>(0);
+            HashMap<String, Integer> ppMap = new HashMap<String, Integer>(0);
 
             for (Entry<String, NewDimData> pair : hashMap.entrySet()) {
                 ppMap.put(pair.getKey(), pair.getValue().id());

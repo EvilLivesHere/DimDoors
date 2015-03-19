@@ -7,7 +7,6 @@ import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.schematic.BlockRotator;
 import StevenDimDoors.dimdoors.schematic.ChunkBlockSetter;
 import StevenDimDoors.dimdoors.schematic.CompoundFilter;
@@ -152,7 +151,7 @@ public class DungeonSchematic extends Schematic {
 
     private static Map<Short, Short> getAssignedToStandardIDMapping() {
         //If we ever need this broadly or support other mods, this should be moved to a separate class
-        TreeMap<Short, Short> mapping = new TreeMap<>();
+        TreeMap<Short, Short> mapping = new TreeMap<Short, Short>();
         mapping.put((short) Block.getIdFromBlock(DDBlocks.blockDimWall), STANDARD_FABRIC_OF_REALITY_ID);
         mapping.put((short) Block.getIdFromBlock(DDBlocks.blockDimWallPerm), STANDARD_ETERNAL_FABRIC_ID);
         mapping.put((short) Block.getIdFromBlock(DDBlocks.warpDoor), STANDARD_WARP_DOOR_ID);
@@ -225,6 +224,9 @@ public class DungeonSchematic extends Schematic {
             //Load the tile entity and put it in the world
             if (tileTag.getString("id").equalsIgnoreCase("TileEntityDimDoor")) {
                 tileTag.setString("id", modid + "_DimDoor");
+            }
+            if (tileTag.getString("id").equalsIgnoreCase("TileEntityRift")) {
+                tileTag.setString("id", modid + "_Rift");
             }
 
             world.setTileEntity(pocketPoint.getX(), pocketPoint.getY(), pocketPoint.getZ(), TileEntity.createAndLoadEntity(tileTag));

@@ -7,7 +7,6 @@ import StevenDimDoors.dimdoors.core.DimensionType;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.item.BaseItemDoor;
-import StevenDimDoors.dimdoors.item.ItemPersonalDoor;
 import StevenDimDoors.dimdoors.item.ItemWarpDoor;
 import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.util.Point4D;
@@ -65,9 +64,7 @@ public class GeneralEventHandler {
         World world = event.entity.worldObj;
         ItemStack stack = event.entityPlayer.inventory.getCurrentItem();
         if (stack != null) {
-            // We also need to check if we're using a personal door, since we get an amusing of being trapped in the dimension otherwise
-            if (stack.getItem() instanceof ItemWarpDoor
-                    || stack.getItem() instanceof ItemPersonalDoor) {
+            if (stack.getItem() instanceof ItemWarpDoor) {
                 NewDimData data = PocketManager.getDimensionData(world);
 
                 if (data.type() == DimensionType.PERSONAL) {
