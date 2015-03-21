@@ -456,14 +456,21 @@ public class PocketManager {
         }
         if (dimension.isPocketDimension() && !DimensionManager.isDimensionRegistered(dimension.id())) {
             // Im registering pocket dims here. I *think* we can assume that if
-            // its a pocket and we are
-            // registering its dim data, we also need to register it with forge.
+            // its a pocket and we are registering its dim data, we also need to register it with forge.
 
             // New packet stuff prevents this from always being true,
-            // unfortuantly. I send the dimdata to the client when they
-            // teleport.
+            // unfortuantly. I send the dimdata to the client when they teleport.
             // Steven
-            DimensionManager.registerDimension(dimensionID, DDProperties.instance().PocketProviderID);
+            int provider;
+            if (type == DimensionType.PERSONAL) {
+                provider = DDProperties.instance().PersonalPocketProviderID;
+            } else {
+                // This should never be Limbo, since it is spawned at server start and all dims are sent over to the client at connection.
+                // However, if we have more providers in the future, we will need to distinguish this somehow
+                provider = DDProperties.instance().PocketProviderID;
+            }
+
+            DimensionManager.registerDimension(dimensionID, provider);
         }
         return dimension;
     }

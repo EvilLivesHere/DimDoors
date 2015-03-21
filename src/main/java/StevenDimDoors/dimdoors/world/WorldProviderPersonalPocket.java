@@ -33,10 +33,8 @@ public class WorldProviderPersonalPocket extends WorldProviderPocket {
 
     @Override
     protected void generateLightBrightnessTable() {
-        float f = 0.0F;
         for (int i = 0; i <= 15; ++i) {
-            float f1 = 1.0F - (float) i / 15.0F;
-            this.lightBrightnessTable[i] = (15);
+            this.lightBrightnessTable[i] = 15;
         }
     }
 

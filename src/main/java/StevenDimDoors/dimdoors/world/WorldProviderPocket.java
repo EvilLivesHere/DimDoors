@@ -6,7 +6,6 @@ import StevenDimDoors.dimdoors.core.DimensionType;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.world.biome.DDBiomeGenBase;
 import StevenDimDoors.dimdoors.world.gen.ChunkProviderPocket;
-import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
@@ -79,19 +78,10 @@ public class WorldProviderPocket extends WorldProvider {
 
     @Override
     protected void generateLightBrightnessTable() {
-        try {
-            if (PocketManager.getDimensionData(this.dimensionId).type() == DimensionType.POCKET) {
-                super.generateLightBrightnessTable();
-                return;
-            }
-        } catch (NullPointerException e) {
-            // This occurs when the pocketManager doesn't have the dim data for the dim.  Which occurs when clients log in to a pocket dim
-            // Need a way to load dim player is in before this happens
-            FMLLog.warning("ERROR generating Brightness Table for dim " + this.dimensionId);
+        if (PocketManager.getDimensionData(this.dimensionId).type() == DimensionType.POCKET) {
             super.generateLightBrightnessTable();
             return;
         }
-        float modifier = 0.0F;
 
         for (int steps = 0; steps <= 15; ++steps) {
             float var3 = (float) (Math.pow(steps, 1.5) / Math.pow(15.0F, 1.5));
