@@ -1,5 +1,6 @@
 package StevenDimDoors.dimdoors;
 
+import cpw.mods.fml.common.FMLLog;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,8 +48,8 @@ public class DeathTracker {
             }
         } catch (FileNotFoundException e) {
         } catch (IOException e) {
-            System.err.println("An unexpected exception occurred while trying to read DeathTracker data:");
-            System.err.println(e.toString());
+            FMLLog.warning("An unexpected exception occurred while trying to read DeathTracker data:");
+            FMLLog.warning(e.toString());
         }
         usernameList.addAll(usernameSet);
     }
@@ -68,8 +69,8 @@ public class DeathTracker {
             }
             modified = false;
         } catch (FileNotFoundException e) {
-            System.err.println("An unexpected exception occurred while trying to read DeathTracker data:");
-            System.err.println(e.toString());
+            FMLLog.warning("An unexpected exception occurred while trying to read DeathTracker data:");
+            FMLLog.warning(e.toString());
         }
     }
 

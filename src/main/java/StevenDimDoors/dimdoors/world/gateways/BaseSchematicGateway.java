@@ -5,6 +5,7 @@ import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.dungeon.DungeonSchematic;
 import StevenDimDoors.dimdoors.schematic.InvalidSchematicException;
+import cpw.mods.fml.common.FMLLog;
 import net.minecraft.world.World;
 
 public abstract class BaseSchematicGateway extends BaseGateway {
@@ -21,7 +22,7 @@ public abstract class BaseSchematicGateway extends BaseGateway {
         try {
             schematic = DungeonSchematic.readFromResource(this.getSchematicPath());
         } catch (InvalidSchematicException e) {
-            System.err.println("Could not load the schematic for a gateway. The following exception occurred:");
+            FMLLog.warning("Could not load the schematic for a gateway. The following exception occurred:");
             e.printStackTrace();
             return false;
         }

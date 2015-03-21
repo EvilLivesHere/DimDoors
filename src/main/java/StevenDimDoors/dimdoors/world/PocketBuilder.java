@@ -19,6 +19,7 @@ import StevenDimDoors.dimdoors.item.ItemDimensionalDoor;
 import StevenDimDoors.dimdoors.schematic.BlockRotator;
 import StevenDimDoors.dimdoors.util.Pair;
 import StevenDimDoors.dimdoors.util.Point4D;
+import cpw.mods.fml.common.FMLLog;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -96,7 +97,7 @@ public class PocketBuilder {
         World world = PocketManager.loadDimension(dimension.id());
 
         if (world == null || world.provider == null) {
-            System.err.println("Could not initialize dimension for a dungeon!");
+            FMLLog.warning("Could not initialize dimension for a dungeon!");
             return false;
         }
 
@@ -115,7 +116,7 @@ public class PocketBuilder {
         NewDimData parent = PocketManager.getDimensionData(link.source().getDimension());
         Pair<DungeonData, DungeonSchematic> pair = selectNextDungeon(parent, random);
         if (pair == null) {
-            System.err.println("Could not select a dungeon for generation!");
+            FMLLog.warning("Could not select a dungeon for generation!");
             return false;
         }
         DungeonData dungeon = pair.getFirst();
@@ -128,7 +129,7 @@ public class PocketBuilder {
         World world = PocketManager.loadDimension(dimension.id());
 
         if (world == null || world.provider == null) {
-            System.err.println("Could not initialize dimension for a dungeon!");
+            FMLLog.warning("Could not initialize dimension for a dungeon!");
             return false;
         }
 
@@ -159,14 +160,14 @@ public class PocketBuilder {
         if (dungeon != null) {
             schematic = loadAndValidateDungeon(dungeon);
         } else {
-            System.err.println("Could not select a dungeon at all!");
+            FMLLog.warning("Could not select a dungeon at all!");
         }
 
         if (schematic == null) {
             //TODO: In the future, remove this dungeon from the generation lists altogether.
             //That will have to wait until our code is updated to support that more easily.
             try {
-                System.err.println("Loading the default error dungeon instead...");
+                FMLLog.warning("Loading the default error dungeon instead...");
                 dungeon = DungeonHelper.getDefaultErrorDungeon();
                 schematic = loadAndValidateDungeon(dungeon);
             } catch (Exception e) {
@@ -187,17 +188,17 @@ public class PocketBuilder {
 
                 //Check that the dungeon has an entrance or we'll have a crash
                 if (schematic.getEntranceDoorLocation() == null) {
-                    System.err.println("The following schematic file does not have an entrance: " + dungeon.schematicPath());
+                    FMLLog.warning("The following schematic file does not have an entrance: " + dungeon.schematicPath());
                     return null;
                 }
             } else {
-                System.err.println("The following schematic file has dimensions that exceed the maximum permitted dimensions for dungeons: " + dungeon.schematicPath());
+                FMLLog.warning("The following schematic file has dimensions that exceed the maximum permitted dimensions for dungeons: " + dungeon.schematicPath());
                 return null;
             }
             return schematic;
         } catch (Exception e) {
-            System.err.println("An error occurred while loading the following schematic: " + dungeon.schematicPath());
-            System.err.println(e.getMessage());
+            FMLLog.warning("An error occurred while loading the following schematic: " + dungeon.schematicPath());
+            FMLLog.warning(e.getMessage());
             return null;
         }
     }
@@ -233,7 +234,8 @@ public class PocketBuilder {
         if (link == null) {
             throw new IllegalArgumentException();
         }
-        if (link.hasDestination()) {
+        // Allow us to bypass this check for Personal Doors
+        if (link.hasDestination() && link.linkType() != LinkType.PERSONAL) {
             throw new IllegalArgumentException("link cannot have a destination assigned already.");
         }
 
@@ -284,7 +286,7 @@ public class PocketBuilder {
             World world = PocketManager.loadDimension(dimension.id());
 
             if (world == null || world.provider == null) {
-                System.err.println("Could not initialize dimension for a pocket!");
+                FMLLog.warning("Could not initialize dimension for a pocket!");
                 return false;
             }
 
@@ -303,7 +305,6 @@ public class PocketBuilder {
             //Finish up destination initialization
             dimension.initializePocket(source.getX(), destinationY, source.getZ(), orientation, link);
             dimension.setFilled(true);
-
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -323,7 +324,7 @@ public class PocketBuilder {
             World world = PocketManager.loadDimension(dimension.id());
 
             if (world == null || world.provider == null) {
-                System.err.println("Could not initialize dimension for a pocket!");
+                FMLLog.warning("Could not initialize dimension for a pocket!");
                 return false;
             }
 

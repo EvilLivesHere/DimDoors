@@ -262,7 +262,7 @@ public class PocketManager {
                         DimensionManager.registerDimension(dimension.id(), DDProperties.instance().PocketProviderID);
                     }
                 } catch (Exception e) {
-                    System.err.println("Could not register pocket dimension #" + dimension.id()
+                    FMLLog.bigWarning("Could not register pocket dimension #" + dimension.id()
                             + ". Probably caused by a version update/save data corruption/other mods.");
                     e.printStackTrace();
                 }
@@ -276,7 +276,7 @@ public class PocketManager {
                 try {
                     DimensionManager.unregisterDimension(dimension.id());
                 } catch (Exception e) {
-                    System.err.println("An unexpected error occurred while unregistering pocket dimension #" + dimension.id() + ":");
+                    FMLLog.warning("An unexpected error occurred while unregistering pocket dimension #" + dimension.id() + ":");
                     e.printStackTrace();
                 }
             }
@@ -285,7 +285,7 @@ public class PocketManager {
             try {
                 DimensionManager.unregisterDimension(dimID);
             } catch (Exception e) {
-                System.err.println("An unexpected error occurred while unregistering blacklisted dim #" + dimID + ":");
+                FMLLog.warning("An unexpected error occurred while unregistering blacklisted dim #" + dimID + ":");
                 e.printStackTrace();
             }
         }

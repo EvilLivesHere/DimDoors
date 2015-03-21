@@ -10,6 +10,7 @@ import StevenDimDoors.dimdoors.item.ItemRiftSignature;
 import StevenDimDoors.dimdoors.item.ItemStabilizedRiftSignature;
 import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.tileentities.TileEntityDimDoor;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
@@ -25,7 +26,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public abstract class BaseDimDoor extends DDBlockDoor implements IDimDoor, ITileEntityProvider {
@@ -134,61 +134,6 @@ public abstract class BaseDimDoor extends DDBlockDoor implements IDimDoor, ITile
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
-        this.setDoorRotation(this.func_150012_g(par1IBlockAccess, par2, par3, par4));
-    }
-
-    public void setDoorRotation(int par1) {
-        float var2 = 0.1875F;
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 2.0F, 1.0F);
-        int var3 = par1 & 3;
-        boolean var4 = (par1 & 4) != 0;
-        boolean var5 = (par1 & 16) != 0;
-
-        if (var3 == 0) {
-            if (var4) {
-                if (!var5) {
-                    this.setBlockBounds(0.001F, 0.0F, 0.0F, 1.0F, 1.0F, var2);
-                } else {
-                    this.setBlockBounds(0.001F, 0.0F, 1.0F - var2, 1.0F, 1.0F, 1.0F);
-                }
-            } else {
-                this.setBlockBounds(0.0F, 0.0F, 0.0F, var2, 1.0F, 1.0F);
-            }
-        } else if (var3 == 1) {
-            if (var4) {
-                if (!var5) {
-                    this.setBlockBounds(1.0F - var2, 0.0F, 0.001F, 1.0F, 1.0F, 1.0F);
-                } else {
-                    this.setBlockBounds(0.0F, 0.0F, 0.001F, var2, 1.0F, 1.0F);
-                }
-            } else {
-                this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, var2);
-            }
-        } else if (var3 == 2) {
-            if (var4) {
-                if (!var5) {
-                    this.setBlockBounds(0.0F, 0.0F, 1.0F - var2, .99F, 1.0F, 1.0F);
-                } else {
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, .99F, 1.0F, var2);
-                }
-            } else {
-                this.setBlockBounds(1.0F - var2, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-            }
-        } else if (var3 == 3) {
-            if (var4) {
-                if (!var5) {
-                    this.setBlockBounds(0.0F, 0.0F, 0.0F, var2, 1.0F, 0.99F);
-                } else {
-                    this.setBlockBounds(1.0F - var2, 0.0F, 0.0F, 1.0F, 1.0F, 0.99F);
-                }
-            } else {
-                this.setBlockBounds(0.0F, 0.0F, 1.0F - var2, 1.0F, 1.0F, 1.0F);
-            }
-        }
-    }
-
-    @Override
     public void onNeighborBlockChange(World world, int x, int y, int z, Block neighbor) {
         int metadata = world.getBlockMetadata(x, y, z);
         if (isUpperDoorBlock(metadata)) {
@@ -257,7 +202,7 @@ public abstract class BaseDimDoor extends DDBlockDoor implements IDimDoor, ITile
                     try {
                         DDTeleporter.traverseDimDoor(world, link, entity, this);
                     } catch (Exception e) {
-                        System.err.println("Something went wrong teleporting to a dimension:");
+                        FMLLog.warning("Something went wrong teleporting to a dimension:");
                         e.printStackTrace();
                     }
                 }
@@ -336,24 +281,8 @@ public abstract class BaseDimDoor extends DDBlockDoor implements IDimDoor, ITile
 
     @Override
     public TileEntity initDoorTE(World world, int x, int y, int z) {
-
         TileEntity te = this.createNewTileEntity(world, 0);
-        Block b = world.getBlock(x, y, z);
-
-        TileEntity t = world.getTileEntity(x, y, z);
-        if (t == null) {
-
-        } else {
-
-        }
         world.setTileEntity(x, y, z, te);
-        t = world.getTileEntity(x, y, z);
-        if (t == null) {
-
-        } else {
-
-        }
-
         return te;
     }
 

@@ -98,10 +98,10 @@ public class DungeonHelper {
             config.setName(name);
             return config;
         } catch (FileNotFoundException e) {
-            System.err.println("Could not find a dungeon pack config file: " + configPath);
+            FMLLog.warning("Could not find a dungeon pack config file: " + configPath);
         } catch (Exception e) // handles IOException and ConfigurationProcessingException
         {
-            System.err.println(e.getMessage());
+            FMLLog.warning(e.getMessage());
             if (e.getCause() != null) {
                 System.err.println(e.getCause());
             }
@@ -130,7 +130,7 @@ public class DungeonHelper {
             }
             DungeonPackConfig config = loadDungeonPackConfig(configPath, name, isInternal, reader);
             if (config == null) {
-                System.err.println("Could not load config file: " + configPath);
+                FMLLog.warning("Could not load config file: " + configPath);
                 return null;
             }
 
@@ -141,8 +141,8 @@ public class DungeonHelper {
         } else {
             //Show a warning that there is a naming conflict but keep going. People can use this to extend
             //our built-in packs with custom schematics without tampering with our mod's JAR file.
-            System.err.println("A dungeon pack has the same name as another pack that has already been loaded: " + directory);
-            System.err.println("We will try to load its schematics but will not check its config file.");
+            FMLLog.warning("A dungeon pack has the same name as another pack that has already been loaded: " + directory);
+            FMLLog.warning("We will try to load its schematics but will not check its config file.");
         }
 
         //Register the dungeons! ^_^
@@ -308,7 +308,7 @@ public class DungeonHelper {
                 registerDungeon(schematicFile.getPath(), RuinsPack, false, true);
             }
         } else {
-            System.err.println("Could not retrieve the list of schematics stored in the custom dungeons directory!");
+            FMLLog.warning("Could not retrieve the list of schematics stored in the custom dungeons directory!");
         }
         schematics = null; //Release memory
 
@@ -328,11 +328,11 @@ public class DungeonHelper {
 
                     registerDungeonPack(packDirectory.getAbsolutePath(), packFilePaths, false, true, reader);
                 } else {
-                    System.err.println("Could not retrieve the list of schematics in a dungeon pack: " + packDirectory.getPath());
+                    FMLLog.warning("Could not retrieve the list of schematics in a dungeon pack: " + packDirectory.getPath());
                 }
             }
         } else {
-            System.err.println("Could not retrieve the list of dungeon pack directories in the custom dungeons directory!");
+            FMLLog.warning("Could not retrieve the list of dungeon pack directories in the custom dungeons directory!");
         }
     }
 
@@ -435,7 +435,7 @@ public class DungeonHelper {
             //Pick the next dungeon
             selection = selectedPack.getNextDungeon(parent, random);
         } catch (Exception e) {
-            System.err.println("An exception occurred while selecting a dungeon:");
+            FMLLog.warning("An exception occurred while selecting a dungeon:");
             e.printStackTrace();
 
             if (!pack.isEmpty()) {

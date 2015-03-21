@@ -1,10 +1,5 @@
 package StevenDimDoors.dimdoors.saving;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.HashMap;
 import StevenDimDoors.dimdoors.core.DimensionType;
 import StevenDimDoors.dimdoors.util.BaseConfigurationProcessor;
 import StevenDimDoors.dimdoors.util.ConfigurationProcessingException;
@@ -15,6 +10,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import cpw.mods.fml.common.FMLLog;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.util.HashMap;
 
 public class DimDataProcessor extends BaseConfigurationProcessor<PackedDimData> {
 
@@ -139,7 +140,7 @@ public class DimDataProcessor extends BaseConfigurationProcessor<PackedDimData> 
             reader.close();
             in.close();
         } catch (IOException e) {
-            System.err.println("Could not load Json Save Data definitions");
+            FMLLog.warning("Could not load Json Save Data definitions");
             e.printStackTrace();
             throw new IllegalStateException("Could not load Json Save Data definitions");
         }

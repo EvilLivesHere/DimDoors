@@ -38,6 +38,7 @@ import StevenDimDoors.dimdoors.world.WorldProviderPocket;
 import StevenDimDoors.dimdoors.world.biome.DDBiomeGenBase;
 import StevenDimDoors.dimdoors.world.gateways.GatewayGenerator;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -255,8 +256,8 @@ public class mod_pocketDim {
         try {
             ChunkLoaderHelper.loadForcedChunkWorlds(event);
         } catch (Exception e) {
-            System.err.println("Failed to load chunk loaders for Dimensional Doors. The following error occurred:");
-            System.err.println(e.toString());
+            FMLLog.warning("Failed to load chunk loaders for Dimensional Doors. The following error occurred:");
+            FMLLog.warning(e.toString());
             e.printStackTrace();
         }
     }
