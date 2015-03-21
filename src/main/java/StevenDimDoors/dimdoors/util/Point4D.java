@@ -172,10 +172,10 @@ public final class Point4D implements Comparable<Point4D> {
     }
 
     public static Point4D read(ByteBuf stream) {
-                if (stream.readBoolean()) {
-                        return new Point4D(stream.readInt(), stream.readInt(), stream.readInt(), stream.readInt());
+        if (stream.readBoolean()) {
+            return new Point4D(stream.readInt(), stream.readInt(), stream.readInt(), stream.readInt());
         } else {
-                        return null;
+            return null;
         }
     }
 }

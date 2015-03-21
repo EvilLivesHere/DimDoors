@@ -6,7 +6,7 @@ import io.netty.buffer.Unpooled;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public abstract class DDPacket implements IMessage {
 

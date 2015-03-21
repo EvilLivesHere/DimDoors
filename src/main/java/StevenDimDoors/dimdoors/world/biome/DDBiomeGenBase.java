@@ -26,11 +26,11 @@ public class DDBiomeGenBase extends BiomeGenBase {
         // Crash Minecraft to avoid having people complain to us about strange things
         // that are really the result of silent biome ID conflicts.
 
-        CheckBiomeID(limboBiome, DDProperties.instance().PrefLimboBiomeID);
-        CheckBiomeID(pocketBiome, DDProperties.instance().PrefPocketBiomeID);
+        checkBiomeID(limboBiome, DDProperties.instance().LimboBiomeID);
+        checkBiomeID(pocketBiome, DDProperties.instance().PocketBiomeID);
     }
 
-    public static void CheckBiomeID(DDBiomeGenBase biome, Integer prefID) throws IllegalStateException {
+    public static void checkBiomeID(DDBiomeGenBase biome, Integer prefID) throws IllegalStateException {
         // First check if preferred ID are set and if we are using them and finally if that is what is in Biome array (or null)
         if (biome != null) {
             // Already created Biome, check ID
@@ -52,22 +52,21 @@ public class DDBiomeGenBase extends BiomeGenBase {
     }
 
     public static void initBiomes() {
-        int limboBiomeID;
-        if (DDProperties.instance().PrefLimboBiomeID != null) {
-            limboBiomeID = DDProperties.instance().PrefLimboBiomeID;
-        } else {
-            limboBiomeID = getNextFreeBiomeID();
+        if (DDProperties.instance().LimboBiomeID == null) {
+            int id = getNextFreeBiomeID();
+            DDProperties.instance().setInt(DDProperties.CATEGORY_BIOME, "Limbo Biome ID", id);
+            DDProperties.instance().LimboBiomeID = id;
         }
 
-        int pocketBiomeID;
-        if (DDProperties.instance().PrefLimboBiomeID != null) {
-            pocketBiomeID = DDProperties.instance().PrefPocketBiomeID;
-        } else {
-            pocketBiomeID = getNextFreeBiomeID();
+        if (DDProperties.instance().PocketBiomeID == null) {
+            int id = getNextFreeBiomeID();
+            DDProperties.instance().setInt(DDProperties.CATEGORY_BIOME, "Pocket Biome ID", id);
+            DDProperties.instance().PocketBiomeID = id;
         }
+
         checkBiomeIDs();
-        limboBiome = new BiomeGenLimbo(limboBiomeID);
-        pocketBiome = new BiomeGenPocket(pocketBiomeID);
+        limboBiome = new BiomeGenLimbo(DDProperties.instance().LimboBiomeID);
+        pocketBiome = new BiomeGenPocket(DDProperties.instance().PocketBiomeID);
     }
 
     private static final boolean[] takenBiomeIDs = new boolean[BiomeGenBase.getBiomeGenArray().length];

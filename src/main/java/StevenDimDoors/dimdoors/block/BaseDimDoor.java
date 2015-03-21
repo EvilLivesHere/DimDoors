@@ -1,5 +1,7 @@
 package StevenDimDoors.dimdoors.block;
 
+import static StevenDimDoors.dimdoors.Utilities.modAsset;
+import StevenDimDoors.dimdoors.block.base.DDBlockDoor;
 import StevenDimDoors.dimdoors.core.DDTeleporter;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.PocketManager;
@@ -12,7 +14,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoor;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -27,7 +28,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public abstract class BaseDimDoor extends BlockDoor implements IDimDoor, ITileEntityProvider {
+public abstract class BaseDimDoor extends DDBlockDoor implements IDimDoor, ITileEntityProvider {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,8 +37,8 @@ public abstract class BaseDimDoor extends BlockDoor implements IDimDoor, ITileEn
     @SideOnly(Side.CLIENT)
     protected IIcon[] lowerTextures;
 
-    public BaseDimDoor(Material material) {
-        super(material);
+    public BaseDimDoor(String name, Material m) {
+        super(name, m);
     }
 
     @Override
@@ -321,7 +322,7 @@ public abstract class BaseDimDoor extends BlockDoor implements IDimDoor, ITileEn
                 }
             }
         }
-        player.playSound(mod_pocketDim.modid + ":doorLocked", 1F, 1F);
+        player.playSound(modAsset("doorLocked"), 1F, 1F);
         return false;
     }
 
@@ -366,9 +367,5 @@ public abstract class BaseDimDoor extends BlockDoor implements IDimDoor, ITileEn
         if (world.getBlock(x, y, z) != oldBlock) {
             mod_pocketDim.riftRegenerator.scheduleFastRegeneration(x, y, z, world);
         }
-    }
-
-    @Override
-    public void init() {
     }
 }

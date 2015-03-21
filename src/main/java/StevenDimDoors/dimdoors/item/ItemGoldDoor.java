@@ -1,26 +1,19 @@
 package StevenDimDoors.dimdoors.item;
 
+import StevenDimDoors.dimdoors.item.base.DDItemDoor;
 import StevenDimDoors.dimdoors.block.DDBlocks;
-import StevenDimDoors.dimdoors.block.DDObject;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemGoldDoor extends ItemDoor implements DDObject {
-
-    private static final String name = "itemGoldDoor";
+public class ItemGoldDoor extends DDItemDoor {
 
     public ItemGoldDoor() {
-        super(Material.wood);
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
+        super("itemGoldDoor", Material.wood);
         this.setMaxStackSize(16);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
     }
 
     @Override
@@ -44,14 +37,5 @@ public class ItemGoldDoor extends ItemDoor implements DDObject {
                 return false;
             }
         }
-    }
-
-    @Override
-    public void init() {
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

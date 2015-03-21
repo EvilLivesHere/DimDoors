@@ -1,5 +1,6 @@
 package StevenDimDoors.dimdoors.item;
 
+import static StevenDimDoors.dimdoors.Utilities.modAsset;
 import StevenDimDoors.dimdoors.block.DDBlocks;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.LinkType;
@@ -19,12 +20,8 @@ import net.minecraftforge.common.DimensionManager;
 
 public class ItemStabilizedRiftSignature extends ItemRiftSignature {
 
-    private static final String name = "itemStabilizedRiftSig";
-
     public ItemStabilizedRiftSignature() {
-        super();
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
+        super("itemStabilizedRiftSig");
     }
 
     @Override
@@ -91,12 +88,12 @@ public class ItemStabilizedRiftSignature extends ItemRiftSignature {
             } else {
                 mod_pocketDim.sendChat(player, "Error Creating Rift");
             }
-            world.playSoundAtEntity(player, mod_pocketDim.modid + ":riftEnd", 0.6f, 1);
+            world.playSoundAtEntity(player, modAsset("riftEnd"), 0.6f, 1);
         } else {
             // The link signature has not been used. Store its current target as the first location.
             setSource(stack, x, adjustedY, z, orientation, PocketManager.createDimensionData(world));
             mod_pocketDim.sendChat(player, "Location Stored in Stabilized Rift Signature");
-            world.playSoundAtEntity(player, mod_pocketDim.modid + ":riftStart", 0.6f, 1);
+            world.playSoundAtEntity(player, modAsset("riftStart"), 0.6f, 1);
         }
         return true;
     }
@@ -135,7 +132,7 @@ public class ItemStabilizedRiftSignature extends ItemRiftSignature {
                 DDBlocks.blockRift.tryPlacingRift(sourceWorld, source.getX(), source.getY(), source.getZ());
 
                 // This call doesn't seem to be working...
-                world.playSoundEffect(x + 0.5, adjustedY + 0.5, z + 0.5, mod_pocketDim.modid + ":riftEnd", 0.6f, 1);
+                world.playSoundEffect(x + 0.5, adjustedY + 0.5, z + 0.5, modAsset("riftEnd"), 0.6f, 1);
                 return true;
             }
         }
@@ -157,10 +154,5 @@ public class ItemStabilizedRiftSignature extends ItemRiftSignature {
             par3List.add("other clicks create rifts linking");
             par3List.add("the first and last locations together.");
         }
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

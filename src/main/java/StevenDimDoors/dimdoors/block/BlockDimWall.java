@@ -1,7 +1,7 @@
 package StevenDimDoors.dimdoors.block;
 
+import StevenDimDoors.dimdoors.block.base.DDBlock;
 import StevenDimDoors.dimdoors.client.renderer.PrivatePocketRender;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
@@ -19,21 +19,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockDimWall extends Block implements DDObject {
+public class BlockDimWall extends DDBlock {
 
     private static final float SUPER_HIGH_HARDNESS = 10000000000000F;
     private static final float SUPER_EXPLOSION_RESISTANCE = 18000000F;
-    private static final String name = "blockDimWall";
     public static final String[] types = new String[]{"", "Perm", "Personal"};
     private final IIcon[] blockIcons = new IIcon[types.length];
 
     public BlockDimWall() {
-        super(Material.iron);
+        super("blockDimWall", Material.iron);
         setLightLevel(1.0F);
         setHardness(0.1F);
-        setBlockName(mod_pocketDim.modid + "_" + name);
-        setBlockTextureName(mod_pocketDim.modid + ":" + name);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
     }
 
     @Override
@@ -133,14 +129,5 @@ public class BlockDimWall extends Block implements DDObject {
             }
         }
         return false;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void init() {
     }
 }

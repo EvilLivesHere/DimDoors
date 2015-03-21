@@ -1,26 +1,21 @@
 package StevenDimDoors.dimdoors.block;
 
+import StevenDimDoors.dimdoors.block.material.GoldMaterial;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.item.DDItems;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.tileentities.TileEntityDimDoorGold;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class BlockGoldDimDoor extends BaseDimDoor {
 
-    private static final String name = "dimDoorGold";
-
     public BlockGoldDimDoor() {
-        super(Material.iron);
+        super("dimDoorGold", GoldMaterial.gold);
         setHardness(1.0F);
-        setBlockName(mod_pocketDim.modid + "_" + name);
-        setBlockTextureName(mod_pocketDim.modid + ":" + name);
     }
 
     @Override
@@ -48,10 +43,4 @@ public class BlockGoldDimDoor extends BaseDimDoor {
     public TileEntity createNewTileEntity(World world, int i) {
         return new TileEntityDimDoorGold();
     }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
 }

@@ -28,8 +28,9 @@ item.dimdoors_itemWorldThread.name=World Thread
 item.dimdoors_itemDDKey.name=Rift Key
 item.dimdoors_itemQuartzDoor.name=Quartz Door
 item.dimdoors_itemQuartzDimDoor.name=Personal Dimensional Door
+item.dimdoors_itemRiftGoggles.name=Rift Goggles
 
-entity.dimdoors.Monolith.name=Monolith
+entity.dimdoors_Monolith.name=Monolith
 
 itemGroup.dimdoors_CreativeTab=Dimensional Doors
 

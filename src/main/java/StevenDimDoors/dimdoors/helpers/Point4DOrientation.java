@@ -4,7 +4,7 @@ import StevenDimDoors.dimdoors.util.Point4D;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class Point4DOrientation {
 

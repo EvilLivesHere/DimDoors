@@ -1,5 +1,6 @@
 package StevenDimDoors.dimdoors.eventhandlers;
 
+import static StevenDimDoors.dimdoors.Utilities.getLimboBG;
 import StevenDimDoors.dimdoors.config.DDProperties;
 import StevenDimDoors.dimdoors.core.DDTeleporter;
 import StevenDimDoors.dimdoors.core.DimLink;
@@ -19,6 +20,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +30,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.client.event.sound.PlayBackgroundMusicEvent;
+import net.minecraftforge.client.event.sound.PlaySoundEvent17;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -37,7 +39,7 @@ import net.minecraftforge.event.world.WorldEvent;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class GeneralEventHandler {
 
@@ -48,10 +50,15 @@ public class GeneralEventHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onSoundEffectResult(PlayBackgroundMusicEvent event) {
-        System.out.println("onSoundEffectResult: Start");
-        if (FMLClientHandler.instance().getClient().thePlayer.worldObj.provider.dimensionId == DDProperties.instance().LimboDimensionID) {
-            this.playMusicForDim(FMLClientHandler.instance().getClient().thePlayer.worldObj);
+    public void onBackgroundMusicPlay(PlaySoundEvent17 event) {
+        // Changing the music here causes some interesting effects occasionally with overlapping copies playing.  Wasn't intentional, but I like it
+        if (event.category == SoundCategory.MUSIC && event.sound != getLimboBG()) {
+            if (FMLClientHandler.instance().getClient().thePlayer != null) { // Are we in a game
+                if (FMLClientHandler.instance().getClient().thePlayer.worldObj.provider.dimensionId == DDProperties.instance().LimboDimensionID) {
+                    // We're in Limbo, replace the background music
+                    event.result = getLimboBG();
+                }
+            }
         }
     }
 
@@ -89,14 +96,6 @@ public class GeneralEventHandler {
         // generate before PocketManager has initialized, we get a crash.
         if (!PocketManager.isLoaded() && !event.world.isRemote) {
             PocketManager.load();
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void onWorldLoadClient(WorldEvent.Load event) {
-        if (event.world != null) {
-            this.playMusicForDim(event.world);
         }
     }
 
@@ -182,26 +181,6 @@ public class GeneralEventHandler {
             NewDimData dimension = PocketManager.createDimensionData(chunk.worldObj);
             for (DimLink link : dimension.getChunkLinks(chunk.xPosition, chunk.zPosition)) {
                 mod_pocketDim.riftRegenerator.scheduleSlowRegeneration(link);
-            }
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void playMusicForDim(World world) {
-        if (world.isRemote) {
-            SoundHandler sndManager = FMLClientHandler.instance().getClient().getSoundHandler();
-
-            // SenseiKiwi: I've added the following check as a quick fix for a
-            // reported crash. This needs to work without a hitch or we have to
-            // stop trying to replace the background music...
-            if (sndManager != null) {
-                ISound limboBG = PositionedSoundRecord.func_147673_a(new ResourceLocation(mod_pocketDim.modid, "creepy"));
-                if (world.provider instanceof WorldProviderLimbo) {
-                    sndManager.stopSound(PositionedSoundRecord.func_147673_a(new ResourceLocation(null, "BgMusic")));
-                    sndManager.playSound(limboBG);
-                } else {
-                    sndManager.stopSound(limboBG);
-                }
             }
         }
     }

@@ -1,6 +1,5 @@
 package StevenDimDoors.dimdoors.helpers;
 
-import StevenDimDoors.experimental.BoundingBox;
 import StevenDimDoors.dimdoors.IChunkLoader;
 import StevenDimDoors.dimdoors.Point3D;
 import StevenDimDoors.dimdoors.block.DDBlocks;
@@ -8,6 +7,7 @@ import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.world.PocketBuilder;
+import StevenDimDoors.experimental.BoundingBox;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import java.io.File;
 import java.util.List;

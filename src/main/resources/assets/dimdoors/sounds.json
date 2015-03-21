@@ -1,90 +1,90 @@
 {
     "crack": {
-        "category": "master",
+        "category": "hostile",
         "sounds": [{
                 "name": "crack",
                 "stream": false
             }]
     },
     "creepy": {
-        "category": "master",
+        "category": "music",
         "sounds": [{
                 "name": "creepy",
                 "stream": true
             }]
     },
     "doorLockRemoved": {
-        "category": "master",
+        "category": "block",
         "sounds": [{
                 "name": "doorLockRemoved",
                 "stream": false
             }]
     },
     "doorLocked": {
-        "category": "master",
+        "category": "block",
         "sounds": [{
                 "name": "doorLocked",
                 "stream": false
             }]
     },
     "keyLock": {
-        "category": "master",
+        "category": "block",
         "sounds": [{
                 "name": "keyLock",
                 "stream": false
             }]
     },
     "keyUnlock": {
-        "category": "master",
+        "category": "block",
         "sounds": [{
                 "name": "keyUnlock",
                 "stream": false
             }]
     },
     "monk": {
-        "category": "master",
+        "category": "neutral",
         "sounds": [{
                 "name": "monk",
                 "stream": true
             }]
     },
     "rift": {
-        "category": "master",
+        "category": "block",
         "sounds": [{
                 "name": "rift",
                 "stream": false
             }]
     },
     "riftClose": {
-        "category": "master",
+        "category": "block",
         "sounds": [{
                 "name": "riftClose",
                 "stream": false
             }]
     },
     "riftDoor": {
-        "category": "master",
+        "category": "block",
         "sounds": [{
                 "name": "riftDoor",
                 "stream": false
             }]
     },
     "riftEnd": {
-        "category": "master",
+        "category": "block",
         "sounds": [{
                 "name": "riftEnd",
                 "stream": false
             }]
     },
     "riftStart": {
-        "category": "master",
+        "category": "block",
         "sounds": [{
                 "name": "riftStart",
                 "stream": false
             }]
     },
     "tearing": {
-        "category": "master",
+        "category": "hostile",
         "sounds": [{
                 "name": "tearing",
                 "stream": false

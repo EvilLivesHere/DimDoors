@@ -1,26 +1,11 @@
 package StevenDimDoors.dimdoors.item;
 
-import StevenDimDoors.dimdoors.block.DDObject;
-import StevenDimDoors.dimdoors.mod_pocketDim;
-import net.minecraft.item.Item;
+import StevenDimDoors.dimdoors.item.base.DDItem;
 
-public class ItemWorldThread extends Item implements DDObject {
-
-    private static final String name = "itemWorldThread";
+public class ItemWorldThread extends DDItem {
 
     public ItemWorldThread() {
-        super();
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void init() {
+        super("itemWorldThread");
+        setMaxStackSize(64);
     }
 }

@@ -6,7 +6,7 @@ import net.minecraftforge.event.terraingen.InitMapGenEvent;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class TerrainGenHandler {
 

@@ -12,7 +12,7 @@ import StevenDimDoors.dimdoors.commands.CommandTeleportPlayer;
 import StevenDimDoors.dimdoors.config.DDProperties;
 import StevenDimDoors.dimdoors.config.DDWorldProperties;
 import StevenDimDoors.dimdoors.core.PocketManager;
-import StevenDimDoors.dimdoors.entity.MobMonolith;
+import StevenDimDoors.dimdoors.entity.DDEntityList;
 import StevenDimDoors.dimdoors.eventhandlers.CraftingHandler;
 import StevenDimDoors.dimdoors.eventhandlers.FMLEventHandler;
 import StevenDimDoors.dimdoors.eventhandlers.GeneralEventHandler;
@@ -48,12 +48,9 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerAboutToStartEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import java.io.File;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityList.EntityEggInfo;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.ChatComponentText;
@@ -111,9 +108,8 @@ public class mod_pocketDim {
 
     @EventHandler
     public void onPreInitialization(FMLPreInitializationEvent event) {
-        String configPath = event.getSuggestedConfigurationFile().getAbsolutePath().replace(modid, "DimDoors");
         // Initialize DDProperties from File.  Create if missing and fill in missing required sections
-        DDProperties.initialize(new File(configPath));
+        DDProperties.initialize(new File(event.getSuggestedConfigurationFile().getAbsolutePath().replace(modid, "DimDoors")));
     }
 
     @EventHandler
@@ -137,10 +133,8 @@ public class mod_pocketDim {
 
         DimensionManager.registerDimension(DDProperties.instance().LimboDimensionID, DDProperties.instance().LimboProviderID);
 
-        // Register the Monolith and its egg
-        EntityRegistry.registerModEntity(MobMonolith.class, "Monolith", DDProperties.instance().MonolithEntityID, this, 70, 1, true);
-        EntityList.IDtoClassMapping.put(DDProperties.instance().MonolithEntityID, MobMonolith.class);
-        EntityList.entityEggs.put(DDProperties.instance().MonolithEntityID, new EntityEggInfo(DDProperties.instance().MonolithEntityID, 0, 0xffffff));
+        // Register the Entities
+        DDEntityList.initEntities();
 
         // Register Recipes and Dispenser Behaviors
         CraftingHandler.registerRecipes();
@@ -189,8 +183,9 @@ public class mod_pocketDim {
 
     @EventHandler
     public void onPostInitialization(FMLPostInitializationEvent event) {
-        // Re-check Biome IDs in case other mods have registered over our biomes
+        // Re-check Biome and Entity IDs in case other mods have registered over our objects
         DDBiomeGenBase.checkBiomeIDs();
+        DDEntityList.checkEntityIDs();
 
         // Set our chunkloaderHelper for loading Golden Dimensional Door Pockets
         ForgeChunkManager.setForcedChunkLoadingCallback(instance, new ChunkLoaderHelper());

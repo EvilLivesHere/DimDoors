@@ -1,12 +1,12 @@
 package StevenDimDoors.dimdoors.block;
 
+import StevenDimDoors.dimdoors.block.base.DDBlock;
 import StevenDimDoors.dimdoors.config.DDProperties;
 import StevenDimDoors.dimdoors.core.DDTeleporter;
 import StevenDimDoors.dimdoors.helpers.yCoordHelper;
 import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.util.Point4D;
 import java.util.Random;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,19 +15,15 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
-public class BlockDimWallPerm extends Block implements DDObject {
+public class BlockDimWallPerm extends DDBlock {
 
     private static final Random random = new Random();
-    private static final String name = "blockDimWallPerm";
 
     public BlockDimWallPerm() {
-        super(Material.ground);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
+        super("blockDimWallPerm", Material.ground);
         setLightLevel(1.0F);
         setBlockUnbreakable();
         setResistance(6000000.0F);
-        setBlockName(mod_pocketDim.modid + "_" + name);
-        setBlockTextureName(mod_pocketDim.modid + ":" + name);
     }
 
     @Override
@@ -84,14 +80,5 @@ public class BlockDimWallPerm extends Block implements DDObject {
                 player.fallDistance = 0;
             }
         }
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void init() {
     }
 }

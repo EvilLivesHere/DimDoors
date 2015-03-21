@@ -13,7 +13,7 @@ import net.minecraft.client.resources.I18n;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class DDGuiFactory implements IModGuiFactory {
 

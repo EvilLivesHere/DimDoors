@@ -4,7 +4,7 @@ import io.netty.buffer.ByteBuf;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public interface ClientData {
 

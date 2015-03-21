@@ -1,16 +1,17 @@
 package StevenDimDoors.dimdoors.client.renderer;
 
+import static StevenDimDoors.dimdoors.Utilities.getResourceLocation;
 import net.minecraft.util.ResourceLocation;
 
 public class PocketSkyProvider extends DDSkyRenderer {
 
     @Override
     public ResourceLocation getMoonRenderPath() {
-        return new ResourceLocation("DimDoors:textures/other/limboMoon.png");
+        return getResourceLocation("textures/other/limboMoon.png");
     }
 
     @Override
     public ResourceLocation getSunRenderPath() {
-        return new ResourceLocation("DimDoors:textures/other/limboSun.png");
+        return getResourceLocation("textures/other/limboSun.png");
     }
 }

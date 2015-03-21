@@ -5,7 +5,6 @@ import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.item.DDItems;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -13,14 +12,10 @@ import net.minecraft.world.World;
 
 public class DimensionalDoor extends BaseDimDoor {
 
-    private static final String name = "dimDoor";
-
     public DimensionalDoor() {
-        super(Material.iron);
+        super("dimDoor", Material.iron);
         setHardness(1.0F);
         setResistance(2000.0F);
-        setBlockName(mod_pocketDim.modid + "_" + name);
-        setBlockTextureName(mod_pocketDim.modid + ":" + name);
     }
 
     @Override
@@ -42,10 +37,5 @@ public class DimensionalDoor extends BaseDimDoor {
     @Override
     public Item getDrops() {
         return Items.iron_door;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

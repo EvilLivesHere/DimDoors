@@ -6,7 +6,7 @@ import net.minecraft.item.ItemDoor;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public final class DDItems {
 
@@ -24,6 +24,7 @@ public final class DDItems {
     public static final ItemQuartzDoor itemQuartzDoor = new ItemQuartzDoor();
     public static final ItemPersonalDoor itemPersonalDoor = new ItemPersonalDoor(itemQuartzDoor);
     public static final ItemStabilizedRiftSignature itemStabilizedRiftSignature = new ItemStabilizedRiftSignature();
+    public static final ItemRiftGoggles itemRiftGoggles = new ItemRiftGoggles();
 
     static {
         GameRegistry.registerItem(itemDDKey, itemDDKey.getName());
@@ -40,6 +41,7 @@ public final class DDItems {
         GameRegistry.registerItem(itemRiftBlade, itemRiftBlade.getName());
         GameRegistry.registerItem(itemStabilizedRiftSignature, itemStabilizedRiftSignature.getName());
         GameRegistry.registerItem(itemWorldThread, itemWorldThread.getName());
+        GameRegistry.registerItem(itemRiftGoggles, itemRiftGoggles.getName());
     }
 
     public static void init() {
@@ -57,6 +59,7 @@ public final class DDItems {
         itemQuartzDoor.init();
         itemPersonalDoor.init();
         itemStabilizedRiftSignature.init();
+        itemRiftGoggles.init();
     }
 
     private DDItems() {

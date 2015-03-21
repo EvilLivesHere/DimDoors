@@ -5,7 +5,7 @@ import net.minecraft.block.material.MaterialTransparent;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class RiftMaterial extends MaterialTransparent {
 

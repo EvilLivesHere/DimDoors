@@ -1,5 +1,6 @@
 package StevenDimDoors.dimdoors.client.renderer.tileentity;
 
+import static StevenDimDoors.dimdoors.Utilities.getResourceLocation;
 import StevenDimDoors.dimdoors.block.TransTrapdoor;
 import StevenDimDoors.dimdoors.config.DDProperties;
 import StevenDimDoors.dimdoors.mod_pocketDim;
@@ -20,8 +21,8 @@ import org.lwjgl.opengl.GL11;
 public class RenderTransTrapdoor extends TileEntitySpecialRenderer {
 
     private FloatBuffer field_76908_a = GLAllocation.createDirectFloatBuffer(16);
-    private ResourceLocation riftPath = new ResourceLocation(mod_pocketDim.modid + ":textures/other/RIFT.png");
-    private ResourceLocation warpPath = new ResourceLocation(mod_pocketDim.modid + ":textures/other/WARP.png");
+    private ResourceLocation riftPath = getResourceLocation("textures/other/RIFT.png");
+    private ResourceLocation warpPath = getResourceLocation("textures/other/WARP.png");
 
     public RenderTransTrapdoor() {
     }

@@ -1,8 +1,9 @@
 package StevenDimDoors.dimdoors.item;
 
+import StevenDimDoors.dimdoors.item.base.DDItem;
+import static StevenDimDoors.dimdoors.Utilities.modAsset;
 import StevenDimDoors.dimdoors.block.BaseDimDoor;
 import StevenDimDoors.dimdoors.block.DDBlocks;
-import StevenDimDoors.dimdoors.block.DDObject;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.NewDimData;
@@ -14,25 +15,22 @@ import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 
-public class ItemRiftSignature extends Item implements DDObject {
-
-    private static final String name = "itemLinkSignature";
+public class ItemRiftSignature extends DDItem {
 
     public ItemRiftSignature() {
-        super();
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
-        this.setMaxStackSize(1);
+        this("itemLinkSignature");
+    }
+
+    public ItemRiftSignature(String name) {
+        super(name);
         this.setMaxDamage(0);
         this.hasSubtypes = true;
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
     }
 
     @SideOnly(Side.CLIENT)
@@ -87,12 +85,12 @@ public class ItemRiftSignature extends Item implements DDObject {
             }
             clearSource(stack);
             mod_pocketDim.sendChat(player, "Rift Created");
-            world.playSoundAtEntity(player, mod_pocketDim.modid + ":riftEnd", 0.6f, 1);
+            world.playSoundAtEntity(player, modAsset("riftEnd"), 0.6f, 1);
         } else {
             //The link signature has not been used. Store its current target as the first location.
             setSource(stack, x, adjustedY, z, orientation, PocketManager.createDimensionData(world));
             mod_pocketDim.sendChat(player, ("Location Stored in Rift Signature"));
-            world.playSoundAtEntity(player, mod_pocketDim.modid + ":riftStart", 0.6f, 1);
+            world.playSoundAtEntity(player, modAsset("riftStart"), 0.6f, 1);
         }
         return true;
     }
@@ -184,14 +182,5 @@ public class ItemRiftSignature extends Item implements DDObject {
             itemStack.setItemDamage(0);
         }
         return null;
-    }
-
-    @Override
-    public void init() {
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

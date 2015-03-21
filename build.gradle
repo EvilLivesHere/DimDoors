@@ -17,9 +17,9 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "2.2.5-" + System.getenv("BUILD_NUMBER")
-group = "com.stevenrs11.dimdoors" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "DimensionalDoors"
+version = "2.2.5." + System.getenv("BUILD_NUMBER")
+group = "StevenDimDoors.dimdoors" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "DimensionalDoors-1.7.10"
 
 minecraft {
     version = "1.7.10-10.13.2.1291"
@@ -53,5 +53,5 @@ processResources
 
 jar
 {
-    destinationDir = new File("build/dist/")
+    destinationDir = new File(project.getBuildDir().toString()+"/dist/")
 }

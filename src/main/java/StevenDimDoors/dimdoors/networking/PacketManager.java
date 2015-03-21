@@ -23,7 +23,7 @@ import net.minecraft.network.Packet;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class PacketManager implements IUpdateSource {
 

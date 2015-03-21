@@ -1,9 +1,9 @@
 package StevenDimDoors.dimdoors.item;
 
+import static StevenDimDoors.dimdoors.Utilities.modAsset;
 import StevenDimDoors.dimdoors.block.DDBlocks;
-import StevenDimDoors.dimdoors.block.DDObject;
 import StevenDimDoors.dimdoors.core.PocketManager;
-import StevenDimDoors.dimdoors.mod_pocketDim;
+import StevenDimDoors.dimdoors.item.base.DDItemSword;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
@@ -14,27 +14,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public class ItemRiftBlade extends ItemSword implements DDObject {
-
-    private static final String name = "ItemRiftBlade";
+public class ItemRiftBlade extends DDItemSword {
 
     public ItemRiftBlade() {
-        super(ToolMaterial.EMERALD);
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
+        super("ItemRiftBlade", ToolMaterial.EMERALD);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack) {
+    public boolean hasEffect(ItemStack stack, int renderPass) {
         return true;
     }
 
@@ -121,7 +115,7 @@ public class ItemRiftBlade extends ItemSword implements DDObject {
                             if (BaseItemDoor.canPlace(world, x, y, z)
                                     && BaseItemDoor.canPlace(world, x, y - 1, z)) {
                                 ItemDimensionalDoor.placeDoorBlock(world, x, y - 1, z, orientation, DDBlocks.transientDoor);
-                                player.worldObj.playSoundAtEntity(player, mod_pocketDim.modid + ":riftDoor", 0.6f, 1);
+                                player.worldObj.playSoundAtEntity(player, modAsset("riftDoor"), 0.6f, 1);
                                 stack.damageItem(3, player);
                                 return stack;
                             }
@@ -154,13 +148,5 @@ public class ItemRiftBlade extends ItemSword implements DDObject {
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
         par3List.add("Opens temporary doors on rifts");
         par3List.add("and has a teleport attack.");
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void init() {
     }
 }

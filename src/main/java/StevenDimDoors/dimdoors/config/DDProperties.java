@@ -6,20 +6,20 @@ import StevenDimDoors.dimdoors.world.fortresses.DDStructureNetherBridgeStart;
 import StevenDimDoors.dimdoors.world.gateways.GatewayGenerator;
 import java.io.File;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class DDProperties {
 
     /**
-     * Other IDs
+     * IDs
      */
-    public final Integer PrefLimboBiomeID;
-    public final Integer PrefPocketBiomeID;
+    public Integer LimboBiomeID;
+    public Integer PocketBiomeID;
+    public Integer MonolithEntityID;
     public final int LimboDimensionID;
     public final int LimboProviderID;
     public final int PocketProviderID;
     public final int PersonalPocketProviderID;
-    public final int DoorRenderEntityID;
-    public final int MonolithEntityID;
 
     /**
      * Crafting Flags
@@ -75,23 +75,25 @@ public class DDProperties {
 
     //Singleton instance
     private static DDProperties instance = null;
+
+    private final Configuration config;
     //Path for custom dungeons within configuration directory
     private static final String CUSTOM_SCHEMATIC_SUBDIRECTORY = "/DimDoors_Custom_schematics";
 
     //Names of categories
-    private static final String CATEGORY_CRAFTING = "crafting";
-    private static final String CATEGORY_ENTITY = "entity";
-    private static final String CATEGORY_DIMENSION = "dimension";
-    private static final String CATEGORY_PROVIDER = "provider";
-    private static final String CATEGORY_BIOME = "biome";
-    private static final String CATEGORY_LOOT = "loot";
+    public static final String CATEGORY_CRAFTING = "crafting";
+    public static final String CATEGORY_ENTITY = "entity";
+    public static final String CATEGORY_DIMENSION = "dimension";
+    public static final String CATEGORY_PROVIDER = "provider";
+    public static final String CATEGORY_BIOME = "biome";
+    public static final String CATEGORY_LOOT = "loot";
 
     private DDProperties(File configFile) {
         //Load the configuration. This must be done in the constructor, even though I'd rather have a separate
         //function, because "blank final" variables must be initialized within the constructor.
 
         CustomSchematicDirectory = configFile.getParent() + CUSTOM_SCHEMATIC_SUBDIRECTORY;
-        Configuration config = new Configuration(configFile);
+        config = new Configuration(configFile);
         config.load();
 
         CraftingDimensionalDoorAllowed = config.get(CATEGORY_CRAFTING, "Allow Crafting Dimensional Door", true).getBoolean(true);
@@ -141,8 +143,7 @@ public class DDProperties {
                 "Weighs the chance that a block will not be TNT. Must be greater than or equal to 0. "
                 + "EXPLOSIONS must be set to true for this to have any effect.").getInt();
 
-        DoorRenderEntityID = config.get(CATEGORY_ENTITY, "Door Render Entity ID", 89).getInt();
-        MonolithEntityID = config.get(CATEGORY_ENTITY, "Monolith Entity ID", 125).getInt();
+        MonolithEntityID = getInt(config, CATEGORY_ENTITY, "Monolith Entity ID");
 
         LimboDimensionID = config.get(CATEGORY_DIMENSION, "Limbo Dimension ID", -23).getInt();
         PocketProviderID = config.get(CATEGORY_PROVIDER, "Pocket Provider ID", 124).getInt();
@@ -172,8 +173,8 @@ public class DDProperties {
                 "Sets the chance (out of " + BlockRift.MAX_WORLD_THREAD_DROP_CHANCE + ") that a rift will "
                 + "drop World Thread when it destroys a block. The default chance is 50.").getInt();
 
-        PrefLimboBiomeID = getInt(config, CATEGORY_BIOME, "Limbo Biome ID");
-        PrefPocketBiomeID = getInt(config, CATEGORY_BIOME, "Pocket Biome ID");
+        LimboBiomeID = getInt(config, CATEGORY_BIOME, "Limbo Biome ID");
+        PocketBiomeID = getInt(config, CATEGORY_BIOME, "Pocket Biome ID");
 
         config.save();
     }
@@ -188,9 +189,18 @@ public class DDProperties {
         return instance;
     }
 
+    public void setInt(String category, String key, int value) {
+        set(config, category, key, new Property(key, Integer.toString(value), Property.Type.INTEGER));
+    }
+
+    public static void set(Configuration config, String category, String key, Property value) {
+        config.getCategory(category).put(key, value);
+        config.save();
+    }
+
     /**
-     * For getting an int value if it is set in config. If not set, don't add it. Useful for settings that most users don't need and will only get in the way by
-     * default if set.
+     * For getting an int value if it is set in config. If not set, don't add it and return null. Useful for settings that most users don't need and will only
+     * get in the way by default if set. Mainly so we know if a value was actually set to 0, or was not set at all.
      *
      * @param config - The Configuration object
      * @param category - Category to look in
@@ -199,7 +209,7 @@ public class DDProperties {
      */
     public static Integer getInt(Configuration config, String category, String key) {
         if (config.hasKey(category, key)) {
-            config.getCategory(category).get(key).getInt();
+            return config.getCategory(category).get(key).getInt();
         }
         return null;
     }

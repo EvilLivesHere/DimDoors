@@ -10,7 +10,7 @@ import net.minecraft.server.integrated.IntegratedServer;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class CreateLinkPacket extends DDPacket implements IMessage {
 

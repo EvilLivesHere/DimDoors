@@ -5,7 +5,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public final class DDBlocks {
 

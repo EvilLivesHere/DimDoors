@@ -2,7 +2,7 @@ package StevenDimDoors.dimdoors.eventhandlers;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class OreGenHandler {
 

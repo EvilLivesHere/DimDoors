@@ -1,7 +1,10 @@
 package StevenDimDoors.dimdoors.block;
 
+import StevenDimDoors.dimdoors.block.base.DDBlock;
 import StevenDimDoors.dimdoors.Point3D;
 import StevenDimDoors.dimdoors.block.material.RiftMaterial;
+import StevenDimDoors.dimdoors.client.particle.ClosingRiftFX;
+import StevenDimDoors.dimdoors.client.particle.GoggleRiftFX;
 import StevenDimDoors.dimdoors.config.DDProperties;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.NewDimData;
@@ -10,8 +13,6 @@ import StevenDimDoors.dimdoors.item.DDItems;
 import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.tileentities.TileEntityRift;
 import StevenDimDoors.dimdoors.util.Point4D;
-import StevenDimDoors.dimdoors.client.particle.ClosingRiftFX;
-import StevenDimDoors.dimdoors.client.particle.GoggleRiftFX;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -33,7 +34,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.IFluidBlock;
 
-public class BlockRift extends Block implements ITileEntityProvider, DDObject {
+public class BlockRift extends DDBlock implements ITileEntityProvider {
 
     private static final float MIN_IMMUNE_RESISTANCE = 5000.0F;
     private static final int BLOCK_DESTRUCTION_RANGE = 4;
@@ -44,7 +45,6 @@ public class BlockRift extends Block implements ITileEntityProvider, DDObject {
     private static final int BLOCK_DESTRUCTION_CHANCE = 50;
 
     public static final int MAX_WORLD_THREAD_DROP_CHANCE = 1000;
-    private static final String name = "rift";
 
     private static final ArrayList<Block> blocksImmuneToRift;    // List of Vanilla blocks immune to rifts
     private static final ArrayList<Block> modBlocksImmuneToRift; // List of DD blocks immune to rifts
@@ -75,11 +75,9 @@ public class BlockRift extends Block implements ITileEntityProvider, DDObject {
 
     public BlockRift() {
         // Using the default Material.air apparently causes the tileentity to not render.
-        super(RiftMaterial.rift);
+        super("rift", RiftMaterial.rift);
         this.setTickRandomly(true);
         setHardness(1.0F);
-        setBlockName(mod_pocketDim.modid + "_" + name);
-        setBlockTextureName(mod_pocketDim.modid + ":" + name);
 
         // Finally, add rift block
         blocksImmuneToRift.add(this);
@@ -87,7 +85,8 @@ public class BlockRift extends Block implements ITileEntityProvider, DDObject {
     }
 
     @Override
-    public void init() {
+    public boolean isOnCreativeTab() {
+        return false;
     }
 
     @Override
@@ -347,10 +346,5 @@ public class BlockRift extends Block implements ITileEntityProvider, DDObject {
         if (world.getBlock(x, y, z) != oldBlock) {
             mod_pocketDim.riftRegenerator.scheduleSlowRegeneration(x, y, z, world);
         }
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

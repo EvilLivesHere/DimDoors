@@ -2,7 +2,6 @@ package StevenDimDoors.dimdoors.item;
 
 import StevenDimDoors.dimdoors.block.BaseDimDoor;
 import StevenDimDoors.dimdoors.block.DDBlocks;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,13 +10,8 @@ import net.minecraft.item.ItemStack;
 
 public class ItemDimensionalDoor extends BaseItemDoor {
 
-    private static final String name = "itemDimDoor";
-
     public ItemDimensionalDoor(ItemDoor door) {
-        super(Material.iron, door);
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
+        super("itemDimDoor", Material.iron, door);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -32,10 +26,5 @@ public class ItemDimensionalDoor extends BaseItemDoor {
     @Override
     protected BaseDimDoor getDoorBlock() {
         return DDBlocks.dimensionalDoor;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

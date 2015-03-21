@@ -12,7 +12,7 @@ import net.minecraftforge.common.DimensionManager;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class ClientLoginDimRegisterPacket extends DDPacket implements IMessage {
 

@@ -1,7 +1,7 @@
 package StevenDimDoors.dimdoors.client.renderer.entity;
 
+import static StevenDimDoors.dimdoors.Utilities.getResourceLocation;
 import StevenDimDoors.dimdoors.client.model.ModelMobObelisk;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.entity.MobMonolith;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -115,6 +115,6 @@ public class RenderMobObelisk extends RenderLiving {
     @Override
     protected ResourceLocation getEntityTexture(Entity entity) {
         MobMonolith monolith = (MobMonolith) entity;
-        return new ResourceLocation(mod_pocketDim.modid + ":textures/mobs/Monolith" + monolith.getTextureState() + ".png");
+        return getResourceLocation("textures/mobs/Monolith" + monolith.getTextureState() + ".png");
     }
 }

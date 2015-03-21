@@ -2,10 +2,9 @@ package StevenDimDoors.dimdoors.item;
 
 import StevenDimDoors.dimdoors.block.BaseDimDoor;
 import StevenDimDoors.dimdoors.block.DDBlocks;
-import StevenDimDoors.dimdoors.block.DDObject;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.PocketManager;
-import StevenDimDoors.dimdoors.mod_pocketDim;
+import StevenDimDoors.dimdoors.item.base.DDItemDoor;
 import StevenDimDoors.dimdoors.tileentities.TileEntityDimDoor;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +20,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-public abstract class BaseItemDoor extends ItemDoor implements DDObject {
+public abstract class BaseItemDoor extends DDItemDoor {
     // Maps non-dimensional door items to their corresponding dimensional door item
     // Also maps dimensional door items to themselves for simplicity
 
@@ -33,11 +32,8 @@ public abstract class BaseItemDoor extends ItemDoor implements DDObject {
      * @param material
      * @param vanillaDoor
      */
-    public BaseItemDoor(Material material, ItemDoor vanillaDoor) {
-        super(material);
-        this.setMaxStackSize(64);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
-
+    public BaseItemDoor(String name, Material m, ItemDoor vanillaDoor) {
+        super(name, m);
         doorItemMapping.put(this, this);
         if (vanillaDoor != null) {
             doorItemMapping.put(vanillaDoor, this);
@@ -211,9 +207,5 @@ public abstract class BaseItemDoor extends ItemDoor implements DDObject {
         }
         Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
         return par1World.func_147447_a(vec3, vec31, par3, !par3, false); // function: raytraceblocks_do_do
-    }
-
-    @Override
-    public void init() {
     }
 }

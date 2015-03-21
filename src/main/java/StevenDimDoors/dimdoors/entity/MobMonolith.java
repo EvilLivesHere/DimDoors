@@ -1,8 +1,10 @@
 package StevenDimDoors.dimdoors.entity;
 
+import static StevenDimDoors.dimdoors.Utilities.modAsset;
 import StevenDimDoors.dimdoors.config.DDProperties;
 import StevenDimDoors.dimdoors.core.DDTeleporter;
 import StevenDimDoors.dimdoors.mod_pocketDim;
+import static StevenDimDoors.dimdoors.mod_pocketDim.modid;
 import StevenDimDoors.dimdoors.util.Point4D;
 import StevenDimDoors.dimdoors.world.WorldProviderLimbo;
 import StevenDimDoors.dimdoors.world.WorldProviderPocket;
@@ -31,6 +33,8 @@ public class MobMonolith extends EntityFlying implements IMob {
     private static final float WIDTH = 3f;
     private static final float HEIGHT = 3f;
     private static final float EYE_HEIGHT = HEIGHT / 2;
+
+    public static final String name = modid + "_Monolith";
 
     public float pitchLevel;
     private short aggro = 0;
@@ -145,7 +149,7 @@ public class MobMonolith extends EntityFlying implements IMob {
                     this.aggro = 0;
                     Point4D destination = WorldProviderLimbo.getLimboSkySpawn(player);
                     DDTeleporter.teleportEntity(player, destination, false);
-                    player.worldObj.playSoundAtEntity(player, mod_pocketDim.modid + ":crack", 13, 1);
+                    player.worldObj.playSoundAtEntity(player, modAsset("crack"), 13, 1);
                 }
             }
         }
@@ -195,15 +199,15 @@ public class MobMonolith extends EntityFlying implements IMob {
     private void playSounds(EntityPlayer entityPlayer) {
         float aggroPercent = this.getAggroProgress();
         if (this.soundTime <= 0) {
-            this.playSound(mod_pocketDim.modid + ":monk", 1F, 1F);
+            this.playSound(modAsset("monk"), 1F, 1F);
             this.soundTime = 100;
         }
         if ((aggroPercent > 0.70) && this.soundTime < 100) {
-            this.worldObj.playSoundEffect(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, mod_pocketDim.modid + ":tearing", 1F, (float) (1 + this.rand.nextGaussian()));
+            this.worldObj.playSoundEffect(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, modAsset("tearing"), 1F, (float) (1 + this.rand.nextGaussian()));
             this.soundTime = 100 + this.rand.nextInt(75);
         }
         if ((aggroPercent > 0.80) && this.soundTime < 200) {
-            this.worldObj.playSoundEffect(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, mod_pocketDim.modid + ":tearing", 7, 1F);
+            this.worldObj.playSoundEffect(entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, modAsset("tearing"), 7, 1F);
             this.soundTime = 250;
         }
         this.soundTime--;

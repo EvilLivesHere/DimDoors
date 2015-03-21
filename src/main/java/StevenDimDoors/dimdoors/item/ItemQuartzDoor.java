@@ -1,25 +1,19 @@
 package StevenDimDoors.dimdoors.item;
 
+import StevenDimDoors.dimdoors.item.base.DDItemDoor;
 import StevenDimDoors.dimdoors.block.DDBlocks;
-import StevenDimDoors.dimdoors.block.DDObject;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class ItemQuartzDoor extends ItemDoor implements DDObject {
-
-    private static final String name = "itemQuartzDoor";
+public class ItemQuartzDoor extends DDItemDoor {
 
     public ItemQuartzDoor() {
-        super(Material.rock);
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
+        super("itemQuartzDoor", Material.rock);
+        this.maxStackSize = 16;
     }
 
     @Override
@@ -43,14 +37,5 @@ public class ItemQuartzDoor extends ItemDoor implements DDObject {
                 return false;
             }
         }
-    }
-
-    @Override
-    public void init() {
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

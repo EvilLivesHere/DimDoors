@@ -11,13 +11,8 @@ import net.minecraft.item.ItemStack;
 
 public class ItemPersonalDoor extends BaseItemDoor {
 
-    private static final String name = "itemQuartzDimDoor";
-
     public ItemPersonalDoor(ItemDoor door) {
-        super(Material.rock, door);
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
+        super("itemQuartzDimDoor", Material.rock, door);
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -30,10 +25,5 @@ public class ItemPersonalDoor extends BaseItemDoor {
     @Override
     protected BaseDimDoor getDoorBlock() {
         return DDBlocks.personalDimDoor;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

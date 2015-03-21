@@ -1,33 +1,26 @@
 package StevenDimDoors.dimdoors.item;
 
+import static StevenDimDoors.dimdoors.Utilities.modAsset;
 import StevenDimDoors.dimdoors.block.DDBlocks;
-import StevenDimDoors.dimdoors.block.DDObject;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
-import StevenDimDoors.dimdoors.mod_pocketDim;
+import StevenDimDoors.dimdoors.item.base.DDItem;
 import StevenDimDoors.dimdoors.tileentities.TileEntityRift;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-public class itemRiftRemover extends Item implements DDObject {
-
-    private static final String name = "itemRiftRemover";
+public class itemRiftRemover extends DDItem {
 
     public itemRiftRemover() {
-        super();
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
-        this.setMaxStackSize(1);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
+        super("itemRiftRemover");
         this.setMaxDamage(4);
     }
 
@@ -99,7 +92,7 @@ public class itemRiftRemover extends Item implements DDObject {
                     if (!player.capabilities.isCreativeMode) {
                         stack.damageItem(1, player);
                     }
-                    player.worldObj.playSoundAtEntity(player, mod_pocketDim.modid + ":riftClose", 0.8f, 1);
+                    player.worldObj.playSoundAtEntity(player, modAsset("riftClose"), 0.8f, 1);
                 }
             }
         }
@@ -116,15 +109,5 @@ public class itemRiftRemover extends Item implements DDObject {
         par3List.add("Use near exposed rift");
         par3List.add("to remove it and");
         par3List.add("any nearby rifts.");
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void init() {
-
     }
 }

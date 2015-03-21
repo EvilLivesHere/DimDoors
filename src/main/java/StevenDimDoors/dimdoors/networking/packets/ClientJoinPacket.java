@@ -9,7 +9,7 @@ import net.minecraft.server.integrated.IntegratedServer;
 
 /**
  *
- * @author Nicholas Maffei
+ * @author EvilLivesHere
  */
 public class ClientJoinPacket extends DDPacket {
 

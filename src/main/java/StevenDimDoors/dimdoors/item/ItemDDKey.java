@@ -1,6 +1,7 @@
 package StevenDimDoors.dimdoors.item;
 
-import StevenDimDoors.dimdoors.block.DDObject;
+import static StevenDimDoors.dimdoors.Utilities.modAsset;
+import StevenDimDoors.dimdoors.item.base.DDItem;
 import StevenDimDoors.dimdoors.block.IDimDoor;
 import StevenDimDoors.dimdoors.core.DDLock;
 import StevenDimDoors.dimdoors.core.DimLink;
@@ -13,23 +14,17 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import static net.minecraft.util.MovingObjectPosition.MovingObjectType.BLOCK;
 import net.minecraft.world.World;
 
-public class ItemDDKey extends Item implements DDObject {
+public class ItemDDKey extends DDItem {
 
     public static final int TIME_TO_UNLOCK = 30;
-    private static final String name = "itemDDKey";
 
     public ItemDDKey() {
-        super();
-        setUnlocalizedName(mod_pocketDim.modid + "_" + name);
-        setTextureName(mod_pocketDim.modid + ":" + name);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
-        this.setMaxStackSize(1);
+        super("itemDDKey");
     }
 
     @Override
@@ -51,8 +46,8 @@ public class ItemDDKey extends Item implements DDObject {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack) {
-        return !DDLock.hasCreatedLock(par1ItemStack);
+    public boolean hasEffect(ItemStack stack, int renderPass) {
+        return !DDLock.hasCreatedLock(stack);
     }
 
     @Override
@@ -90,18 +85,18 @@ public class ItemDDKey extends Item implements DDObject {
         if (link.hasLock()) {
             if (link.doesKeyUnlock(itemStack)) {
                 if (link.getLockState()) {
-                    world.playSoundAtEntity(player, mod_pocketDim.modid + ":keyUnlock", 1F, 1F);
+                    world.playSoundAtEntity(player, modAsset("keyUnlock"), 1F, 1F);
                 } else {
-                    world.playSoundAtEntity(player, mod_pocketDim.modid + ":keyLock", 1F, 1F);
+                    world.playSoundAtEntity(player, modAsset("keyLock"), 1F, 1F);
                 }
                 PocketManager.getDimensionData(world).lock(link, !link.getLockState());
                 PocketManager.getLinkWatcher().update(new ClientLinkData(link));
             } else {
-                world.playSoundAtEntity(player, mod_pocketDim.modid + ":doorLocked", 1F, 1F);
+                world.playSoundAtEntity(player, modAsset("doorLocked"), 1F, 1F);
             }
         } else {
             if (!DDLock.hasCreatedLock(itemStack)) {
-                world.playSoundAtEntity(player, mod_pocketDim.modid + ":keyLock", 1F, 1F);
+                world.playSoundAtEntity(player, modAsset("keyLock"), 1F, 1F);
                 PocketManager.getDimensionData(world).createLock(link, itemStack, world.rand.nextInt(Integer.MAX_VALUE));
                 PocketManager.getLinkWatcher().update(new ClientLinkData(link));
             }
@@ -126,7 +121,7 @@ public class ItemDDKey extends Item implements DDObject {
                     if (link.doesKeyUnlock(itemStack) && !world.isRemote) {
                         PocketManager.getDimensionData(world).removeLock(link, itemStack);
                         PocketManager.getLinkWatcher().update(new ClientLinkData(link));
-                        world.playSoundAtEntity(player, mod_pocketDim.modid + ":doorLockRemoved", 1F, 1F);
+                        world.playSoundAtEntity(player, modAsset("doorLockRemoved"), 1F, 1F);
                     }
                 }
             }
@@ -167,14 +162,5 @@ public class ItemDDKey extends Item implements DDObject {
     @Override
     public int getMaxItemUseDuration(ItemStack par1ItemStack) {
         return 72000;
-    }
-
-    @Override
-    public void init() {
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

@@ -16,13 +16,9 @@ import net.minecraft.world.World;
 
 public class TransientDoor extends BaseDimDoor {
 
-    private static final String name = "transientDoor";
-
     public TransientDoor() {
-        super(Material.iron);
+        super("transientDoor", Material.iron);
         setHardness(1.0F);
-        setBlockName(mod_pocketDim.modid + "_" + name);
-        setBlockTextureName(mod_pocketDim.modid + ":" + name);
     }
 
     @Override
@@ -90,14 +86,5 @@ public class TransientDoor extends BaseDimDoor {
     @Override
     public int getRenderType() {
         return 8;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void init() {
     }
 }

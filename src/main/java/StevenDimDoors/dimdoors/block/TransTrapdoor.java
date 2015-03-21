@@ -1,5 +1,6 @@
 package StevenDimDoors.dimdoors.block;
 
+import StevenDimDoors.dimdoors.block.base.DDBlockTrapDoor;
 import StevenDimDoors.dimdoors.core.DDTeleporter;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.LinkType;
@@ -23,16 +24,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class TransTrapdoor extends BlockTrapDoor implements IDimDoor, ITileEntityProvider {
-
-    private static final String name = "dimHatch";
+public class TransTrapdoor extends DDBlockTrapDoor implements IDimDoor, ITileEntityProvider {
 
     public TransTrapdoor() {
-        super(Material.wood);
-        this.setCreativeTab(mod_pocketDim.dimDoorsCreativeTab);
+        super("dimHatch", Material.wood);
         setHardness(1.0F);
-        setBlockName(mod_pocketDim.modid + "_" + name);
-        setBlockTextureName(mod_pocketDim.modid + ":" + name);
     }
 
     //Teleports the player to the exit link of that dimension, assuming it is a pocket
@@ -159,14 +155,5 @@ public class TransTrapdoor extends BlockTrapDoor implements IDimDoor, ITileEntit
         if (world.getBlock(x, y, z) != oldBlock) {
             mod_pocketDim.riftRegenerator.scheduleFastRegeneration(x, y, z, world);
         }
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void init() {
     }
 }

@@ -5,7 +5,6 @@ import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.item.DDItems;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -13,13 +12,9 @@ import net.minecraft.world.World;
 
 public class WarpDoor extends BaseDimDoor {
 
-    private static final String name = "dimDoorWarp";
-
     public WarpDoor() {
-        super(Material.wood);
+        super("dimDoorWarp", Material.wood);
         setHardness(1.0F);
-        setBlockName(mod_pocketDim.modid + "_" + name);
-        setBlockTextureName(mod_pocketDim.modid + ":" + name);
     }
 
     @Override
@@ -41,10 +36,5 @@ public class WarpDoor extends BaseDimDoor {
     @Override
     public Item getDrops() {
         return Items.wooden_door;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 }

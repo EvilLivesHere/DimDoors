@@ -1,8 +1,8 @@
 package StevenDimDoors.dimdoors.client.renderer.tileentity;
 
+import static StevenDimDoors.dimdoors.Utilities.getResourceLocation;
 import StevenDimDoors.dimdoors.block.DDBlocks;
 import StevenDimDoors.dimdoors.config.DDProperties;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.tileentities.TileEntityDimDoor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -26,11 +26,11 @@ import static org.lwjgl.opengl.GL11.glBlendFunc;
 public class RenderDimDoor extends TileEntitySpecialRenderer {
 
     private final FloatBuffer buffer = GLAllocation.createDirectFloatBuffer(16);
-    private static final ResourceLocation warpPath = new ResourceLocation(mod_pocketDim.modid + ":textures/other/WARP.png");
-    private static final ResourceLocation keyPath = new ResourceLocation(mod_pocketDim.modid + ":textures/other/keyhole.png");
-    private static final ResourceLocation KeyholeLight = new ResourceLocation(mod_pocketDim.modid + ":textures/other/keyholeLight.png");
-    private static final ResourceLocation keyOutline = new ResourceLocation(mod_pocketDim.modid + ":textures/other/keyOutline.png");
-    private static final ResourceLocation keyOutlineLight = new ResourceLocation(mod_pocketDim.modid + ":textures/other/keyOutlineLight.png");
+    private static final ResourceLocation warpPath = getResourceLocation("textures/other/WARP.png");
+    private static final ResourceLocation keyPath = getResourceLocation("textures/other/keyhole.png");
+    private static final ResourceLocation KeyholeLight = getResourceLocation("textures/other/keyholeLight.png");
+    private static final ResourceLocation keyOutline = getResourceLocation("textures/other/keyOutline.png");
+    private static final ResourceLocation keyOutlineLight = getResourceLocation("textures/other/keyOutlineLight.png");
 
     public RenderDimDoor() {
     }
