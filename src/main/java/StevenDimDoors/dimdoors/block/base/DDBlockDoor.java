@@ -1,10 +1,10 @@
 package StevenDimDoors.dimdoors.block.base;
 
 import static StevenDimDoors.dimdoors.Utilities.modAsset;
-import StevenDimDoors.dimdoors.util.DDObject;
 import StevenDimDoors.dimdoors.block.material.GoldMaterial;
 import StevenDimDoors.dimdoors.item.DDItems;
 import StevenDimDoors.dimdoors.mod_pocketDim;
+import StevenDimDoors.dimdoors.util.DDObject;
 import java.util.Random;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;

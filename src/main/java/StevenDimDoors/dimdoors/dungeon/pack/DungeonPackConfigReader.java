@@ -1,5 +1,11 @@
 package StevenDimDoors.dimdoors.dungeon.pack;
 
+import StevenDimDoors.dimdoors.util.BaseConfigurationProcessor;
+import StevenDimDoors.dimdoors.util.ConfigurationProcessingException;
+import StevenDimDoors.dimdoors.util.WeightedContainer;
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
+import com.google.common.primitives.Ints;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,14 +14,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
-import StevenDimDoors.dimdoors.util.BaseConfigurationProcessor;
-import StevenDimDoors.dimdoors.util.ConfigurationProcessingException;
-import StevenDimDoors.dimdoors.util.WeightedContainer;
-
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Splitter;
-import com.google.common.primitives.Ints;
 
 public class DungeonPackConfigReader extends BaseConfigurationProcessor<DungeonPackConfig> {
 

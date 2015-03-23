@@ -31,7 +31,6 @@
 package org.poly2tri.triangulation;
 
 import java.util.ArrayList;
-
 import org.poly2tri.geometry.primitives.Point;
 import org.poly2tri.triangulation.delaunay.sweep.DTSweepConstraint;
 

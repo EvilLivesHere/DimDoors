@@ -1,6 +1,5 @@
 package StevenDimDoors.dimdoors.world.fortresses;
 
-import StevenDimDoors.dimdoors.config.DDProperties;
 import net.minecraft.world.gen.structure.MapGenNetherBridge;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureStart;

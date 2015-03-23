@@ -3,7 +3,6 @@ package StevenDimDoors.dimdoors.entity;
 import static StevenDimDoors.dimdoors.Utilities.modAsset;
 import StevenDimDoors.dimdoors.config.DDProperties;
 import StevenDimDoors.dimdoors.core.DDTeleporter;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import static StevenDimDoors.dimdoors.mod_pocketDim.modid;
 import StevenDimDoors.dimdoors.util.Point4D;
 import StevenDimDoors.dimdoors.world.WorldProviderLimbo;

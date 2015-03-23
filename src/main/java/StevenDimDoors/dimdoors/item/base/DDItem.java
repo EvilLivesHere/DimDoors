@@ -1,8 +1,8 @@
 package StevenDimDoors.dimdoors.item.base;
 
 import static StevenDimDoors.dimdoors.Utilities.modAsset;
-import StevenDimDoors.dimdoors.util.DDObject;
 import StevenDimDoors.dimdoors.mod_pocketDim;
+import StevenDimDoors.dimdoors.util.DDObject;
 import net.minecraft.item.Item;
 
 /**

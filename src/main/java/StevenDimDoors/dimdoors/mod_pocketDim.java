@@ -32,9 +32,7 @@ import StevenDimDoors.dimdoors.tileentities.TileEntityDimDoorGold;
 import StevenDimDoors.dimdoors.tileentities.TileEntityRift;
 import StevenDimDoors.dimdoors.tileentities.TileEntityTransTrapdoor;
 import StevenDimDoors.dimdoors.util.l_systems.LSystem;
-import StevenDimDoors.dimdoors.world.WorldProviderLimbo;
-import StevenDimDoors.dimdoors.world.WorldProviderPersonalPocket;
-import StevenDimDoors.dimdoors.world.WorldProviderPocket;
+import StevenDimDoors.dimdoors.world.DDDimensionManager;
 import StevenDimDoors.dimdoors.world.biome.DDBiomeGenBase;
 import StevenDimDoors.dimdoors.world.gateways.GatewayGenerator;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -122,17 +120,8 @@ public class mod_pocketDim {
         // Initialize Biomes.  Crash if there are ID conflicts
         DDBiomeGenBase.initBiomes();
 
-        if (!DimensionManager.registerProviderType(DDProperties.instance().PocketProviderID, WorldProviderPocket.class, false)) {
-            throw new IllegalStateException("There is a provider ID conflict between PocketProvider from Dimensional Doors and another provider type. Fix your configuration!");
-        }
-        if (!DimensionManager.registerProviderType(DDProperties.instance().LimboProviderID, WorldProviderLimbo.class, false)) {
-            throw new IllegalStateException("There is a provider ID conflict between LimboProvider from Dimensional Doors and another provider type. Fix your configuration!");
-        }
-        if (!DimensionManager.registerProviderType(DDProperties.instance().PersonalPocketProviderID, WorldProviderPersonalPocket.class, false)) {
-            throw new IllegalStateException("There is a provider ID conflict between PersonalPocketProvider from Dimensional Doors and another provider type. Fix your configuration!");
-        }
-
-        DimensionManager.registerDimension(DDProperties.instance().LimboDimensionID, DDProperties.instance().LimboProviderID);
+        // Register Providers and Dimensions
+        DDDimensionManager.registerAll();
 
         // Register the Entities
         DDEntityList.initEntities();
@@ -154,32 +143,7 @@ public class mod_pocketDim {
         registerHandlers();
 
         // Generate LSystems for.....something lol
-        LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 4);
-        LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 5);
-        //	LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 6); //degenerate
-        LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 7);
-	//	LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 8);
-        //	LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 9);
-
-        //	LSystem.generateLSystem("vortex", LSystem.VORTEX, 8);
-        LSystem.generateLSystem("vortex", LSystem.VORTEX, 9);
-        LSystem.generateLSystem("vortex", LSystem.VORTEX, 10);
-        LSystem.generateLSystem("vortex", LSystem.VORTEX, 11);
-        //	LSystem.generateLSystem("vortex", LSystem.VORTEX, 12);
-
-        LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 7);
-        LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 8);
-        LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 9);
-        LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 10);
-        //	LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 11);
-
-        LSystem.generateLSystem("dragon", LSystem.DRAGON, 8);
-        LSystem.generateLSystem("dragon", LSystem.DRAGON, 9);
-        LSystem.generateLSystem("dragon", LSystem.DRAGON, 10);
-        LSystem.generateLSystem("dragon", LSystem.DRAGON, 11);
-        //	LSystem.generateLSystem("dragon", LSystem.DRAGON, 12);
-        //	LSystem.generateLSystem("dragon", LSystem.DRAGON, 13);
-
+        generateLSystems();
     }
 
     @EventHandler
@@ -194,7 +158,7 @@ public class mod_pocketDim {
 
     @EventHandler
     public void onServerStopped(FMLServerStoppedEvent event) {
-        // Unload all Pockest, write deathTracker stats and null non-final variables
+        // Unload all Pockets, write deathTracker stats and null non-final variables
         PocketManager.unload();
         deathTracker.writeToFile();
         deathTracker = null;
@@ -269,5 +233,33 @@ public class mod_pocketDim {
     public static void sendChat(EntityPlayer player, String message) {
         ChatComponentText cmp = new ChatComponentText(message);
         player.addChatMessage(cmp);
+    }
+
+    public void generateLSystems() {
+        LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 4);
+        LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 5);
+        //	LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 6); //degenerate
+        LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 7);
+        //	LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 8);
+        //	LSystem.generateLSystem("terdragon", LSystem.TERDRAGON, 9);
+
+        //	LSystem.generateLSystem("vortex", LSystem.VORTEX, 8);
+        LSystem.generateLSystem("vortex", LSystem.VORTEX, 9);
+        LSystem.generateLSystem("vortex", LSystem.VORTEX, 10);
+        LSystem.generateLSystem("vortex", LSystem.VORTEX, 11);
+        //	LSystem.generateLSystem("vortex", LSystem.VORTEX, 12);
+
+        LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 7);
+        LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 8);
+        LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 9);
+        LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 10);
+        //	LSystem.generateLSystem("twindragon", LSystem.TWINDRAGON, 11);
+
+        LSystem.generateLSystem("dragon", LSystem.DRAGON, 8);
+        LSystem.generateLSystem("dragon", LSystem.DRAGON, 9);
+        LSystem.generateLSystem("dragon", LSystem.DRAGON, 10);
+        LSystem.generateLSystem("dragon", LSystem.DRAGON, 11);
+        //	LSystem.generateLSystem("dragon", LSystem.DRAGON, 12);
+        //	LSystem.generateLSystem("dragon", LSystem.DRAGON, 13);
     }
 }

@@ -2,7 +2,6 @@ package StevenDimDoors.dimdoors.item;
 
 import StevenDimDoors.dimdoors.block.BaseDimDoor;
 import StevenDimDoors.dimdoors.block.DDBlocks;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

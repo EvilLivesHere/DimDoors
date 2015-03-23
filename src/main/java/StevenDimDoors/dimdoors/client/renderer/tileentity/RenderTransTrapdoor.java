@@ -3,7 +3,6 @@ package StevenDimDoors.dimdoors.client.renderer.tileentity;
 import static StevenDimDoors.dimdoors.Utilities.getResourceLocation;
 import StevenDimDoors.dimdoors.block.TransTrapdoor;
 import StevenDimDoors.dimdoors.config.DDProperties;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.tileentities.TileEntityTransTrapdoor;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

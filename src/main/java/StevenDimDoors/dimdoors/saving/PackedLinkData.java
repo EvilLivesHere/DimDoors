@@ -1,10 +1,9 @@
 package StevenDimDoors.dimdoors.saving;
 
-import java.util.List;
-
 import StevenDimDoors.dimdoors.Point3D;
 import StevenDimDoors.dimdoors.core.DDLock;
 import StevenDimDoors.dimdoors.util.Point4D;
+import java.util.List;
 
 public class PackedLinkData {
 

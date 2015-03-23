@@ -1,7 +1,7 @@
 package StevenDimDoors.dimdoors.item;
 
-import StevenDimDoors.dimdoors.item.base.DDItemBlock;
 import StevenDimDoors.dimdoors.block.BlockDimWall;
+import StevenDimDoors.dimdoors.item.base.DDItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 

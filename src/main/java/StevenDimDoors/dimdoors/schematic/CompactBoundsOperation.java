@@ -1,7 +1,7 @@
 package StevenDimDoors.dimdoors.schematic;
 
-import net.minecraft.world.World;
 import StevenDimDoors.dimdoors.Point3D;
+import net.minecraft.world.World;
 
 public class CompactBoundsOperation extends WorldOperation {
 

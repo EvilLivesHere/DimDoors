@@ -5,7 +5,6 @@ import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

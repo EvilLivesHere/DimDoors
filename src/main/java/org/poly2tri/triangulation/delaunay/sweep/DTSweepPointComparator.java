@@ -1,7 +1,6 @@
 package org.poly2tri.triangulation.delaunay.sweep;
 
 import java.util.Comparator;
-
 import org.poly2tri.triangulation.TriangulationPoint;
 
 public class DTSweepPointComparator implements Comparator<TriangulationPoint> {

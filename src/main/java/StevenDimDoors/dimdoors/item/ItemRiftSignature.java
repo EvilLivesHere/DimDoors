@@ -1,6 +1,5 @@
 package StevenDimDoors.dimdoors.item;
 
-import StevenDimDoors.dimdoors.item.base.DDItem;
 import static StevenDimDoors.dimdoors.Utilities.modAsset;
 import StevenDimDoors.dimdoors.block.BaseDimDoor;
 import StevenDimDoors.dimdoors.block.DDBlocks;
@@ -9,6 +8,7 @@ import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.helpers.Point4DOrientation;
+import StevenDimDoors.dimdoors.item.base.DDItem;
 import StevenDimDoors.dimdoors.mod_pocketDim;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

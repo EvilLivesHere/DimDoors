@@ -1,7 +1,7 @@
 package StevenDimDoors.dimdoors.item;
 
-import StevenDimDoors.dimdoors.item.base.DDItemDoor;
 import StevenDimDoors.dimdoors.block.DDBlocks;
+import StevenDimDoors.dimdoors.item.base.DDItemDoor;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;

@@ -6,7 +6,6 @@ import StevenDimDoors.dimdoors.block.IDimDoor;
 import StevenDimDoors.dimdoors.core.DDLock;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.PocketManager;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.watcher.ClientLinkData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

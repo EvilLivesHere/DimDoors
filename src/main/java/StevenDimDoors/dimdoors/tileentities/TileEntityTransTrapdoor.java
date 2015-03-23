@@ -1,8 +1,7 @@
 package StevenDimDoors.dimdoors.tileentities;
 
-import java.util.Random;
-
 import StevenDimDoors.dimdoors.mod_pocketDim;
+import java.util.Random;
 
 public class TileEntityTransTrapdoor extends DDTileEntityBase {
 

@@ -30,7 +30,6 @@
  */
 package org.poly2tri.triangulation.delaunay.sweep;
 
-import java.util.logging.Logger;
 import org.poly2tri.triangulation.TriangulationConstraint;
 import org.poly2tri.triangulation.TriangulationPoint;
 

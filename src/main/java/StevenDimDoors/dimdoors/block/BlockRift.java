@@ -1,7 +1,7 @@
 package StevenDimDoors.dimdoors.block;
 
-import StevenDimDoors.dimdoors.block.base.DDBlock;
 import StevenDimDoors.dimdoors.Point3D;
+import StevenDimDoors.dimdoors.block.base.DDBlock;
 import StevenDimDoors.dimdoors.block.material.RiftMaterial;
 import StevenDimDoors.dimdoors.client.particle.ClosingRiftFX;
 import StevenDimDoors.dimdoors.client.particle.GoggleRiftFX;

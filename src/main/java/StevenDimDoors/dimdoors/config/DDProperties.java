@@ -16,10 +16,10 @@ public class DDProperties {
     public Integer LimboBiomeID;
     public Integer PocketBiomeID;
     public Integer MonolithEntityID;
-    public final int LimboDimensionID;
-    public final int LimboProviderID;
-    public final int PocketProviderID;
-    public final int PersonalPocketProviderID;
+    public Integer LimboDimensionID;
+    public Integer LimboProviderID;
+    public Integer PocketProviderID;
+    public Integer PersonalPocketProviderID;
 
     /**
      * Crafting Flags
@@ -143,13 +143,6 @@ public class DDProperties {
                 "Weighs the chance that a block will not be TNT. Must be greater than or equal to 0. "
                 + "EXPLOSIONS must be set to true for this to have any effect.").getInt();
 
-        MonolithEntityID = getInt(config, CATEGORY_ENTITY, "Monolith Entity ID");
-
-        LimboDimensionID = config.get(CATEGORY_DIMENSION, "Limbo Dimension ID", -23).getInt();
-        PocketProviderID = config.get(CATEGORY_PROVIDER, "Pocket Provider ID", 124).getInt();
-        LimboProviderID = config.get(CATEGORY_PROVIDER, "Limbo Provider ID", 113).getInt();
-        PersonalPocketProviderID = config.get(CATEGORY_PROVIDER, "Personal Pocket Provider ID", 125).getInt();
-
         MonolithTeleportationEnabled = config.get(Configuration.CATEGORY_GENERAL, "Enable Monolith Teleportation", true,
                 "Sets whether Monoliths can teleport players").getBoolean(true);
 
@@ -173,8 +166,20 @@ public class DDProperties {
                 "Sets the chance (out of " + BlockRift.MAX_WORLD_THREAD_DROP_CHANCE + ") that a rift will "
                 + "drop World Thread when it destroys a block. The default chance is 50.").getInt();
 
+        // Biome IDs
         LimboBiomeID = getInt(config, CATEGORY_BIOME, "Limbo Biome ID");
         PocketBiomeID = getInt(config, CATEGORY_BIOME, "Pocket Biome ID");
+
+        // Entity IDs
+        MonolithEntityID = getInt(config, CATEGORY_ENTITY, "Monolith Entity ID");
+
+        // Dimension IDs
+        LimboDimensionID = getInt(config, CATEGORY_DIMENSION, "Limbo Dimension ID");
+
+        // Provider IDs
+        PocketProviderID = getInt(config, CATEGORY_PROVIDER, "Pocket Provider ID");
+        LimboProviderID = getInt(config, CATEGORY_PROVIDER, "Limbo Provider ID");
+        PersonalPocketProviderID = getInt(config, CATEGORY_PROVIDER, "Personal Pocket Provider ID");
 
         config.save();
     }

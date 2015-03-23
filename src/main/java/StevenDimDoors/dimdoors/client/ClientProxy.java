@@ -1,11 +1,11 @@
 package StevenDimDoors.dimdoors.client;
 
+import StevenDimDoors.dimdoors.CommonProxy;
 import StevenDimDoors.dimdoors.client.renderer.PrivatePocketRender;
 import StevenDimDoors.dimdoors.client.renderer.entity.RenderMobObelisk;
 import StevenDimDoors.dimdoors.client.renderer.tileentity.RenderDimDoor;
-import StevenDimDoors.dimdoors.client.renderer.tileentity.RenderTransTrapdoor;
 import StevenDimDoors.dimdoors.client.renderer.tileentity.RenderRift;
-import StevenDimDoors.dimdoors.CommonProxy;
+import StevenDimDoors.dimdoors.client.renderer.tileentity.RenderTransTrapdoor;
 import StevenDimDoors.dimdoors.entity.MobMonolith;
 import StevenDimDoors.dimdoors.tileentities.TileEntityDimDoor;
 import StevenDimDoors.dimdoors.tileentities.TileEntityRift;

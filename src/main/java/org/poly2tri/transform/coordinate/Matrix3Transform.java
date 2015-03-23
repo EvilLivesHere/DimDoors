@@ -1,7 +1,6 @@
 package org.poly2tri.transform.coordinate;
 
 import java.util.List;
-
 import org.poly2tri.geometry.primitives.Point;
 
 public abstract class Matrix3Transform implements CoordinateTransform {

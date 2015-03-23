@@ -2,7 +2,6 @@ package StevenDimDoors.dimdoors;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.io.File;
 import java.util.HashMap;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;

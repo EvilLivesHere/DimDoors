@@ -1,6 +1,5 @@
 package StevenDimDoors.dimdoors.world;
 
-import StevenDimDoors.experimental.BoundingBox;
 import StevenDimDoors.dimdoors.Point3D;
 import StevenDimDoors.dimdoors.block.DDBlocks;
 import StevenDimDoors.dimdoors.block.IDimDoor;
@@ -19,6 +18,7 @@ import StevenDimDoors.dimdoors.item.ItemDimensionalDoor;
 import StevenDimDoors.dimdoors.schematic.BlockRotator;
 import StevenDimDoors.dimdoors.util.Pair;
 import StevenDimDoors.dimdoors.util.Point4D;
+import StevenDimDoors.experimental.BoundingBox;
 import cpw.mods.fml.common.FMLLog;
 import java.util.Random;
 import net.minecraft.block.Block;

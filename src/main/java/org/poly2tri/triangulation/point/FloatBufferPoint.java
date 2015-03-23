@@ -31,7 +31,6 @@
 package org.poly2tri.triangulation.point;
 
 import java.nio.FloatBuffer;
-
 import org.poly2tri.triangulation.TriangulationPoint;
 
 public class FloatBufferPoint extends TriangulationPoint {

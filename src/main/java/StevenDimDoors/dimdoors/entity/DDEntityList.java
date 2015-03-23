@@ -6,7 +6,6 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import java.util.ArrayList;
 import java.util.Random;
 import net.minecraft.entity.EntityList;
-import net.minecraftforge.common.config.Property;
 
 /**
  *
@@ -47,7 +46,7 @@ public class DDEntityList {
 
     public static void initEntities() {
         if (DDProperties.instance().MonolithEntityID == null) {
-            int id = getNextFreeEntityID();
+            int id = getNextFreeEntityID(125); // The old default
             DDProperties.instance().setInt(DDProperties.CATEGORY_ENTITY, "Monolith Entity ID", id);
             DDProperties.instance().MonolithEntityID = id;
         }
@@ -60,14 +59,12 @@ public class DDEntityList {
 
     private static final ArrayList<Integer> takenEntityIDs = new ArrayList<Integer>(0);
 
-    public static int getNextFreeEntityID() {
-        int id = 125; // The old Default
+    public static int getNextFreeEntityID(int startID) {
         Random r = new Random();
-        while (EntityList.getStringFromID(id) != null || takenEntityIDs.contains(id)) {
-            id = r.nextInt();
+        while (EntityList.getStringFromID(startID) != null || takenEntityIDs.contains(startID)) {
+            startID = r.nextInt();
         }
-        takenEntityIDs.add(id);
-        return id;
+        takenEntityIDs.add(startID);
+        return startID;
     }
-
 }

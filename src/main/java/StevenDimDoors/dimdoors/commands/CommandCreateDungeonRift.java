@@ -1,6 +1,5 @@
 package StevenDimDoors.dimdoors.commands;
 
-import StevenDimDoors.dimdoors.block.DDBlocks;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.NewDimData;

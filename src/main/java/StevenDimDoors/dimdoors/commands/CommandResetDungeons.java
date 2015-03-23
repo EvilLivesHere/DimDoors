@@ -1,13 +1,13 @@
 package StevenDimDoors.dimdoors.commands;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import net.minecraft.entity.player.EntityPlayer;
 import StevenDimDoors.dimdoors.core.DimLink;
 import StevenDimDoors.dimdoors.core.DimensionType;
 import StevenDimDoors.dimdoors.core.LinkType;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
+import java.util.ArrayList;
+import java.util.HashSet;
+import net.minecraft.entity.player.EntityPlayer;
 
 public class CommandResetDungeons extends DDCommandBase {
 

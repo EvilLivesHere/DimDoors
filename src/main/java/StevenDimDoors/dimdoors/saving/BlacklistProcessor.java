@@ -1,19 +1,17 @@
 package StevenDimDoors.dimdoors.saving;
 
+import StevenDimDoors.dimdoors.util.BaseConfigurationProcessor;
+import StevenDimDoors.dimdoors.util.ConfigurationProcessingException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonToken;
-
-import StevenDimDoors.dimdoors.util.BaseConfigurationProcessor;
-import StevenDimDoors.dimdoors.util.ConfigurationProcessingException;
 
 public class BlacklistProcessor extends BaseConfigurationProcessor<List<Integer>> {
 

@@ -1,12 +1,12 @@
 package StevenDimDoors.dimdoors.commands;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.World;
 import StevenDimDoors.dimdoors.core.DDTeleporter;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
 import StevenDimDoors.dimdoors.util.Point4D;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 
 public class CommandTeleportPlayer extends DDCommandBase {
 

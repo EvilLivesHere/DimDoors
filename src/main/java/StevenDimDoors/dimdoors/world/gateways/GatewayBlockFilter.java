@@ -1,10 +1,8 @@
 package StevenDimDoors.dimdoors.world.gateways;
 
 import StevenDimDoors.dimdoors.Point3D;
-import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.schematic.Schematic;
 import StevenDimDoors.dimdoors.schematic.SchematicFilter;
-import net.minecraft.block.Block;
 
 public class GatewayBlockFilter extends SchematicFilter {
 

@@ -2,7 +2,6 @@ package org.poly2tri.triangulation.util;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.poly2tri.triangulation.TriangulationPoint;
 import org.poly2tri.triangulation.point.TPoint;
 

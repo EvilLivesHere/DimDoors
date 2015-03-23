@@ -32,7 +32,6 @@ package org.poly2tri.triangulation;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.poly2tri.triangulation.delaunay.DelaunayTriangle;
 
 public abstract class TriangulationContext<A extends TriangulationDebugContext> {
