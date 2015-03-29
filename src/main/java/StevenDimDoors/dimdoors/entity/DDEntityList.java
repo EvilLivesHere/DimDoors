@@ -1,6 +1,7 @@
 package StevenDimDoors.dimdoors.entity;
 
 import StevenDimDoors.dimdoors.config.DDProperties;
+import StevenDimDoors.dimdoors.config.DDProperties.ConfigCategory;
 import StevenDimDoors.dimdoors.mod_pocketDim;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class DDEntityList {
     public static void initEntities() {
         if (DDProperties.instance().MonolithEntityID == null) {
             int id = getNextFreeEntityID(125); // The old default
-            DDProperties.instance().setInt(DDProperties.CATEGORY_ENTITY, "Monolith Entity ID", id);
+            DDProperties.instance().setInt(ConfigCategory.CATEGORY_ENTITY, "Monolith Entity ID", id);
             DDProperties.instance().MonolithEntityID = id;
         }
 

@@ -4,9 +4,11 @@ import static StevenDimDoors.dimdoors.Utilities.getLimboBG;
 import StevenDimDoors.dimdoors.config.DDProperties;
 import StevenDimDoors.dimdoors.core.NewDimData;
 import StevenDimDoors.dimdoors.core.PocketManager;
+import StevenDimDoors.dimdoors.mod_pocketDim;
 import StevenDimDoors.dimdoors.networking.PacketManager;
 import StevenDimDoors.dimdoors.ticking.ServerTickHandler;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
@@ -22,6 +24,8 @@ import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.network.Packet;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.ForgeChunkManager;
+import net.minecraftforge.common.config.Configuration;
 
 public class FMLEventHandler {
 
@@ -92,6 +96,13 @@ public class FMLEventHandler {
             } else {
                 sndManager.stopSound(limboBG);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
+        if (event.modID.equals(mod_pocketDim.modid) && !event.isWorldRunning) {
+            DDProperties.instance().save();
         }
     }
 }

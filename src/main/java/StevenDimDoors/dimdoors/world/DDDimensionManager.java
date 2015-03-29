@@ -1,6 +1,7 @@
 package StevenDimDoors.dimdoors.world;
 
 import StevenDimDoors.dimdoors.config.DDProperties;
+import StevenDimDoors.dimdoors.config.DDProperties.ConfigCategory;
 import java.util.Random;
 import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.DimensionManager;
@@ -23,7 +24,7 @@ public class DDDimensionManager {
         // Register Pocket Provider
         if (DDProperties.instance().PocketProviderID == null) {
             int id = registerProvider(124, WorldProviderPocket.class);
-            DDProperties.instance().setInt(DDProperties.CATEGORY_PROVIDER, "Pocket Provider ID", id);
+            DDProperties.instance().setInt(ConfigCategory.CATEGORY_PROVIDER, "Pocket Provider ID", id);
             DDProperties.instance().PocketProviderID = id;
         } else {
             registerProvider(DDProperties.instance().PocketProviderID, WorldProviderPocket.class, "PocketProvider");
@@ -32,7 +33,7 @@ public class DDDimensionManager {
         // Register Limbo Provider
         if (DDProperties.instance().LimboProviderID == null) {
             int id = registerProvider(113, WorldProviderPocket.class);
-            DDProperties.instance().setInt(DDProperties.CATEGORY_PROVIDER, "Limbo Provider ID", id);
+            DDProperties.instance().setInt(ConfigCategory.CATEGORY_PROVIDER, "Limbo Provider ID", id);
             DDProperties.instance().LimboProviderID = id;
         } else {
             registerProvider(DDProperties.instance().LimboProviderID, WorldProviderLimbo.class, "LimboProvider");
@@ -41,7 +42,7 @@ public class DDDimensionManager {
         // Register Personal Pocket Provider
         if (DDProperties.instance().PersonalPocketProviderID == null) {
             int id = registerProvider(125, WorldProviderPocket.class);
-            DDProperties.instance().setInt(DDProperties.CATEGORY_PROVIDER, "Personal Pocket Provider ID", id);
+            DDProperties.instance().setInt(ConfigCategory.CATEGORY_PROVIDER, "Personal Pocket Provider ID", id);
             DDProperties.instance().PersonalPocketProviderID = id;
         } else {
             registerProvider(DDProperties.instance().PersonalPocketProviderID, WorldProviderPersonalPocket.class, "PersonalPocketProvider");
@@ -65,7 +66,7 @@ public class DDDimensionManager {
     public static void registerDimensions() {
         if (DDProperties.instance().LimboDimensionID == null) {
             int id = getNextFreeDimensionID(-23);
-            DDProperties.instance().setInt(DDProperties.CATEGORY_DIMENSION, "Limbo Dimension ID", id);
+            DDProperties.instance().setInt(ConfigCategory.CATEGORY_DIMENSION, "Limbo Dimension ID", id);
             DDProperties.instance().LimboDimensionID = id;
         }
 

@@ -34,4 +34,12 @@ entity.dimdoors_Monolith.name=Monolith
 
 itemGroup.dimdoors_CreativeTab=Dimensional Doors
 
+gui.dimdoors_config.title=Dimensional Doors Configuration
+gui.dimdoors_config.crafting.title=Crafting Recipes
+gui.dimdoors_config.crafting.tooltip=Enable or disable crafting recipes.
 
+gui.dimdoors_config.general.title=General
+gui.dimdoors_config.general.tooltip=Control general settings.
+
+gui.dimdoors_config.loot.title=Chest Loot
+gui.dimdoors_config.loot.tooltip=Control loot settings.

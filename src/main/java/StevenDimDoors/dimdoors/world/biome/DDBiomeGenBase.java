@@ -1,6 +1,7 @@
 package StevenDimDoors.dimdoors.world.biome;
 
 import StevenDimDoors.dimdoors.config.DDProperties;
+import StevenDimDoors.dimdoors.config.DDProperties.ConfigCategory;
 import net.minecraft.world.biome.BiomeGenBase;
 
 public class DDBiomeGenBase extends BiomeGenBase {
@@ -54,13 +55,13 @@ public class DDBiomeGenBase extends BiomeGenBase {
     public static void initBiomes() {
         if (DDProperties.instance().LimboBiomeID == null) {
             int id = getNextFreeBiomeID();
-            DDProperties.instance().setInt(DDProperties.CATEGORY_BIOME, "Limbo Biome ID", id);
+            DDProperties.instance().setInt(ConfigCategory.CATEGORY_BIOME, "Limbo Biome ID", id);
             DDProperties.instance().LimboBiomeID = id;
         }
 
         if (DDProperties.instance().PocketBiomeID == null) {
             int id = getNextFreeBiomeID();
-            DDProperties.instance().setInt(DDProperties.CATEGORY_BIOME, "Pocket Biome ID", id);
+            DDProperties.instance().setInt(ConfigCategory.CATEGORY_BIOME, "Pocket Biome ID", id);
             DDProperties.instance().PocketBiomeID = id;
         }
 

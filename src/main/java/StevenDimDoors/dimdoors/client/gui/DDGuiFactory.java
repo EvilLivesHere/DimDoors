@@ -1,13 +1,17 @@
 package StevenDimDoors.dimdoors.client.gui;
 
-import com.google.common.collect.ImmutableSet;
-import cpw.mods.fml.client.FMLClientHandler;
+import StevenDimDoors.dimdoors.config.DDProperties;
+import StevenDimDoors.dimdoors.config.DDProperties.ConfigCategory;
+import StevenDimDoors.dimdoors.mod_pocketDim;
 import cpw.mods.fml.client.IModGuiFactory;
+import cpw.mods.fml.client.config.DummyConfigElement;
+import cpw.mods.fml.client.config.GuiConfig;
+import cpw.mods.fml.client.config.GuiConfigEntries;
+import cpw.mods.fml.client.config.IConfigElement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 
@@ -17,40 +21,76 @@ import net.minecraft.client.resources.I18n;
  */
 public class DDGuiFactory implements IModGuiFactory {
 
-    public static class ConfigGuiScreen extends GuiScreen {
-
-        private GuiScreen parent;
+    public static class ConfigGuiScreen extends GuiConfig {
 
         public ConfigGuiScreen(GuiScreen parent) {
-            this.parent = parent;
+            super(parent, getConfigElements(), mod_pocketDim.modid, true, false, I18n.format("gui.dimdoors_config.title"));
         }
 
-        /**
-         * Adds the buttons (and other controls) to the screen in question.
-         */
-        @SuppressWarnings("unchecked")
-        @Override
-        public void initGui() {
-            this.buttonList.add(new GuiButton(1, this.width / 2 - 75, this.height - 38, I18n.format("gui.done")));
+        private static List<IConfigElement> getConfigElements() {
+            ArrayList<IConfigElement> list = new ArrayList<IConfigElement>();
+            list.add(new DummyConfigElement.DummyCategoryElement(I18n.format("gui.dimdoors_config.general.title"), "gui.dimdoors_config.general", GeneralEntry.class));
+            list.add(new DummyConfigElement.DummyCategoryElement(I18n.format("gui.dimdoors_config.loot.title"), "gui.dimdoors_config.loot", LootEntry.class));
+            list.add(new DummyConfigElement.DummyCategoryElement(I18n.format("gui.dimdoors_config.crafting.title"), "gui.dimdoors_config.crafting", CraftingEntry.class));
+            return list;
         }
 
-        @Override
-        protected void actionPerformed(GuiButton par1GuiButton) {
-            if (par1GuiButton.enabled && par1GuiButton.id == 1) {
-                FMLClientHandler.instance().showGuiScreen(parent);
+        public static class CraftingEntry extends GuiConfigEntries.CategoryEntry {
+
+            public CraftingEntry(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement prop) {
+                super(owningScreen, owningEntryList, prop);
+            }
+
+            @Override
+            protected GuiScreen buildChildScreen() {
+                // This GuiConfig object specifies the configID of the object and as such will force-save when it is closed. The parent
+                // GuiConfig object's entryList will also be refreshed to reflect the changes.
+                return new GuiConfig(this.owningScreen,
+                        DDProperties.instance().createConfigElementForCategory(ConfigCategory.CATEGORY_CRAFTING).getChildElements(),
+                        this.owningScreen.modID, ConfigCategory.CATEGORY_CRAFTING.id, this.configElement.requiresWorldRestart() || this.owningScreen.allRequireWorldRestart,
+                        this.configElement.requiresMcRestart() || this.owningScreen.allRequireMcRestart,
+                        this.owningScreen.title,
+                        I18n.format("gui.dimdoors_config.crafting.title"));
             }
         }
 
-        /**
-         * Draws the screen and all the components in it.
-         */
-        @Override
-        public void drawScreen(int par1, int par2, float par3) {
-            this.drawDefaultBackground();
-            this.drawCenteredString(this.fontRendererObj, "Dimensional Doors test config screen", this.width / 2, 40, 0xFFFFFF);
-            super.drawScreen(par1, par2, par3);
+        public static class GeneralEntry extends GuiConfigEntries.CategoryEntry {
+
+            public GeneralEntry(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement prop) {
+                super(owningScreen, owningEntryList, prop);
+            }
+
+            @Override
+            protected GuiScreen buildChildScreen() {
+                // This GuiConfig object specifies the configID of the object and as such will force-save when it is closed. The parent
+                // GuiConfig object's entryList will also be refreshed to reflect the changes.
+                return new GuiConfig(this.owningScreen,
+                        DDProperties.instance().createConfigElementForCategory(ConfigCategory.CATEGORY_GENERAL).getChildElements(),
+                        this.owningScreen.modID, ConfigCategory.CATEGORY_CRAFTING.id, this.configElement.requiresWorldRestart() || this.owningScreen.allRequireWorldRestart,
+                        this.configElement.requiresMcRestart() || this.owningScreen.allRequireMcRestart,
+                        this.owningScreen.title,
+                        I18n.format("gui.dimdoors_config.general.title"));
+            }
         }
 
+        public static class LootEntry extends GuiConfigEntries.CategoryEntry {
+
+            public LootEntry(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement prop) {
+                super(owningScreen, owningEntryList, prop);
+            }
+
+            @Override
+            protected GuiScreen buildChildScreen() {
+                // This GuiConfig object specifies the configID of the object and as such will force-save when it is closed. The parent
+                // GuiConfig object's entryList will also be refreshed to reflect the changes.
+                return new GuiConfig(this.owningScreen,
+                        DDProperties.instance().createConfigElementForCategory(ConfigCategory.CATEGORY_LOOT).getChildElements(),
+                        this.owningScreen.modID, ConfigCategory.CATEGORY_LOOT.id, this.configElement.requiresWorldRestart() || this.owningScreen.allRequireWorldRestart,
+                        this.configElement.requiresMcRestart() || this.owningScreen.allRequireMcRestart,
+                        this.owningScreen.title,
+                        I18n.format("gui.dimdoors_config.loot.title"));
+            }
+        }
     }
 
     @Override
@@ -62,34 +102,13 @@ public class DDGuiFactory implements IModGuiFactory {
         return ConfigGuiScreen.class;
     }
 
-    private static final Set<IModGuiFactory.RuntimeOptionCategoryElement> fmlCategories = ImmutableSet.of(new IModGuiFactory.RuntimeOptionCategoryElement("HELP", "FML"));
-
     @Override
     public Set<IModGuiFactory.RuntimeOptionCategoryElement> runtimeGuiCategories() {
-        return fmlCategories;
+        return null;
     }
 
     @Override
     public IModGuiFactory.RuntimeOptionGuiHandler getHandlerFor(IModGuiFactory.RuntimeOptionCategoryElement element) {
-        return new IModGuiFactory.RuntimeOptionGuiHandler() {
-            @Override
-            public void paint(int x, int y, int w, int h) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void close() {
-            }
-
-            @Override
-            public void addWidgets(List<Gui> widgets, int x, int y, int w, int h) {
-                widgets.add(new GuiButton(100, x + 10, y + 10, "HELLO"));
-            }
-
-            @Override
-            public void actionCallback(int actionId) {
-                // TODO Auto-generated method stub
-            }
-        };
+        return null;
     }
 }
