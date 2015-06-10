@@ -123,7 +123,7 @@ public class BlockDimWall extends DDBlock {
                     if (!entityPlayer.capabilities.isCreativeMode) {
                         entityPlayer.getCurrentEquippedItem().stackSize--;
                     }
-                    world.setBlock(x, y, z, Block.getBlockFromItem(entityPlayer.getCurrentEquippedItem().getItem()), entityPlayer.getCurrentEquippedItem().getItemDamage(), 0);
+                    world.setBlock(x, y, z, Block.getBlockFromItem(entityPlayer.getCurrentEquippedItem().getItem()), entityPlayer.getCurrentEquippedItem().getItemDamage(), 2);
                 }
                 return true;
             }

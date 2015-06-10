@@ -76,7 +76,6 @@ public class DDSaveHandler {
                 throw new IllegalStateException("The DD data for " + dataFile.getName().replace(".txt", "") + " at " + dataFile.getPath() + " is corrupted. Please report this on the MCF or on the DD github issues tracker.");
             }
             packedDims.put(packedDim.ID, packedDim);
-
         }
 
         List<PackedLinkData> linksToUnpack = new ArrayList<PackedLinkData>(0);
